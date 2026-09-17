@@ -8,7 +8,7 @@ from typing import Sequence
 
 import numpy as np
 
-from .models import FlowGuardModels, Metric, _features
+from ..models.models import FlowGuardModels, Metric, _features
 
 
 MIN_FEASIBILITY_PROBABILITY = 0.35

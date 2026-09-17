@@ -3,8 +3,8 @@
 set -euo pipefail
 
 root="$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)"
-# shellcheck source=environment/openlane-baseline.env
-source "$root/environment/openlane-baseline.env"
+# shellcheck source=flowguard/environment/openlane-baseline.env
+source "$root/flowguard/environment/openlane-baseline.env"
 
 if [ "$#" -ne 0 ]; then
   printf '%s\n' "Usage: $0" >&2
@@ -41,7 +41,7 @@ case "$venv_python_version" in
 esac
 
 "$venv/bin/python" -m pip install --require-hashes \
-  --requirement "$root/environment/librelane.lock"
+  --requirement "$root/flowguard/environment/librelane.lock"
 
 "$venv/bin/python" - "$LIBRELANE_VERSION" "$SKY130_PDK_REVISION" <<'PY'
 import importlib.metadata

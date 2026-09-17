@@ -3,8 +3,8 @@
 set -euo pipefail
 
 root="$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)"
-# shellcheck source=environment/openlane-baseline.env
-source "$root/environment/openlane-baseline.env"
+# shellcheck source=flowguard/environment/openlane-baseline.env
+source "$root/flowguard/environment/openlane-baseline.env"
 
 [ "$#" -le 1 ] || { printf '%s\n' "Usage: $0 [design-name]" >&2; exit 2; }
 command -v docker >/dev/null || { printf '%s\n' 'Docker is required to run LibreLane.' >&2; exit 1; }
@@ -16,7 +16,7 @@ case "$design" in
     exit 2
     ;;
 esac
-design_dir="$root/designs/$design"
+design_dir="$root/flowguard/designs/$design"
 config="$design_dir/config.json"
 venv_python="$root/.venv/openlane/bin/python"
 [ -f "$config" ] || { printf '%s\n' "Missing design config: $config" >&2; exit 1; }

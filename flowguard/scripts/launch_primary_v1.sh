@@ -10,11 +10,11 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="${CONFIG:-$ROOT/designs/flowguard_stress/config.2x1.json}"
-MANIFEST_FILE="${MANIFEST_FILE:-$ROOT/experiments/manifests/primary_benchmark_v1.json}"
-POOL_FILE="${POOL_FILE:-$ROOT/experiments/pools/pool_15p8_v1.json}"
-OBJECTIVE_FILE="${OBJECTIVE_FILE:-$ROOT/experiments/objective_qor_v1.json}"
-INIT_FILE="${INIT_FILE:-$ROOT/experiments/manifests/primary_init_v1.json}"
+CONFIG="${CONFIG:-$ROOT/flowguard/designs/flowguard_stress/config.2x1.json}"
+MANIFEST_FILE="${MANIFEST_FILE:-$ROOT/flowguard/experiments/manifests/primary_benchmark_v1.json}"
+POOL_FILE="${POOL_FILE:-$ROOT/flowguard/experiments/pools/pool_15p8_v1.json}"
+OBJECTIVE_FILE="${OBJECTIVE_FILE:-$ROOT/flowguard/experiments/objective_qor_v1.json}"
+INIT_FILE="${INIT_FILE:-$ROOT/flowguard/experiments/manifests/primary_init_v1.json}"
 METHOD=""
 BUDGET="24"
 SHARED_FROM=""
@@ -138,7 +138,7 @@ preflight() {
   status "preflight: checking repository, runners, pool/manifest/objective, and method"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git rev-parse --is-inside-work-tree >/dev/null || die "not a git repository"
-  [[ -f $CONFIG && -f $ROOT/src/runner.py && -f $ROOT/src/parser.py && -f $ROOT/src/primary_loop.py ]] || die "campaign inputs are incomplete"
+  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py && -f $ROOT/flowguard/optimizers/primary_loop.py ]] || die "campaign inputs are incomplete"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid base config"
   python3 -m json.tool "$MANIFEST_FILE" >/dev/null || die "invalid benchmark manifest"
   python3 -m json.tool "$POOL_FILE" >/dev/null || die "invalid pool"
@@ -150,10 +150,10 @@ preflight() {
   "$MLPYTHON" -c "import sklearn, optuna, scipy, numpy" || die "ML runtime lacks sklearn/optuna/scipy/numpy"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from src.config_schema import validate_config
+from flowguard.runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle: validate_config(json.load(handle))
 PY
-  "$MLPYTHON" -m src.primary_loop suggest --method "$METHOD" --pool "$POOL_FILE" \
+  "$MLPYTHON" -m flowguard.optimizers.primary_loop suggest --method "$METHOD" --pool "$POOL_FILE" \
     --manifest "$MANIFEST_FILE" --call-index 0 >/dev/null || die "pool/manifest verification failed"
 }
 
@@ -223,7 +223,7 @@ ADAPTIVE_N=$((BUDGET - $(printf '%s' "$INIT_IDS" | grep -c .)))
 suggest_candidate() {
   local call_index=$1 extra=()
   [[ -n $SHARED_TRIALS ]] && extra=(--shared-trials "$SHARED_TRIALS")
-  "$MLPYTHON" -m src.primary_loop suggest --method "$METHOD" --pool "$POOL_FILE" \
+  "$MLPYTHON" -m flowguard.optimizers.primary_loop suggest --method "$METHOD" --pool "$POOL_FILE" \
     --manifest "$MANIFEST_FILE" --trials "$TRIALS" "${extra[@]}" --call-index "$call_index"
 }
 
@@ -277,11 +277,11 @@ PY
   fi
   status "start $trial_id (candidate=$candidate_id) timeout=${timeout}s"
   local runner_status=FAILED parser_status=NO_METRICS metrics_file="" parsed="" feasible=false qor=null
-  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT" < /dev/null; then runner_status=SUCCESS; fi
+  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT" < /dev/null; then runner_status=SUCCESS; fi
   [[ -d $trial_dir ]] && cp "$config" "$trial_dir/effective_config.json"
   metrics_file=$(find "$trial_dir" -name metrics.json -type f -print -quit 2>/dev/null || true)
   if [[ $runner_status == SUCCESS && -n $metrics_file ]]; then
-    if parsed=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$config" --output-root "$trial_dir/aggregate"); then parser_status=PARSED; feasible=$(python3 -c 'import json,sys; print(str(json.loads(sys.argv[1]).get("feasible",False)).lower())' "$parsed"); else parser_status=PARSER_FAILED; fi
+    if parsed=$(python3 -m flowguard.metrics.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$config" --output-root "$trial_dir/aggregate"); then parser_status=PARSED; feasible=$(python3 -c 'import json,sys; print(str(json.loads(sys.argv[1]).get("feasible",False)).lower())' "$parsed"); else parser_status=PARSER_FAILED; fi
   fi
   if [[ $feasible == true && $parser_status == PARSED ]]; then
     qor=$(python3 - "$parsed" "$OBJECTIVE_FILE" <<'PY'

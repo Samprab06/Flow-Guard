@@ -1,6 +1,6 @@
 import unittest
 
-from src.config_schema import ConfigError, effective_config_hash, preflight_config
+from flowguard.runner.config_schema import ConfigError, effective_config_hash, preflight_config
 
 
 class ConfigSchemaTests(unittest.TestCase):

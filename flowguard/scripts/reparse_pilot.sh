@@ -128,7 +128,7 @@ pathlib.Path(destination).write_text(json.dumps(config, indent=2, sort_keys=True
 PY
 
   printf 'PARSE %s\n' "$trial_id"
-  "$python_bin" -m src.parser \
+  "$python_bin" -m flowguard.metrics.parser \
     --trial-id "$trial_id" \
     --metrics "$metrics_file" \
     --status "$status_file" \

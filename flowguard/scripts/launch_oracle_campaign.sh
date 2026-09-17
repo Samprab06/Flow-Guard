@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
+CONFIG="$ROOT/flowguard/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="pilot_repaired_tile_v1"
 TIMEOUT_S=7200
 RESUME=0
@@ -69,15 +69,15 @@ preflight() {
   status "preflight: checking repository, pinned environment, runner/parser, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git -C "$ROOT" rev-parse --is-inside-work-tree >/dev/null || die "not a git repository: $ROOT"
-  [[ -f $CONFIG && -f $ROOT/src/runner.py && -f $ROOT/src/parser.py ]] || die "pilot inputs are incomplete"
-  [[ -f $ROOT/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
+  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "pilot inputs are incomplete"
+  [[ -f $ROOT/flowguard/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid pilot JSON"
   docker info >/dev/null 2>&1 || die "Docker daemon is unavailable"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from src.config_schema import validate_config
+from flowguard.runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle: validate_config(json.load(handle))
 PY
 }
@@ -179,11 +179,11 @@ pathlib.Path(destination).write_text(json.dumps(config, indent=2, sort_keys=True
 PY
   status "[$stage] start $trial_id seed=${SEEDS[$index]} probe=$probe"
   runner_status=FAILED
-  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
+  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
   metrics_file=""; if metrics_file=$(find_metrics "$trial_dir"); then :; else metrics_file=""; fi
   parser_status=NO_METRICS; parsed_record=""
   if [[ -n $metrics_file ]]; then
-    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then parser_status=PARSED; else parser_status=PARSER_FAILED; fi
+    if parsed_record=$(python3 -m flowguard.metrics.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then parser_status=PARSED; else parser_status=PARSER_FAILED; fi
   fi
   archive_trial "$trial_dir" "$trial_config"
   python3 - "$MANIFEST" "$trial_id" "$stage" "${SEEDS[$index]}" "$probe" "$status_file" "$metrics_file" "$runner_status" "$parser_status" "$parsed_record" <<'PY'

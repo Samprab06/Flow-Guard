@@ -18,12 +18,12 @@ Conventions (frozen):
     on all trials. No hard risk threshold (per manifest acquisition).
   * ``flowguard_raw`` never calibrates (``calibration_active=False``);
     ``flowguard_calibrated`` calibrates only when each class has >= 3
-    samples (via :class:`src.models.FeasibilityModel`).
+    samples (via :class:`flowguard.models.models.FeasibilityModel`).
   * Deterministic per-method seeds (:data:`METHOD_SEEDS`); ties break to
     the first candidate in pool order.
 
 Third-party imports are limited to numpy/sklearn/optuna/scipy plus local
-``src.*`` modules.
+``flowguard.*`` modules.
 """
 
 from __future__ import annotations
@@ -45,7 +45,7 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, RBF
 from sklearn.preprocessing import StandardScaler
 
-from .models import FROZEN_KNOBS, FeasibilityModel
+from ..models.models import FROZEN_KNOBS, FeasibilityModel
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 

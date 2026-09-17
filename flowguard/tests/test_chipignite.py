@@ -1,13 +1,15 @@
 import json
 from pathlib import Path
 
-from chipignite.inventory import inventory_path
-from chipignite.report import migration_report
-from chipignite.scoring import score_candidate
+from flowguard.chipignite.inventory import inventory_path
+from flowguard.chipignite.report import migration_report
+from flowguard.chipignite.scoring import score_candidate
+
+FIXTURES = Path(__file__).parent / "fixtures"
 
 
 def test_scoring_preserves_metadata_and_decisions():
-    candidates = json.loads(Path("tests/fixtures/chipignite_metadata.json").read_text())
+    candidates = json.loads((FIXTURES / "chipignite_metadata.json").read_text())
     report = migration_report(candidates)
     assert [x["scoring"]["decision"] for x in report["candidates"]] == ["GO", "HOLD", "NO-GO"]
     assert report["candidates"][0]["artifact_extra"] == "preserve"

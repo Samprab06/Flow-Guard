@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PATH = ROOT / "results" / "v3_aggregates" / "aggregated.jsonl"
 MANIFEST_PATH = Path(__file__).with_name("manifests") / "v3_diagnostic_boundary.json"
 FEATURES = ("FP_CORE_UTIL", "PL_TARGET_DENSITY_PCT", "GPL_CELL_PADDING", "GRT_ADJUSTMENT")

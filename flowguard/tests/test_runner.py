@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from src.runner import run_trial
+from flowguard.runner.runner import run_trial
 
 
 class RunnerTests(unittest.TestCase):
@@ -15,7 +15,7 @@ class RunnerTests(unittest.TestCase):
             config = root / "config.json"
             config.write_text("{}")
             completed = type("Completed", (), {"returncode": 0, "stdout": "ok", "stderr": ""})()
-            with patch("src.runner.subprocess.run", return_value=completed):
+            with patch("flowguard.runner.runner.subprocess.run", return_value=completed):
                 result = run_trial("abc-1", config, 2, root / "runs")
             status = json.loads((root / "runs" / "trial_abc-1" / "status.json").read_text())
             self.assertEqual(result["status"], "SUCCESS")
@@ -30,7 +30,7 @@ class RunnerTests(unittest.TestCase):
             root = Path(directory)
             config = root / "config.json"
             config.write_text("{}")
-            with patch("src.runner.subprocess.run", side_effect=__import__("subprocess").TimeoutExpired(["x"], 1)):
+            with patch("flowguard.runner.runner.subprocess.run", side_effect=__import__("subprocess").TimeoutExpired(["x"], 1)):
                 result = run_trial("timeout", config, 1, root / "runs")
             self.assertEqual(result["status"], "TIMEOUT")
             self.assertEqual(result["terminal_status"], "TIMEOUT")
@@ -42,7 +42,7 @@ class RunnerTests(unittest.TestCase):
             config = root / "config.json"
             config.write_text("{}")
             completed = type("Completed", (), {"returncode": 7, "stdout": "", "stderr": "failure"})()
-            with patch("src.runner.subprocess.run", return_value=completed):
+            with patch("flowguard.runner.runner.subprocess.run", return_value=completed):
                 result = run_trial("crash", config, 1, root / "runs")
             self.assertEqual(result["status"], "CRASH")
             self.assertEqual(result["exit_code"], 7)
@@ -62,7 +62,7 @@ class RunnerTests(unittest.TestCase):
                 "stdout": "[GPL-0301] Utilization exceeds 100%",
                 "stderr": "",
             })()
-            with patch("src.runner.subprocess.run", return_value=completed):
+            with patch("flowguard.runner.runner.subprocess.run", return_value=completed):
                 result = run_trial("placement", config, 1, root / "runs")
             self.assertEqual(result["status"], "CRASH")
             self.assertEqual(result["terminal_status"], "PLACEMENT_FAIL")
@@ -74,7 +74,7 @@ class RunnerTests(unittest.TestCase):
             config = root / "config.json"
             config.write_text("{}")
             completed = type("Completed", (), {"returncode": 0, "stdout": "ok", "stderr": ""})()
-            with patch("src.runner.subprocess.run", return_value=completed):
+            with patch("flowguard.runner.runner.subprocess.run", return_value=completed):
                 run_trial("immutable", config, 2, root / "runs")
                 with self.assertRaises(FileExistsError):
                     run_trial("immutable", config, 2, root / "runs")

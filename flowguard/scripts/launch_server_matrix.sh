@@ -66,15 +66,15 @@ fi
 [[ -z $REMOTE_ROOT ]] || die "--remote-root is only valid with --host"
 cd "$ROOT"
 
-[[ -n $CONFIG ]] || CONFIG="$ROOT/designs/$DESIGN/config.json"
+[[ -n $CONFIG ]] || CONFIG="$ROOT/flowguard/designs/$DESIGN/config.json"
 [[ $CONFIG = /* ]] || CONFIG="$ROOT/$CONFIG"
 CONFIG="$(python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$CONFIG")"
 
 for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
 git -C "$ROOT" rev-parse --is-inside-work-tree >/dev/null || die "repository root is invalid: $ROOT"
 [[ -f $CONFIG ]] || die "base config does not exist: $CONFIG"
-[[ -f $ROOT/src/runner.py && -f $ROOT/src/parser.py ]] || die "src/runner.py and src/parser.py are required"
-[[ -f $ROOT/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
+[[ -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "src/runner.py and src/parser.py are required"
+[[ -f $ROOT/flowguard/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
 docker info >/dev/null 2>&1 || die "Docker daemon is unavailable (verify headless Docker access)"
 PYTHON="$ROOT/.venv/openlane/bin/python"
 [[ -x $PYTHON ]] || PYTHON=python3
@@ -166,7 +166,7 @@ with open(destination, 'x', encoding='utf-8') as stream:
 PY
   status_file="$RUNS_ROOT/trial_$trial_id/status.json"
   runner_status=CRASH
-  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then
+  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then
     runner_status=SUCCESS
   elif [[ -f $status_file ]]; then
     runner_status=$(python3 -c 'import json,sys; record=json.load(open(sys.argv[1])); print(record.get("terminal_status") or record["status"])' "$status_file")
@@ -182,7 +182,7 @@ PY
   parser_status=NO_METRICS
   parsed_record=""
   if [[ -n $metrics_file ]]; then
-    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then
+    if parsed_record=$(python3 -m flowguard.metrics.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then
       parser_status=PARSED
     else
       parser_status=PARSER_FAILED

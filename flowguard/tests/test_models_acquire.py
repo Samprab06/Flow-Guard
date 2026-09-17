@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-from src.acquire import FROZEN_SEARCH_SPACE, MIN_FEASIBILITY_PROBABILITY, constrained_expected_improvement, select_candidate
-from src.models import FROZEN_KNOBS, FeasibilityModel, FlowGuardModels
+from flowguard.optimizers.acquire import FROZEN_SEARCH_SPACE, MIN_FEASIBILITY_PROBABILITY, constrained_expected_improvement, select_candidate
+from flowguard.models.models import FROZEN_KNOBS, FeasibilityModel, FlowGuardModels
 
 
 class ModelsAndAcquisitionTests(unittest.TestCase):

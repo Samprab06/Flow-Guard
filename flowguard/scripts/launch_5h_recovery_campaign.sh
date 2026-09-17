@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
+CONFIG="$ROOT/flowguard/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="recovery_5h_v1"
 HOURS="4.75"
 RESUME=0
@@ -95,13 +95,13 @@ preflight() {
   status "preflight: checking repository, runner/parser, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git rev-parse --is-inside-work-tree >/dev/null || die "not a git repository"
-  [[ -f $CONFIG && -f $ROOT/src/runner.py && -f $ROOT/src/parser.py ]] || die "campaign inputs are incomplete"
+  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "campaign inputs are incomplete"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid campaign config"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from src.config_schema import validate_config
+from flowguard.runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle:
     validate_config(json.load(handle))
 PY
@@ -211,11 +211,11 @@ pathlib.Path(destination).write_text(json.dumps(config, indent=2, sort_keys=True
 PY
   status "[$stage] start $trial_id clock=${clock}ns profile=$profile timeout=${timeout}s"
   local runner_status=FAILED metrics_file="" parser_status=NO_METRICS parsed="" feasible=false
-  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
+  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
   if [[ -d "$trial_dir" ]]; then cp "$config" "$trial_dir/effective_config.json"; fi
   metrics_file=$(find "$trial_dir" -name metrics.json -type f -print -quit 2>/dev/null || true)
   if [[ $runner_status == SUCCESS && -n $metrics_file ]]; then
-    if parsed=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$config" --output-root "$trial_dir/aggregate"); then
+    if parsed=$(python3 -m flowguard.metrics.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$config" --output-root "$trial_dir/aggregate"); then
       parser_status=PARSED
       feasible=$(python3 -c 'import json,sys; print(str(json.loads(sys.argv[1]).get("feasible",False)).lower())' "$parsed")
     else parser_status=PARSER_FAILED; fi

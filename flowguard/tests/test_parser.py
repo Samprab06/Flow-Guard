@@ -3,8 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.objective import canonical_objective
-from src.parser import append_record, build_record, is_feasible, parse_metrics
+from flowguard.metrics.objective import canonical_objective
+from flowguard.metrics.parser import append_record, build_record, is_feasible, parse_metrics
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
