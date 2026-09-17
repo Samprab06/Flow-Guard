@@ -1,0 +1,46 @@
+schema: flowguard.server-pilot/v1
+name: pilot_repaired_tile_v1
+purpose: Repaired 2x1 horizontal tile pilot on the Oracle server
+config: designs/flowguard_stress/config.2x1.json
+geometry:
+  assumption: two 160x100um tile envelopes abut horizontally in one 320x100um legal rectangle
+  tile_count: 2
+  row_count: 1
+  placement_claim: floorplan assumption only; no ChipIgnite or packaged-placement claim
+clock:
+  period_ns: 20.0
+  port: clk
+knobs:
+  - name: FP_CORE_UTIL
+    legal_values: [30, 35, 40]
+  - name: PL_TARGET_DENSITY_PCT
+    legal_values: [38, 45, 52]
+  - name: GPL_CELL_PADDING
+    legal_values: [0, 1, 2]
+  - name: GRT_ADJUSTMENT
+    legal_values: [0.05, 0.10, 0.15, 0.20]
+  - name: SYNTH_STRATEGY
+    legal_values: ["AREA 0", "AREA 1", "AREA 2"]
+fixed:
+  CLOCK_PERIOD: 20.0
+stages:
+  - name: safe
+    budget: 3
+    probes: [[30, 38, 0, 0.05, "AREA 0"], [30, 45, 0, 0.10, "AREA 1"], [35, 38, 1, 0.05, "AREA 2"]]
+  - name: middle
+    budget: 8
+    probes: [[35, 45, 1, 0.10, "AREA 0"], [35, 52, 1, 0.15, "AREA 1"], [40, 45, 1, 0.10, "AREA 2"], [30, 52, 2, 0.10, "AREA 1"], [40, 38, 0, 0.15, "AREA 0"], [35, 38, 2, 0.20, "AREA 2"], [30, 45, 2, 0.15, "AREA 2"], [40, 52, 0, 0.05, "AREA 1"]]
+  - name: aggressive
+    budget: 16
+    probes: [[40, 52, 2, 0.20, "AREA 2"], [40, 52, 2, 0.15, "AREA 1"], [40, 45, 2, 0.20, "AREA 0"], [40, 38, 2, 0.20, "AREA 2"], [35, 52, 2, 0.20, "AREA 0"], [30, 52, 2, 0.20, "AREA 1"], [40, 45, 0, 0.20, "AREA 2"], [35, 45, 2, 0.20, "AREA 1"], [30, 38, 2, 0.15, "AREA 0"], [40, 38, 1, 0.20, "AREA 1"], [35, 52, 0, 0.20, "AREA 2"], [30, 45, 2, 0.20, "AREA 0"], [40, 52, 1, 0.20, "AREA 1"], [35, 38, 2, 0.15, "AREA 0"], [30, 52, 1, 0.20, "AREA 2"], [40, 38, 2, 0.15, "AREA 1"]]
+seeds: [1101, 1102, 1103, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1301, 1302, 1303, 1304, 1305, 1306, 1307, 1308, 1309, 1310, 1311, 1312, 1313, 1314, 1315, 1316]
+failure_rules:
+  - preflight failure aborts before any trial
+  - runner status other than SUCCESS is a failed gate
+  - missing metrics or parser failure is a failed gate
+  - feasible requires SUCCESS, zero DRC, and nonnegative WNS
+  - any failed gate exits nonzero; resume never overwrites an existing trial
+outputs:
+  namespace: results/{namespace}
+  manifest: results/{namespace}/manifest.csv
+  status: results/{namespace}/status.log

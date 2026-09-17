@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.metadata
 import json
 import os
+import platform
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,13 +17,94 @@ import time
 from datetime import datetime, timezone
 from typing import Any, Mapping
 
+from .config_schema import effective_config_hash, validate_config
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PINNED_ENV = ROOT / "environment" / "openlane-baseline.env"
 
 
+def _failure_stage(output: str) -> str | None:
+    """Classify a failed LibreLane run from its structured stage/error text."""
+    text = output.upper()
+    markers = (
+        ("SYNTH_FAIL", ("SYNTHESIS FAILED", "YOSYS FAILED", "SYNTH_FAIL")),
+        ("PLACEMENT_FAIL", ("GPL-", "GLOBALPLACEMENT", "PLACEMENT FAILED")),
+        ("CTS_FAIL", ("CLOCK TREE SYNTHESIS", "CTS_FAIL")),
+        ("TIMING_FAIL", ("SETUP VIOLATIONS", "HOLD VIOLATIONS", "TIMING_FAIL")),
+        ("ROUTING_FAIL", ("DETAILED ROUTING", "GLOBAL ROUTING", "ROUTING_FAIL")),
+        ("DRC_FAIL", ("MAGIC DRC", "KLAYOUT DRC", "DRC_FAIL")),
+        ("LVS_FAIL", ("NETGEN LVS", "LVS_FAIL")),
+    )
+    for stage, needles in markers:
+        if any(needle in text for needle in needles):
+            return stage
+    return "TOOL_CRASH" if text else "INFRASTRUCTURE_FAIL"
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _git_provenance() -> dict[str, Any]:
+    def git(*args: str) -> str | None:
+        try:
+            return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+                                           stderr=subprocess.DEVNULL).strip()
+        except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            return None
+    commit = git("rev-parse", "HEAD")
+    dirty = git("status", "--porcelain")
+    return {"commit": commit, "dirty": dirty is not None and bool(dirty)}
+
+
+def _source_tree_sha256() -> str | None:
+    """Hash the exact tracked source tree used for a trial."""
+    try:
+        paths = subprocess.check_output(
+            ["git", "ls-files", "-z"], cwd=ROOT, stderr=subprocess.DEVNULL, text=False
+        ).split(b"\0")
+        digest = hashlib.sha256()
+        for raw_path in sorted(path for path in paths if path):
+            path = ROOT / os.fsdecode(raw_path)
+            if not path.is_file():
+                continue
+            digest.update(raw_path)
+            digest.update(b"\0")
+            digest.update(path.read_bytes())
+        return digest.hexdigest()
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired, TypeError):
+        return None
+
+
+def _environment_snapshot(env: Mapping[str, str]) -> dict[str, Any]:
+    """Capture reproducibility inputs without archiving arbitrary secrets."""
+    snapshot = {
+        "python_version": platform.python_version(),
+        "platform": platform.platform(),
+        "machine": platform.machine(),
+        "executable": sys.executable,
+        "librelane_version": _librelane_version(env),
+        "librelane_container_image": env.get("LIBRELANE_CONTAINER_IMAGE"),
+        "pdk": env.get("PDK"),
+        "pdk_root": env.get("PDK_ROOT"),
+        "pdk_revision": env.get("SKY130_PDK_REVISION"),
+        "std_cell_library": env.get("STD_CELL_LIBRARY"),
+    }
+    return snapshot
+
+
+def _environment_sha256(snapshot: Mapping[str, Any]) -> str:
+    return hashlib.sha256(
+        json.dumps(snapshot, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
+def _librelane_version(env: Mapping[str, str]) -> str | None:
+    try:
+        return importlib.metadata.version("librelane")
+    except importlib.metadata.PackageNotFoundError:
+        return env.get("LIBRELANE_VERSION")
 
 
 def _safe_trial_id(trial_id: str) -> str:
@@ -72,6 +155,8 @@ def run_trial(
         raise FileNotFoundError(config_path)
     if timeout <= 0:
         raise ValueError("timeout must be positive")
+    config_data = json.loads(config_path.read_text(encoding="utf-8"))
+    validate_config(config_data)
 
     default_root = config_path.parent / "runs"
     root = Path(runs_root).resolve() if runs_root else default_root
@@ -85,9 +170,10 @@ def run_trial(
         raise FileNotFoundError(PINNED_ENV)
 
     env = _pinned_environment()
+    environment = _environment_snapshot(env)
     executable = ROOT / ".venv" / "openlane" / "bin" / "python"
     command = [
-        str(executable if executable.is_file() else Path(sys.executable)),
+        str(executable if executable.is_file() and os.access(executable, os.X_OK) else Path(sys.executable)),
         "-m", "librelane", "--docker-no-tty", "--dockerized",
         "--pdk-root", env["PDK_ROOT"], "--pdk", env["PDK"],
         "--scl", env["STD_CELL_LIBRARY"], "--run-tag", run_tag,
@@ -111,6 +197,14 @@ def run_trial(
         stdout = error.stdout or ""
         stderr = error.stderr or ""
     runtime_s = time.monotonic() - begun
+    combined_output = f"{stdout}\n{stderr}"
+    # Exit zero is only a completed tool invocation. Feasibility is assigned by
+    # the parser after final timing, routing, DRC, and objective metrics exist.
+    terminal_status = (
+        "SUCCESS" if status == "SUCCESS"
+        else "TIMEOUT" if status == "TIMEOUT"
+        else _failure_stage(combined_output)
+    )
 
     # LibreLane creates runs beneath the config; move its isolated tag only
     # when callers selected a different root.
@@ -123,21 +217,40 @@ def run_trial(
     result: dict[str, Any] = {
         "trial_id": trial_id,
         "status": status,
+        "terminal_status": terminal_status,
+        "failure_stage": None if status == "SUCCESS" else terminal_status,
         "runtime_s": runtime_s,
         "started_at": started,
         "finished_at": _utc_now(),
         "exit_code": exit_code,
         "config": str(config_path),
         "config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
+        "effective_config_sha256": effective_config_hash(config_data),
         "command": command,
         "metadata": {
-            "librelane_version": env.get("LIBRELANE_VERSION"),
+            "executable": command[0],
+            "sys_executable": sys.executable,
+            "python_version": platform.python_version(),
+            "librelane_version": _librelane_version(env),
             "librelane_container_image": env.get("LIBRELANE_CONTAINER_IMAGE"),
             "pdk": env.get("PDK"),
+            "pdk_root": env.get("PDK_ROOT"),
             "pdk_revision": env.get("SKY130_PDK_REVISION"),
             "std_cell_library": env.get("STD_CELL_LIBRARY"),
             "run_directory": str(trial_dir),
+            "host": platform.node(),
+            "git": _git_provenance(),
+            "source_tree_sha256": _source_tree_sha256(),
+            "environment": environment,
+            "environment_sha256": _environment_sha256(environment),
         },
+    }
+    result["failure_metadata"] = None if status == "SUCCESS" else {
+        "stage": terminal_status,
+        "exit_code": exit_code,
+        "timed_out": status == "TIMEOUT",
+        "stderr_tail": stderr[-2000:],
+        "stdout_tail": stdout[-2000:],
     }
     _atomic_json(status_path, result)
     return result

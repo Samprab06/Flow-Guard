@@ -1,0 +1,19 @@
+{
+  "schema": "flowguard.diagnostic-boundary/v3",
+  "name": "v3_diagnostic_boundary",
+  "purpose": "diagnostic-boundary",
+  "clock": {"period_ns": 20.0},
+  "legal_knobs": {
+    "FP_CORE_UTIL": [30, 35, 40],
+    "PL_TARGET_DENSITY_PCT": [38, 45, 52],
+    "GPL_CELL_PADDING": [0, 1, 2],
+    "GRT_ADJUSTMENT": [0.05, 0.1, 0.15, 0.2],
+    "SYNTH_STRATEGY": ["AREA 0", "AREA 1", "AREA 2"]
+  },
+  "repeatability": {"group_by": ["knobs"], "required_repeats_per_configuration": 3},
+  "feasibility_balance": {"minimum_class_fraction": 0.2, "classes": [false, true]},
+  "notes": [
+    "CLOCK_PERIOD is fixed and is not a tunable candidate knob.",
+    "This manifest defines a diagnostic boundary, not an optimizer result."
+  ]
+}

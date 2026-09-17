@@ -1,0 +1,5 @@
+[
+  {"repository": "owner/go", "commit": {"sha": "abc"}, "license": {"spdx_id": "MIT"}, "artifacts": [{"tag_name": "v1"}], "artifact_extra": "preserve"},
+  {"repository": "owner/hold", "commit": {"sha": "def"}, "license": null, "artifacts": []},
+  {"repository": "owner/no-go", "commit": null, "license": null, "artifacts": []}
+]

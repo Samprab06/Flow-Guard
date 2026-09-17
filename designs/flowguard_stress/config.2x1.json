@@ -1,0 +1,15 @@
+{
+  "DESIGN_NAME": "tt_um_flowguard_stress",
+  "VERILOG_FILES": "dir::src/tt_um_flowguard_stress.sv",
+  "CLOCK_PORT": "clk",
+  "CLOCK_PERIOD": 20.0,
+  "FP_SIZING": "absolute",
+  "DIE_AREA": [0.0, 0.0, 320.0, 100.0],
+  "FP_CORE_UTIL": 35,
+  "PL_TARGET_DENSITY_PCT": 45,
+  "pdk::sky130A": {
+    "scl::sky130_fd_sc_hd": {
+      "CLOCK_PERIOD": 20.0
+    }
+  }
+}

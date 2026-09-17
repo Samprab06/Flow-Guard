@@ -9,6 +9,7 @@ TRIALS=24
 TIMEOUT_S=7200
 CONFIG=""
 DESIGN="flowguard_stress"
+EXPERIMENT_ID="server_experiment"
 HOST=""
 REMOTE_ROOT=""
 
@@ -24,6 +25,7 @@ Options:
   --config PATH       Base LibreLane JSON config (overrides --design).
   --design NAME       Use designs/NAME/config.json (default: flowguard_stress).
   --timeout SECONDS   Per-trial timeout, positive integer (default: 7200).
+  --experiment-id ID  Output namespace for an immutable matrix (default: server_experiment).
   --host USER@HOST    Execute this same launcher through SSH on the server.
   --remote-root PATH  Repository path on --host (required with --host).
   -h, --help          Show this help.
@@ -42,6 +44,7 @@ while (($#)); do
     --config) CONFIG=${2:?missing value for --config}; shift 2 ;;
     --design) DESIGN=${2:?missing value for --design}; shift 2 ;;
     --timeout) TIMEOUT_S=${2:?missing value for --timeout}; shift 2 ;;
+    --experiment-id) EXPERIMENT_ID=${2:?missing value for --experiment-id}; shift 2 ;;
     --host) HOST=${2:?missing value for --host}; shift 2 ;;
     --remote-root) REMOTE_ROOT=${2:?missing value for --remote-root}; shift 2 ;;
     -h|--help) usage; exit 0 ;;
@@ -50,12 +53,13 @@ while (($#)); do
 done
 
 [[ $TIMEOUT_S =~ ^[1-9][0-9]*$ ]] || die "--timeout must be a positive integer"
+[[ $EXPERIMENT_ID =~ ^[A-Za-z0-9_.-]+$ ]] || die "--experiment-id contains invalid characters"
 
 if [[ -n $HOST ]]; then
   [[ -n $REMOTE_ROOT ]] || die "--remote-root is required with --host"
   [[ -z $CONFIG || $CONFIG != /* ]] || die "--config must be remote-relative when using --host"
   command -v ssh >/dev/null || die "missing prerequisite: ssh"
-  args=(--timeout "$TIMEOUT_S")
+  args=(--timeout "$TIMEOUT_S" --experiment-id "$EXPERIMENT_ID")
   [[ -n $CONFIG ]] && args+=(--config "$CONFIG") || args+=(--design "$DESIGN")
   exec ssh -- "$HOST" "cd $(printf '%q' "$REMOTE_ROOT") && exec bash scripts/launch_server_matrix.sh $(printf ' %q' "${args[@]}")"
 fi
@@ -77,25 +81,27 @@ PYTHON="$ROOT/.venv/openlane/bin/python"
 "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable to $PYTHON"
 
 RESULTS="$ROOT/results"
-MANIFEST="$RESULTS/server_experiment_manifest.csv"
-CONFIG_ROOT="$RESULTS/server_experiment_configs"
-RUNS_ROOT="$RESULTS/server_experiment_runs"
+MANIFEST="$RESULTS/${EXPERIMENT_ID}_manifest.csv"
+CONFIG_ROOT="$RESULTS/${EXPERIMENT_ID}_configs"
+RUNS_ROOT="$RESULTS/${EXPERIMENT_ID}_runs"
+AGGREGATE_ROOT="$RESULTS/${EXPERIMENT_ID}_aggregates"
 LOCK="$RESULTS/.server_experiment.lock"
-mkdir -p "$RESULTS" "$CONFIG_ROOT" "$RUNS_ROOT"
+mkdir -p "$RESULTS" "$CONFIG_ROOT" "$RUNS_ROOT" "$AGGREGATE_ROOT"
 mkdir "$LOCK" 2>/dev/null || die "another server matrix launcher is active"
 trap 'rmdir "$LOCK"' EXIT
 
-# Frozen candidate order: clock, core utilization, placement density, cell pad,
-# global-routing adjustment, synthesis strategy. Do not reorder or mutate in place.
+# Frozen candidate order: fixed clock, core utilization, placement density,
+# detailed-placement cell padding, global-routing adjustment, synthesis strategy.
+# Do not reorder or mutate in place.
 CANDIDATES=(
-  '12.0,30,38,0,0.05,AREA 0' '12.0,35,45,1,0.10,AREA 1' '12.0,40,52,2,0.15,AREA 2'
-  '14.0,30,45,1,0.15,AREA 2' '14.0,35,52,2,0.20,AREA 0' '14.0,40,38,0,0.05,AREA 1'
-  '16.0,30,52,2,0.05,AREA 1' '16.0,35,38,0,0.10,AREA 2' '16.0,40,45,1,0.15,AREA 0'
-  '18.0,30,38,1,0.20,AREA 0' '18.0,35,45,2,0.05,AREA 1' '18.0,40,52,0,0.10,AREA 2'
+  '20.0,30,38,0,0.05,AREA 0' '20.0,35,45,1,0.10,AREA 1' '20.0,40,52,2,0.15,AREA 2'
+  '20.0,30,45,1,0.15,AREA 2' '20.0,35,52,2,0.20,AREA 0' '20.0,40,38,0,0.05,AREA 1'
+  '20.0,30,52,2,0.05,AREA 1' '20.0,35,38,0,0.10,AREA 2' '20.0,40,45,1,0.15,AREA 0'
+  '20.0,30,38,1,0.20,AREA 0' '20.0,35,45,2,0.05,AREA 1' '20.0,40,52,0,0.10,AREA 2'
   '20.0,30,45,2,0.10,AREA 2' '20.0,35,52,0,0.15,AREA 0' '20.0,40,38,1,0.20,AREA 1'
-  '22.0,30,52,0,0.20,AREA 1' '22.0,35,38,1,0.05,AREA 2' '22.0,40,45,2,0.10,AREA 0'
-  '24.0,30,38,2,0.15,AREA 0' '24.0,35,45,0,0.20,AREA 1' '24.0,40,52,1,0.05,AREA 2'
-  '26.0,30,45,0,0.05,AREA 2' '26.0,35,52,1,0.10,AREA 0' '26.0,40,38,2,0.15,AREA 1'
+  '20.0,30,52,0,0.20,AREA 1' '20.0,35,38,1,0.05,AREA 2' '20.0,40,45,2,0.10,AREA 0'
+  '20.0,30,38,2,0.15,AREA 0' '20.0,35,45,0,0.20,AREA 1' '20.0,40,52,1,0.05,AREA 2'
+  '20.0,30,45,0,0.05,AREA 2' '20.0,35,52,1,0.10,AREA 0' '20.0,40,38,2,0.15,AREA 1'
 )
 (( ${#CANDIDATES[@]} == TRIALS )) || die "internal frozen-candidate budget is not 24"
 
@@ -152,7 +158,7 @@ def resolve_design_relative(value):
     return value
 config = resolve_design_relative(config)
 config.update({'CLOCK_PERIOD': float(clock), 'FP_CORE_UTIL': int(util),
-               'PL_TARGET_DENSITY_PCT': int(density), 'CELL_PAD': int(pad),
+               'PL_TARGET_DENSITY_PCT': int(density), 'GPL_CELL_PADDING': int(pad),
                'GRT_ADJUSTMENT': float(grt), 'SYNTH_STRATEGY': strategy})
 with open(destination, 'x', encoding='utf-8') as stream:
     json.dump(config, stream, indent=2, sort_keys=True)
@@ -160,10 +166,10 @@ with open(destination, 'x', encoding='utf-8') as stream:
 PY
   status_file="$RUNS_ROOT/trial_$trial_id/status.json"
   runner_status=CRASH
-  if python3 -m src.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then
+  if "$PYTHON" -m src.runner --trial-id "$trial_id" --config "$trial_config" --timeout "$TIMEOUT_S" --runs-root "$RUNS_ROOT"; then
     runner_status=SUCCESS
   elif [[ -f $status_file ]]; then
-    runner_status=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["status"])' "$status_file")
+    runner_status=$(python3 -c 'import json,sys; record=json.load(open(sys.argv[1])); print(record.get("terminal_status") or record["status"])' "$status_file")
     failures=$((failures + 1))
   else
     failures=$((failures + 1))
@@ -176,7 +182,7 @@ PY
   parser_status=NO_METRICS
   parsed_record=""
   if [[ -n $metrics_file ]]; then
-    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$RESULTS"); then
+    if parsed_record=$(python3 -m src.parser --trial-id "$trial_id" --metrics "$metrics_file" --status "$status_file" --config "$trial_config" --output-root "$AGGREGATE_ROOT"); then
       parser_status=PARSED
     else
       parser_status=PARSER_FAILED

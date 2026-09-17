@@ -1,0 +1,25 @@
+{
+  "baselines": {
+    "max_area_um2": 15318.4,
+    "max_crit_ns": 15.734244597016232,
+    "max_wl_um": 28422,
+    "min_area_um2": 15109.5,
+    "min_crit_ns": 15.084669962326801,
+    "min_wl_um": 27229
+  },
+  "evidence": "25 trials @15.8 (19 feas)",
+  "formula": "0.5*(crit-min_crit)/(max_crit-min_crit) + 0.3*(wl-min_wl)/(max_wl-min_wl) + 0.2*(area-min_area)/(max_area-min_area)",
+  "frozen_at": "2026-09-16",
+  "objective_id": "qor_v1",
+  "scope": "feasible-only; infeasible get no QoR (FlowGuard) / predeclared penalty (vanilla BO)",
+  "units": {
+    "cell_area": "um2 stdcell",
+    "critical_delay": "ns (clock - setup_ws)",
+    "wirelength": "um routed"
+  },
+  "weights": {
+    "cell_area": 0.2,
+    "critical_delay": 0.5,
+    "wirelength": 0.3
+  }
+}

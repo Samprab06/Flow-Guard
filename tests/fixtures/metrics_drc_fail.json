@@ -1,0 +1,1 @@
+{"area": 1000, "setup_wns": 0.2, "setup_tns": 0, "hold_wns": 0.1, "hold_tns": 0, "routing_completion": 100, "routing_overflow": 0, "routing_wirelength": 5000, "drc_violations": 3, "lvs_passed": true, "status": "success"}

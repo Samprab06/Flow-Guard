@@ -23,15 +23,14 @@ artifacts under `designs/flowguard_counter/runs/`.
 
 ## FIR Interface
 
-`designs/flowguard_fir/` contains the signed, programmable, pipelined 8-tap
-FIR. A normal enabled cycle accepts `ui_in` as a sample. When `uio_in[7]` is
-high, `uio_in[2:0]` selects a coefficient and `ui_in` supplies its signed
-8-bit value; no sample is accepted on that write cycle. `uio_out[0]` marks an
-output valid four enabled pipeline clocks after sample acceptance.
+`designs/flowguard_fir/` contains the fixed CSD signed 8-tap FIR. Its impulse
+response is `[1,2,4,8,8,4,2,1]/32`; coefficients are not runtime programmable.
+Each enabled sample produces a valid output one enabled clock later. `uio_in`
+is reserved and `uio_oe` is fixed to the TinyTapeout input-only contract.
 
-The fully parallel programmable multipliers are functionally verified but do
-not fit a 1x1 Tiny Tapeout tile in the first Sky130 synthesis. See `STATUS.md`
-for measured area and the architectural tradeoff.
+The CSD implementation measured 428 synthesized cells and passed the full
+LibreLane timing/DRC/LVS flow. See `STATUS.md` for the prior folded and stress
+design measurements.
 
 See `TODO.md` for the complete implementation and experiment roadmap.
 
@@ -39,20 +38,45 @@ See `TODO.md` for the complete implementation and experiment roadmap.
 server-side tuning experiments. Its fixed-tile synthesis is intentionally
 overfull and is used to retain failed placement/routing trials as evidence.
 
-## Remote Matrix
+## Oracle Recovery Pilot
 
 On a server with Docker, the pinned LibreLane environment, and this repository:
 
 ```bash
-scripts/launch_server_matrix.sh --timeout 7200
+scripts/launch_oracle_campaign.sh \
+  --namespace pilot_repaired_tile_v3 \
+  --timeout 7200
 ```
 
-The launcher executes 24 deterministic stress candidates and appends terminal
-records to `results/server_experiment_manifest.csv`. It refuses duplicate trial
-IDs and preserves failed or timed-out runs. For SSH execution from a client:
+This runs the staged 2x1 pilot: 3 safe, 8 middle, then 16 aggressive probes.
+It keeps the clock fixed at 20 ns, preserves failed/timed-out trials, and
+supports resume without overwriting completed records. For SSH execution from
+a client:
 
 ```bash
-scripts/launch_server_matrix.sh --host user@server --remote-root /srv/flow-guard
+ssh user@server 'cd /srv/flow-guard && bash scripts/launch_oracle_campaign.sh \
+  --namespace pilot_repaired_tile_v3 --timeout 7200'
+```
+
+Pilot outputs are stored under `results/pilot_repaired_tile_v3/`. The 2x1
+geometry is an explicit horizontal-abutment assumption and must be checked
+against the server's TinyTapeout integration environment before treating the
+pilot as a final benchmark.
+
+The current recovery branch tip is `d6e43a6` or newer. Use a new namespace for
+every changed manifest/config/flow version; never overwrite earlier pilot data.
+
+The stricter metric/objective and diagnostic-boundary work lives on the
+experimental branch `experiment/recovery-benchmark` until the next pilot is
+validated. It intentionally does not change `main`.
+
+## ChipIgnite Inventory
+
+The external-corpus tooling is data-only:
+
+```bash
+python3 -m chipignite catalog --output chipignite/catalog.json
+python3 -m chipignite report chipignite/catalog.json --output chipignite/ranking.json
 ```
 
 ## Branches

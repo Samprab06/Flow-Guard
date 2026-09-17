@@ -1,0 +1,12 @@
+{
+  "design__instance__area__stdcell": 1000,
+  "timing": {
+    "setup": {"wns": 0.25, "tns": 0.0, "violation_count": 0},
+    "hold": {"wns": 0.10, "tns": 0.0, "violation_count": 0}
+  },
+  "routing": {"completion": 100, "overflow": 0, "wirelength": 5000},
+  "drc": {"violations": 0},
+  "lvs": {"passed": true},
+  "signoff": {"passed": true},
+  "status": "success"
+}

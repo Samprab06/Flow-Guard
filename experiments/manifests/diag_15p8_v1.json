@@ -1,0 +1,172 @@
+{
+  "configs": [
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p0/AREA 0",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p0/AREA 1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p0/AREA 2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p1/AREA 0",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p1/AREA 1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p1/AREA 2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p2/AREA 0",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p2/AREA 1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "padding x strategy cross p2/AREA 2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "density/grt probe p1/AREA 1/d38/g0.05",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "density/grt probe p1/AREA 1/d52/g0.2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "density/grt probe p2/AREA 0/d52/g0.05",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "density/grt probe p2/AREA 0/d38/g0.2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "density/grt probe p0/AREA 2/d45/g0.15",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.15,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    }
+  ],
+  "derived_from": "clock_hunt_15p8ns_v1 5/8 + repeat_15p8_med_v1 deterministic",
+  "knobs": [
+    "GPL_CELL_PADDING",
+    "SYNTH_STRATEGY",
+    "PL_TARGET_DENSITY_PCT",
+    "GRT_ADJUSTMENT"
+  ],
+  "knobs_fixed": {
+    "CLOCK_PERIOD": 15.8,
+    "FP_CORE_UTIL": 30
+  },
+  "manifest_id": "diag_15p8_v1",
+  "namespace": "diag_15p8_v1",
+  "timeout_s": 1800
+}

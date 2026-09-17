@@ -1,0 +1,47 @@
+{
+  "configs": [
+    {
+      "clock_ns": 15.8,
+      "note": "repeatability: median feasible @15.8 (ws 0.5)",
+      "trial_ref": "clock15p8-u30-d38-p0-g0p05-sAREA_0",
+      "trial_suffix": "r1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "repeatability: median feasible @15.8 (ws 0.5)",
+      "trial_ref": "clock15p8-u30-d38-p0-g0p05-sAREA_0",
+      "trial_suffix": "r2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "repeatability: median feasible @15.8 (ws 0.5)",
+      "trial_ref": "clock15p8-u30-d38-p0-g0p05-sAREA_0",
+      "trial_suffix": "r3",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    }
+  ],
+  "derived_from": "clock_hunt_15p8ns_v1 (median feasible ws 0.5)",
+  "manifest_id": "repeat_15p8_med_v1",
+  "namespace": "repeat_15p8_med_v1",
+  "timeout_s": 1800
+}

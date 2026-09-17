@@ -1,0 +1,118 @@
+{
+  "base_config": "designs/flowguard_stress/config.2x1.json",
+  "clock_plan_ns": [
+    15.8
+  ],
+  "configs": [
+    {
+      "clock_ns": 15.8,
+      "note": "weakest setup @17ns (ws 0.863, crit ~16.14)",
+      "trial_ref": "clock17-u30-d38-p2-g0p15-sAREA_1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.15,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "strongest setup @17ns (ws 1.915, crit ~15.09)",
+      "trial_ref": "clock17-u40-d52-p1-g0p05-sAREA_1",
+      "vars": {
+        "FP_CORE_UTIL": 40,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "min wirelength (27229)",
+      "trial_ref": "clock17-u30-d38-p0-g0p20-sAREA_0",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "min area (15030.7)",
+      "trial_ref": "clock17-u30-d38-p2-g0p05-sAREA_2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "median setup (ws 1.397, crit ~15.60)",
+      "trial_ref": "clock17-u30-d38-p2-g0p10-sAREA_0",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.1,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "aggressive: padding 2 + AREA 2 + dense",
+      "trial_ref": null,
+      "vars": {
+        "FP_CORE_UTIL": 40,
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 2"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "conservative: padding 0 + AREA 0 + light",
+      "trial_ref": null,
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.05,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "max area (15318.4)",
+      "trial_ref": "clock17-u40-d52-p1-g0p15-sAREA_1",
+      "vars": {
+        "FP_CORE_UTIL": 40,
+        "GPL_CELL_PADDING": 1,
+        "GRT_ADJUSTMENT": 0.15,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 1"
+      }
+    }
+  ],
+  "derived_from": "clock_hunt_16ns_v1 8/8 (7 feas, ws 0.083-0.915; 1 TIMING_FAIL ws -0.137)",
+  "manifest_id": "clock_hunt_15p8ns_v1",
+  "namespace": "clock_hunt_15p8ns_v1",
+  "precedence": "16.0 first; 15.8/16.2 only if 16.0 is one-sided",
+  "sensitivity_basis": {
+    "GPL_CELL_PADDING": "p2 collapses setup_ws to ~1.13 vs ~1.6 (strongest lever)",
+    "SYNTH_STRATEGY": "AREA0 best (1.63), AREA2 tight-low (1.18), AREA1 widest (second lever)",
+    "negligible_at_17ns": [
+      "FP_CORE_UTIL",
+      "PL_TARGET_DENSITY_PCT",
+      "GRT_ADJUSTMENT"
+    ]
+  },
+  "timeout_s": 1800
+}

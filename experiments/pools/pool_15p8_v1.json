@@ -1,0 +1,594 @@
+{
+  "candidates": [
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_000"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_001"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_002"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_003"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_004"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_005"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_006"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_007"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_008"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_009"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_010"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_011"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_012"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_013"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_014"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_015"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_016"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_017"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_018"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_019"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_020"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_021"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_022"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_023"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_024"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_025"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_026"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_027"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_028"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_029"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_030"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_031"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_032"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_033"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_034"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_035"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_036"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_037"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_038"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_039"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_040"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_041"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_042"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_043"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_044"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_045"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_046"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_047"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_048"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_049"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_050"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_051"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_052"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_053"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_054"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_055"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_056"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.05,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_057"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_058"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_059"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_060"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_061"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_062"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_063"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_064"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_065"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.15,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_066"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_067"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 52,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cand_068"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_069"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_070"
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.1,
+      "PL_TARGET_DENSITY_PCT": 38,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_071"
+    }
+  ],
+  "fixed": {
+    "CLOCK_PERIOD": 15.8,
+    "FP_CORE_UTIL": 30
+  },
+  "knobs": [
+    "GPL_CELL_PADDING",
+    "SYNTH_STRATEGY",
+    "PL_TARGET_DENSITY_PCT",
+    "GRT_ADJUSTMENT"
+  ],
+  "pool_id": "pool_15p8_v1",
+  "seed": 0,
+  "sha256": "6c41874c178c6627929091d9dc4f9ea366baf6a1e42c00288faa9532db2c7288",
+  "size": 72
+}

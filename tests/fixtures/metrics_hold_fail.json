@@ -1,0 +1,10 @@
+{
+  "area": 1000,
+  "timing": {
+    "setup": {"wns": 0.25, "tns": 0, "violation_count": 0},
+    "hold": {"wns": -0.1, "tns": -0.5, "violation_count": 2}
+  },
+  "routing": {"completion": 100, "overflow": 0, "wirelength": 5000},
+  "drc": {"violations": 0},
+  "status": "success"
+}

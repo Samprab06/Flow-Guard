@@ -1,0 +1,13 @@
+{
+  "incident": "overfull_pilot_v0",
+  "version": 0,
+  "target": "designs/flowguard_stress",
+  "librelane_version": "3.0.14",
+  "classification": "PLACEMENT_FAIL",
+  "evidence": {
+    "observed_utilization_pct": 109.884,
+    "failure_marker": "GPL-0301",
+    "manifest": "results/server_experiment_manifest.csv"
+  },
+  "decision": "retain failed trials as evidence; do not alter clock, RTL, PDK, or tile geometry"
+}

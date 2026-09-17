@@ -1,0 +1,16 @@
+{
+  "adaptive_per_method": 16,
+  "experiment": "primary_benchmark_v1",
+  "init_id": "primary_init_v1",
+  "rule": "first 8 in seeded pool order (seed 0); zero overlap with prior runs, all 8 run fresh",
+  "shared_candidate_ids": [
+    "cand_000",
+    "cand_001",
+    "cand_002",
+    "cand_003",
+    "cand_004",
+    "cand_005",
+    "cand_006",
+    "cand_007"
+  ]
+}

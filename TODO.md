@@ -1,98 +1,168 @@
-# FlowGuard Roadmap
+# FlowGuard Handoff TODO
 
-This roadmap implements the Gemini FlowGuard concept: a calibrated, failure-aware dual-model autotuner for a public OpenLane/ORFS flow. It adopts the proposal's narrower, reproducible ORFS experiment definition and equal-budget evaluation rules.
+This is the active implementation queue for `experiment/server-runs`. Checked
+items are evidence-backed. Do not mark a campaign phase complete from a process
+exit code alone; require final metrics and preserved artifacts.
 
-## Phase 0 — Scope, policy, and success criteria
+## Immediate Server Recovery
 
-- [ ] Confirm the event permits an open-source release and external Python dependencies.
-- [ ] Record team size, workstation/OS, compute limits, and ownership.
-- [ ] Use only public RTL, open tools, redistributable data, and open PDK assets; exclude Cadence/NDA artifacts and derived data.
-- [ ] State the research question: under a fixed EDA-call budget, does separately modeling feasibility improve feasible QoR, time to first feasible result, and failed-run rate versus baselines?
-- [ ] Define feasible before data collection: completed flow, `WNS >= 0`, and zero DRC violations (or a declared, pre-run routability threshold if zero DRC is unsuitable).
-- [ ] Define the normalized feasible-only objective and record its baseline denominators; retain infeasible trials as constrained observations.
+- [x] Pull recovery benchmark commit `9aea48a` or newer on the Oracle server.
+- [ ] Run `./scripts/openlane-setup.sh` and capture the pinned runtime output.
+- [ ] Validate that the 2x1 horizontal-abutment geometry is legal in the
+      TinyTapeout integration environment.
+- [x] Run namespace `pilot_repaired_tile_v3` with the 20 ns fixed clock.
+- [x] Confirm all 27 trials create complete final metrics.
+- [ ] If safe probes fail, stop and record a new incident; do not consume the
+      full pilot budget.
+- [ ] Preserve `results/pilot_repaired_tile_v3/manifest.csv`, status log,
+      aggregates, effective configs, and representative raw reports.
+- [x] Reparse v3 raw metrics with the corrected parser and archive complete
+      hold/routing/LVS/signoff evidence; do not reuse old feasible labels.
+- [ ] Run three identical repeats for at least three configurations to quantify
+      physical metric noise before boundary selection.
+- [x] Run `experiments/v3_analysis.py` against the server aggregate JSONL and
+      preserve its machine-readable report.
+- [x] Confirm v3 is one feasibility class and therefore not optimizer-ready.
+- [ ] Characterize fixed clocks at 17, 15, 13, and 11 ns before changing the
+      search-space or optimizer policy.
 
-**Exit:** a versioned experiment brief fixes the claim, public-only policy, feasibility rule, QoR objective, and reporting limitations.
+## Completed Foundation
 
-## Phase 1 — Reproducible ORFS foundation
+- [x] Pin LibreLane, container digest, Python lock, Sky130 revision, and PDK.
+- [x] Verify counter baseline through all 80 LibreLane stages.
+- [x] Implement fixed CSD FIR and verify 428-cell synthesis/full flow.
+- [x] Implement stress MAC and measure 728 cells/109.884% placement failure.
+- [x] Implement runner, parser, feasibility model, QoR model, and acquisition.
+- [x] Add immutable experiment namespaces and raw-run ignore rules.
+- [x] Archive `pilot_overfull_v0` as invalid optimizer evidence.
+- [x] Add strict LibreLane config preflight.
+- [x] Add runtime provenance and `GPL-0301` placement classification.
+- [x] Add 2x1 manifest/launcher and ChipIgnite top-three scaffolding.
+- [x] Add parser failure-stage aggregation regression coverage.
 
-- [x] Pin the LibreLane container digest, Python dependency hashes, Sky130 revision, platform, and invocation instructions.
-- [x] Run LibreLane's clean documented smoke example through all 80 stages.
-- [x] Select the public `sky130A`/`sky130_fd_sc_hd` platform and verify timing, routing, DRC, and LVS output.
-- [ ] Preserve the default configuration, tool identifiers, and baseline reports.
-- [ ] Run two safe parameter variants and parse their metrics before committing the platform/design.
-- [ ] Enforce the day-two gate: pivot to the documented lighter Yosys/ABC/LogicMap fallback if a stable end-to-end flow is not established.
+## Recovery Launcher Gaps
 
-**Exit:** a clean command completes the default run and three variants yield retained, parseable evidence.
+- [ ] Make staged gates explicit: safe 3 must produce a valid final-metrics
+      result before middle 8; middle must pass before aggressive 16.
+- [ ] Make failed preflight trials produce a structured result without creating
+      misleading missing-directory errors.
+- [ ] Add a preflight-only mode that validates all candidate overlays without
+      launching EDA.
+- [ ] Add process-group timeout cleanup and orphan-process checks.
+- [ ] Add resume repair for trials with status files but parser failures while
+      preserving immutable original records.
+- [ ] Propagate the declared seed into runner/model metadata and record it in
+      every effective config.
+- [ ] Return nonzero for failed gates and distinguish infrastructure failure
+      from candidate-caused EDA failure.
 
-## Phase 2 — Design and experiment contract
+## Metrics and Feasibility
 
-- [x] Implement and functionally validate the folded `flowguard_fir` RTL and retain `flowguard_counter` as the environment smoke baseline.
-- [ ] Resolve the measured FIR size conflict: the bit-serial folded design synthesizes to 806 cells and 99.0% tile-core utilization; further architectural/specification changes are required.
-- [ ] Freeze exactly four bounded knobs after the pilot: clock period, core utilization, placement density, and either global-routing adjustment or one synthesis-effort control.
-- [ ] Document legal ranges, defaults, candidate encoding, fixed candidate pool, per-run timeout, concurrency, seeds, and a 24–30-call budget per method.
-- [ ] Pre-register eight initialization trials (including default) and 16–22 sequential trials; count crashes, timeouts, and unroutable designs against budget.
-- [ ] Do not alter bounds, constraints, objective, or budgets after inspecting benchmark results; restart and label a new experiment if a pilot changes them.
+- [ ] Parse setup WNS/TNS and hold WNS/TNS from structured STA reports.
+- [ ] Parse routing completion, overflow, wirelength, and route DRC metrics.
+- [ ] Parse Magic/KLayout DRC and LVS reports with source paths.
+- [ ] Add failure precedence: precheck, synthesis, placement, CTS, timing,
+      routing, DRC, LVS, timeout, tool crash, missing metrics.
+- [ ] Implement canonical feasible-only objective:
+      `0.50 critical delay + 0.25 routed wirelength + 0.25 cell area` after
+      nonzero baseline normalization.
+- [ ] Reject missing denominators, mixed units, incomplete timing, and missing
+      objective metrics.
+- [x] Add complete metric fixtures and strict incomplete-record feasibility
+      behavior on `experiment/recovery-benchmark`.
+- [ ] Add fixtures for safe success, GPL-0301, timing failure, routing failure,
+      DRC failure, timeout, malformed reports, and missing metrics.
 
-**Exit:** a versioned manifest freezes the search space, feasibility definition, objective, budget, and seeds.
+## Experiment Contract
 
-## Phase 3 — Trial execution and evidence retention
+- [ ] Freeze the repaired design, 2x1 allocation, 20 ns clock, PDK, flow,
+      objective, four knobs, bounds, seeds, timeout, and concurrency in a
+      versioned manifest.
+- [ ] Resolve the current knob policy: `FP_CORE_UTIL`,
+      `PL_TARGET_DENSITY_PCT`, `GPL_CELL_PADDING`, `GRT_ADJUSTMENT`, and
+      `SYNTH_STRATEGY` currently expose five controls; the final benchmark must
+      freeze exactly four as required by the directive.
+- [ ] Generate one deterministic Sobol candidate pool with seed/hash and reuse
+      it for random, vanilla BO, FlowGuard-Raw, and FlowGuard-Calibrated.
+- [ ] Register eight shared initialization candidates before optimizer traces.
+- [ ] Enforce the staged 3/8/16 pilot separately from the final 24-call traces.
+- [ ] Preserve failed calls in the canonical trial ledger.
+- [x] Add a versioned diagnostic-boundary manifest for the fixed 20 ns pilot.
 
-- [x] Implement an isolated runner with unique trial IDs/work directories, subprocess execution, timeout termination, and immutable terminal status.
-- [x] Persist each attempted trial's configuration hash, tool/PDK IDs, timestamps, exit code, status, runtime, and logs.
-- [x] Parse `metrics.json` for DRC count, setup WNS, standard-cell area, wirelength, TNS, and runtime.
-- [ ] Parse signoff DRC/KLayout reports and OpenSTA reports to classify timing, routing, DRC, crash, timeout, and missing-metric failure modes.
-- [ ] Prevent reruns from overwriting or double-counting trials; store compact immutable CSV/JSON summaries and keep large raw logs external when necessary.
+## Online Optimization
 
-**Exit:** rerunning an interrupted experiment resumes safely and produces a complete, auditable trial table.
+- [ ] Connect history -> model update -> acquisition -> runner -> parser ->
+      append record -> next candidate.
+- [ ] Refactor GP to a declared Matérn kernel with normalized inputs/target,
+      fixed seed, jitter, and persisted hyperparameters.
+- [ ] Train RF feasibility on all attempts and calibrate only after declared
+      class/sample thresholds.
+- [ ] Implement FlowGuard-Raw and FlowGuard-Calibrated policy variants.
+- [ ] Record model ID, training-data hash, feature schema, seed, prediction
+      mean/std, feasibility probability, EI, acquisition score, rank, and
+      selected candidate.
+- [ ] Add deterministic synthetic boundary, one-class, no-feasible, leakage,
+      and repeatability tests.
+- [ ] Add Random, Vanilla BO, and Optuna TPE baselines with equal budgets and
+      fixed seeds.
 
-## Phase 4 — Models and risk-aware acquisition
+## Storage and Resume
 
-- [x] Implement a QoR Gaussian-process surrogate trained only on feasible trials.
-- [x] Implement a calibrated/random-forest feasibility classifier trained on all attempts with small-data fallbacks.
-- [ ] Add probability calibration, Brier score, and reliability-diagram outputs.
-- [x] Score candidates as expected QoR improvement multiplied by feasibility probability, with an explicit 0.35 minimum-risk abstention threshold.
-- [ ] Select sequential candidates deterministically from the frozen pool; retain the default and initialization sequence.
-- [ ] Keep the acquisition loop lightweight and auditable; do not require a large optimization framework for the MVP.
+- [ ] Add canonical append-only `trials.jsonl`.
+- [ ] Add append-only `selections.jsonl` and `stage_predictions.jsonl`.
+- [ ] Add manifest snapshot, CSV/Parquet exports, and integrity report.
+- [ ] Implement `PLANNED -> SELECTED -> DISPATCHED -> RUNNING -> FINALIZING
+      -> COMPLETED` state transitions.
+- [ ] Validate unique trial IDs, call indices, candidate IDs, config hashes,
+      source/flow/clock matches, units, and budget before each model update.
+- [ ] Stop only the affected trace on integrity failure; never train through
+      corrupted history.
 
-**Exit:** offline data produces sensible probabilities and a deterministic next-candidate decision.
+## Stage-Aware Shadow Predictor
 
-## Phase 5 — Equal-budget baselines and experiments
+- [ ] Capture SYNTHESIS, PLACEMENT, CTS, and GLOBAL_ROUTE snapshots.
+- [ ] Preserve null/missing/not-run distinctions.
+- [ ] Train a versioned RF shadow predictor after every 8-16 completed runs.
+- [ ] Use grouped or leave-one-run-out evaluation by trial.
+- [ ] Do not early-stop primary runs.
+- [ ] Report hypothetical CPU-hours saved, recall, precision, and false-abort
+      rate only after the primary dataset is frozen.
 
-- [ ] Verify an official ORFS AutoTuner method in the pinned environment before claiming it as a completed baseline.
-- [ ] Run ORFS default, seeded random search, one stable official AutoTuner method, FlowGuard without calibration, and full FlowGuard.
-- [ ] Use identical search spaces, call budgets, timeouts, concurrency, candidate/seed logging, and failure accounting for every method.
-- [ ] Record per-call best feasible objective, calls and wall time to first feasible result, feasibility rate, final area, WNS/TNS, routing/DRC result, and runtime.
-- [ ] If AutoTuner is blocked, document the failure and compare only with an honestly labeled documented equivalent; do not imply the unavailable comparison was run.
-- [ ] Describe one-seed results as a case study; reserve extra seeds and a held-out second design for stretch work.
+## Exact Campaign Budgets
 
-**Exit:** every primary method has a complete equal-budget trace or a documented partial-budget limitation.
+- [ ] Pilot: 16 unique trials, excluded from final scores unless manifest says
+      otherwise.
+- [ ] Primary: 8 shared initialization plus 16 calls each for Random, TPE,
+      Vanilla BO, FlowGuard-Raw, and FlowGuard-Calibrated: 88 total.
+- [ ] Held-out design: 8 shared initialization plus 16 Vanilla BO and 16
+      calibrated FlowGuard: 40 total.
+- [ ] Fresh validation reruns: 6.
+- [ ] Grand total: 150 physical-design calls.
+- [ ] Keep debug/smoke jobs in separate namespaces and budgets.
 
-## Phase 6 — Validation, tests, and final recommendation
+## ChipIgnite / Open-MPW Track
 
-- [ ] Add parser fixtures for successful, timing-failed, routing-failed, timeout, and missing-metric trials.
-- [ ] Test runner directory isolation, timeout handling, stable IDs, and resume behavior.
-- [ ] Test that the objective rejects missing or incomparable metrics.
-- [ ] Add a synthetic optimization test demonstrating avoidance of a known infeasible region.
-- [ ] Freshly rerun the final recommended configuration and report agreement with the stored result.
-- [ ] Link every headline number to raw reports and state limitations: sample size, platform/design scope, and no tapeout/manufacturability claims.
+- [x] Add authoritative catalog source metadata.
+- [x] Add offline inventory, scoring, and migration-report scaffolding.
+- [ ] Run catalog mining with Internet access and pin repository commit SHAs.
+- [ ] License-audit and rank UETRV_ESoC_v2, binoy01/chipignite, and
+      dineshannayya/mbist_ctrl.
+- [ ] Clone only candidates that pass digital/SKY130/RTL/license screening.
+- [ ] Preserve original configs, migrated LibreLane configs, unsupported-key
+      reports, and manual interventions.
+- [ ] Produce at least three modern baseline candidates before FlowGuard case
+      studies.
+- [ ] Keep historical GDS as provenance only; compare modern baseline versus
+      modern FlowGuard for causal claims.
+- [ ] Add deterministic same-scale KLayout rendering outside this data-only
+      branch if visual artifacts are needed.
 
-**Exit:** a clean-environment smoke test reproduces the default run and parsing, and the winning configuration has fresh EDA evidence.
+## Final Validation
 
-## Phase 7 — Dashboard, demo, and submission
-
-- [ ] Build a cached Plotly/Streamlit dashboard with search trajectories, infeasible regions, calibration, baseline comparisons, and default-versus-recommended layouts.
-- [ ] Show failed calls explicitly rather than hiding them.
-- [ ] Prepare a deterministic five-minute demo using cached evidence; never depend on a live long RTL-to-GDS run.
-- [ ] Cover problem, method, equal-budget evidence, raw-report/layout artifact, compute/seeds/design limitations, and fallback status.
-- [ ] Run a clean-machine smoke test, package reproducibility instructions, back up results, and complete the submission checklist.
-
-**Exit:** the public repository and cached demo reproduce the documented evidence without proprietary dependencies.
-
-## Stretch work — only after primary exits pass
-
-- [ ] Evaluate a held-out second public design.
-- [ ] Add three random seeds.
-- [ ] Add a fixed-activity power estimate.
-- [ ] Evaluate conformal feasibility calibration.
-- [ ] Perform private Cadence correlation only when explicitly authorized and keep it out of public artifacts.
-- [ ] Add the Gemini stretch triage helper: translate structured DRC/STA failures into reviewed configuration suggestions; never treat generated patches as authoritative without an EDA rerun.
+- [ ] Freshly rerun each headline winner from clean source/config.
+- [ ] Compare stored versus fresh metrics and record agreement/difference.
+- [ ] Run integrity audit and config-diff audit.
+- [ ] Verify no raw runs are committed to Git.
+- [ ] Export raw tables and archive representative success/failure reports.
+- [ ] Do not start dashboard/triage work until the primary controlled
+      experiment and fresh validation pass.

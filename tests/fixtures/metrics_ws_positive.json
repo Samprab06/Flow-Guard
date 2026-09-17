@@ -1,0 +1,14 @@
+{
+  "design__instance__area__stdcell": 1000,
+  "timing__setup__wns": 0.0,
+  "timing__setup__ws": 3.9,
+  "timing__setup__tns": 0.0,
+  "timing__hold__ws": 0.2,
+  "timing__hold__tns": 0.0,
+  "routing__completion": 100,
+  "route__wirelength": 5000,
+  "drc__violations": 0,
+  "lvs__passed": true,
+  "signoff__passed": true,
+  "status": "success"
+}

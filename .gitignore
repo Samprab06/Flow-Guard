@@ -8,3 +8,9 @@ __pycache__/
 /results/server_experiment_configs/
 /results/server_experiment_runs/
 /results/.server_experiment.lock
+/results/*_configs/
+/results/*_runs/
+/results/*_aggregates/
+/results/*/runs/
+# Exhaustive campaign namespaces are local checkpoints and raw artifacts.
+/results/*/
