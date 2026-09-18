@@ -52,33 +52,41 @@ Command: `./benchmarks/external_aes128_sky130/run_verify.sh`
 - In-flow sky130 mapping (`06-yosys-synthesis/reports/post_dff.json`):
   10,445 mapped cells incl. 562 `sky130_fd_sc_hd__dfxtp_2` flops.
 
-## Gate 1c — conservative LibreLane baseline: RUNNING (interim)
+## Gate 1c — conservative LibreLane baseline: COMPLETE, INFEASIBLE (stop)
 
 - Trial: `aes128-conservative-baseline-v1`, config
   `designs/openroad_aes128_sky130/config.json`
   (`FP_CORE_UTIL 35`, `PL_TARGET_DENSITY_PCT 45`, 20 ns).
-- Config preflight (`src.config_schema.validate_config`): OK.
-- Launch (detached, per operator rule — one `setsid nohup` per call):
-  `setsid nohup python3 -m src.runner --trial-id
-  aes128-conservative-baseline-v1 --config
-  designs/openroad_aes128_sky130/config.json --timeout 7200`
-  (log: `benchmarks/external_aes128_sky130/baseline_runner.log`).
-- Raw run (gitignored by design):
-  `designs/openroad_aes128_sky130/runs/trial_aes128-conservative-baseline-v1/`.
-- Six-hour-style cap: runner tool timeout 7200 s; campaign budget cap
-  21600 s per `manifest.json`. If the flow has no valid baseline by cap,
-  stop and record the exact stage/error here.
-- On success: parse with `src.parser` (reuse, unmodified), require
-  FEASIBLE (`setup_ws >= 0`, `hold_ws >= 0`, routing 100, DRC 0,
-  LVS + signoff true, no missing metrics), then run ONLY the 4-trial
-  prespecified `aes128-char-v1` batch from `manifest.json`
-  (2 determinism repeats + density-60 + synth-AREA1 probes at frozen
-  20 ns). No broad optimizer comparison before status is reported.
-
-## Blockers
-
-None yet. Baseline flow was progressing normally at report time
-(through `06-yosys-synthesis`, at `10-openroad-checksdcfiles`).
+- Runner: `SUCCESS`, exit 0, runtime 2018 s (~34 min), all 80 stages,
+  `status.json` + `final/` (GDS 24 MB, MAG, LEF, LIB, SDC, SPEF, SDF,
+  SPICE) present. Ledger:
+  `benchmarks/external_aes128_sky130/baseline_v1/aggregated.{csv,jsonl}`.
+- Parser verdict: **TIMING_FAIL / feasible=false**.
+  Area 118222, routed wirelength 595677, routing completion 100,
+  routing DRC violations 0, Magic DRC 0, LVS true, signoff true,
+  hold_ws +0.108 (passes all hold corners), missing metrics [].
+- Setup by corner (post-PnR STA): max_ss_100C_1v60 **-3.885** (32
+  violated paths), nom_ss_100C_1v60 -3.250; max_ff +9.138, max_tt
+  +5.504, nom_ff +9.362, nom_tt +5.844 (pass with margin).
+- Exact blocker: **all 32 violating paths start at the unregistered `ld`
+  input port** (4 ns input external delay per the standard 20%-of-period
+  fallback SDC, then ~21 ns of buffer/comb depth:
+  buf → inv → clkbuf/clkdlybuf fanout tree → nor2/or3b/a31o/o221a to
+  562+ flop D pins; data arrival 25.3 ns vs 21.4 ns required).
+  Zero flop→flop violations — the round datapath closes 20 ns; `key` /
+  `text_in` input paths also pass. This is an integration-boundary
+  artifact (in-system `ld` would be register-driven), not closable by
+  FlowGuard placement/density knobs (logic depth + fanout, not
+  congestion: routing completed with 0 violations).
+- Decision per gate policy (no valid baseline → stop, document):
+  characterization batch `aes128-char-v1` is NOT run; no optimizer
+  comparison; no further EDA spend. Candidate next steps for lead
+  approval only: (a) thin input-registering wrapper as a new design
+  variant (upstream RTL pristine; wrapper needs re-verification via
+  `run_verify.sh` against the same oracle); (b) slower-clock probe to
+  find the feasible boundary; (c) ORFS-style SDC/knob treatment
+  comparison. Representative evidence retained: `final/` reports+GDS
+  (run dir gitignored), `baseline_v1/` ledger (tracked-candidate).
 
 ## Provenance / integrity notes
 

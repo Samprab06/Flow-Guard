@@ -75,6 +75,26 @@
     }
   },
   "namespace": "external_aes128_sky130",
+  "results": {
+    "gate1a_functional": "PASS 38/38 (3 FIPS-197 KAT + 32 seeded-random + 3 edge) + reset/done protocol checks",
+    "gate1b_synth_sanity": "PASS (verilator clean; yosys generic 10448 cells; in-flow mapped 10445 cells)",
+    "gate1c_baseline": {
+      "area": 118222,
+      "blocker": "all 32 setup violations start at unregistered ld input port (4ns input delay + ~21ns buffer tree to 562+ flop D pins); zero flop-to-flop violations",
+      "decision": "STOP: no valid baseline; characterization batch NOT run; no optimizer comparison",
+      "drc_violations": 0,
+      "feasible": false,
+      "hold_ws": 0.10837392401344746,
+      "lvs_passed": true,
+      "routing_completion": 100,
+      "runner": "SUCCESS exit 0, 2018 s",
+      "setup_ws_worst": -3.884970677343756,
+      "setup_ws_worst_corner": "max_ss_100C_1v60",
+      "signoff_passed": true,
+      "status": "TIMING_FAIL",
+      "wirelength": 595677
+    }
+  },
   "oracle": {
     "library": "cryptography 42.0.0 (OpenSSL-backed AES-ECB)",
     "random_count": 32,
