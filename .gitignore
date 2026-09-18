@@ -6,6 +6,8 @@ __pycache__/
 *.py[cod]
 /designs/*/runs/
 /designs/*/characterization/runs/
+/benchmarks/external_aes128_reg_sky130/verify_work/
+/benchmarks/external_aes128_reg_sky130/vectors.hex
 /results/server_experiment_configs/
 /results/server_experiment_runs/
 /results/.server_experiment.lock

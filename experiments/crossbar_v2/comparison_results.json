@@ -1,7 +1,7 @@
 [
   {
     "adaptive_provenance": [],
-    "best_qor": 0.14276513525118076,
+    "best_qor": 0.3112996180098017,
     "budget": 6,
     "feasible_count": 3,
     "first_feasible_call": 4,
@@ -47,7 +47,7 @@
         "outcome": {
           "candidate_id": "cand_000",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -58,7 +58,7 @@
         "outcome": {
           "candidate_id": "cand_004",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -69,7 +69,7 @@
         "outcome": {
           "candidate_id": "cand_005",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -110,12 +110,12 @@
         "training_size": 2
       },
       {
-        "acquisition_score": 0.014402196432711345,
+        "acquisition_score": 0.01157068919217697,
         "calibration_active": false,
         "calibration_detail": "vanilla-bo: no feasibility model",
         "call_index": 0,
-        "data_hash": "3ce0d2f2bf7a442d65588bc8c9cf5cf4564fde858828ccfe1f0467ffc203e039",
-        "ei": 0.014402196432711345,
+        "data_hash": "ea8dc95ae293d0e813eeb73ba143ce4f1ca5af4e4d0c2a3b91db71b39ce2214e",
+        "ei": 0.01157068919217697,
         "method": "vanilla_bo",
         "model_versions": {
           "numpy": "2.5.3",
@@ -125,8 +125,8 @@
         },
         "n_candidates_scored": 3,
         "p_feas": 1.0,
-        "pred_mean": 0.7137178942070438,
-        "pred_var": 0.1632998943950251,
+        "pred_mean": 0.7700016603100472,
+        "pred_var": 0.10540152624338926,
         "rank": 1,
         "seed": 1339,
         "selected_id": "cand_004",
@@ -138,12 +138,12 @@
         "training_size": 3
       },
       {
-        "acquisition_score": 0.045051791884495415,
+        "acquisition_score": 0.036194498796180315,
         "calibration_active": false,
         "calibration_detail": "vanilla-bo: no feasibility model",
         "call_index": 0,
-        "data_hash": "1ac69eb25f891f4f015343ee7b4a26ecdca17c92dd412169efefbfe8171a143a",
-        "ei": 0.045051791884495415,
+        "data_hash": "9ecd60624cf1f1c145d7887f0fda09ff458fd7aa0ad1e0dd301dd3a075a704a5",
+        "ei": 0.036194498796180315,
         "method": "vanilla_bo",
         "model_versions": {
           "numpy": "2.5.3",
@@ -153,8 +153,8 @@
         },
         "n_candidates_scored": 2,
         "p_feas": 1.0,
-        "pred_mean": 0.4728302885681701,
-        "pred_var": 0.157367526432082,
+        "pred_mean": 0.5764731503971835,
+        "pred_var": 0.10157249353122422,
         "rank": 1,
         "seed": 1339,
         "selected_id": "cand_005",
@@ -167,12 +167,12 @@
         "training_size": 4
       },
       {
-        "acquisition_score": 0.054144828557075725,
+        "acquisition_score": 0.04349982209482131,
         "calibration_active": false,
         "calibration_detail": "vanilla-bo: no feasibility model",
         "call_index": 0,
-        "data_hash": "75e5ed6deb8ff7268d4b906dc4b943d7ed1698bf5e8af3cbb999ca84d9027351",
-        "ei": 0.054144828557075725,
+        "data_hash": "a8e09e634d1f013fdb45138388abfcc44a734c8f1bfddb300e7e8649881e5d27",
+        "ei": 0.04349982209482131,
         "method": "vanilla_bo",
         "model_versions": {
           "numpy": "2.5.3",
@@ -182,8 +182,8 @@
         },
         "n_candidates_scored": 1,
         "p_feas": 1.0,
-        "pred_mean": 0.44934183934229543,
-        "pred_var": 0.1685264624794243,
+        "pred_mean": 0.5576025880584047,
+        "pred_var": 0.10877500211213652,
         "rank": 1,
         "seed": 1339,
         "selected_id": "cand_003",
@@ -197,7 +197,7 @@
         "training_size": 5
       }
     ],
-    "best_qor": 0.14276513525118076,
+    "best_qor": 0.3112996180098017,
     "budget": 6,
     "feasible_count": 3,
     "first_feasible_call": 3,
@@ -232,7 +232,7 @@
         "outcome": {
           "candidate_id": "cand_000",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -243,7 +243,7 @@
         "outcome": {
           "candidate_id": "cand_004",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -254,7 +254,7 @@
         "outcome": {
           "candidate_id": "cand_005",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -310,7 +310,7 @@
         "calibration_active": false,
         "calibration_detail": "uncalibrated-rf",
         "call_index": 0,
-        "data_hash": "3ce0d2f2bf7a442d65588bc8c9cf5cf4564fde858828ccfe1f0467ffc203e039",
+        "data_hash": "ea8dc95ae293d0e813eeb73ba143ce4f1ca5af4e4d0c2a3b91db71b39ce2214e",
         "ei": 0.0,
         "method": "flowguard_raw",
         "model_versions": {
@@ -321,7 +321,7 @@
         },
         "n_candidates_scored": 3,
         "p_feas": 0.66,
-        "pred_mean": 0.14276513525118076,
+        "pred_mean": 0.3112996180098017,
         "pred_var": 0.0,
         "rank": 1,
         "seed": 1340,
@@ -338,7 +338,7 @@
         "calibration_active": false,
         "calibration_detail": "uncalibrated-rf",
         "call_index": 0,
-        "data_hash": "98a476cc3d5df65d17ba2f400e2a3bafee80ddf0343f51de7deadaec1092ba26",
+        "data_hash": "85b1bac6ba6c358e74958fa8a6df2ecbcf53fff90e385a28e6e5e8c927b5e783",
         "ei": 0.0,
         "method": "flowguard_raw",
         "model_versions": {
@@ -349,7 +349,7 @@
         },
         "n_candidates_scored": 2,
         "p_feas": 0.64,
-        "pred_mean": 0.14276513525118076,
+        "pred_mean": 0.3112996180098017,
         "pred_var": 0.0,
         "rank": 1,
         "seed": 1340,
@@ -367,7 +367,7 @@
         "calibration_active": false,
         "calibration_detail": "uncalibrated-rf",
         "call_index": 0,
-        "data_hash": "d2b4943196ce54f5cf8f5db29c80b315a865206d3e9e6822b8370fbee2185e6e",
+        "data_hash": "2b668521215a25d5eb2590a32ac1bfa4db5af2b6b62f74ebf02c83150e822622",
         "ei": 0.0,
         "method": "flowguard_raw",
         "model_versions": {
@@ -378,7 +378,7 @@
         },
         "n_candidates_scored": 1,
         "p_feas": 0.6,
-        "pred_mean": 0.14276513525118076,
+        "pred_mean": 0.3112996180098017,
         "pred_var": 0.0,
         "rank": 1,
         "seed": 1340,
@@ -393,7 +393,7 @@
         "training_size": 5
       }
     ],
-    "best_qor": 0.14276513525118076,
+    "best_qor": 0.3112996180098017,
     "budget": 6,
     "feasible_count": 3,
     "first_feasible_call": 3,
@@ -428,7 +428,7 @@
         "outcome": {
           "candidate_id": "cand_000",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -450,7 +450,7 @@
         "outcome": {
           "candidate_id": "cand_004",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"
@@ -461,7 +461,7 @@
         "outcome": {
           "candidate_id": "cand_005",
           "feasible": true,
-          "qor": 0.14276513525118076
+          "qor": 0.3112996180098017
         },
         "phase": "adaptive",
         "source": "characterization_cache"

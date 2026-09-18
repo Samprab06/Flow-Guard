@@ -85,7 +85,7 @@ Command: `./benchmarks/external_aes128_reg_sky130/run_verify.sh`
   `benchmarks/external_aes128_sky130/` were read but not modified.
 - New paths: `designs/openroad_aes128_reg_sky130/`,
   `benchmarks/external_aes128_reg_sky130/`.
-- Untracked runtime paths: `designs/openroad_aes128_reg_sky130/runs/`
-  (gitignored by existing rule),
-  `benchmarks/external_aes128_reg_sky130/verify_work/`,
+- Gitignored runtime paths: `designs/openroad_aes128_reg_sky130/runs/`
+  (covered by the design-run rule),
+  `benchmarks/external_aes128_reg_sky130/verify_work/`, and
   `benchmarks/external_aes128_reg_sky130/vectors.hex` (copy of oracle output).

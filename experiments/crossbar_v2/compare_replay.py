@@ -16,6 +16,7 @@ from typing import Any
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from src.parser import build_record
 from src.primary_loop import FlowGuardRawDriver, VanillaBODriver, compute_qor
 
 
@@ -42,27 +43,40 @@ FROZEN = {
 
 def candidate_rows() -> list[dict[str, Any]]:
     specs = [
-        ("cand_000", "trial_crossbar-v2-char-19p9-u30-d45-p0", 0, 45, 0.3, "AREA 0"),
-        ("cand_001", "trial_crossbar-v2-char-19p9-u30-d45-p2", 2, 45, 0.3, "AREA 0"),
-        ("cand_002", "trial_crossbar-v2-char-19p9-u30-d45-area1", 0, 45, 0.3, "AREA 1"),
-        ("cand_003", "trial_crossbar-v2-char-19p9-u30-d45-grt02", 0, 45, 0.2, "AREA 0"),
-        ("cand_004", "trial_crossbar-v2-char-19p9-u30-d35-p0", 0, 35, 0.3, "AREA 0"),
-        ("cand_005", "trial_crossbar-v2-char-19p9-u30-d55-p0", 0, 55, 0.3, "AREA 0"),
+        ("cand_000", "trial_crossbar-v2-char-19p9-u30-d45-p0", "config-19p9-u30-d45-p0.json", 0, 45, 0.3, "AREA 0"),
+        ("cand_001", "trial_crossbar-v2-char-19p9-u30-d45-p2", "config-19p9-u30-d45-p2.json", 2, 45, 0.3, "AREA 0"),
+        ("cand_002", "trial_crossbar-v2-char-19p9-u30-d45-area1", "config-19p9-u30-d45-area1.json", 0, 45, 0.3, "AREA 1"),
+        ("cand_003", "trial_crossbar-v2-char-19p9-u30-d45-grt02", "config-19p9-u30-d45-grt02.json", 0, 45, 0.2, "AREA 0"),
+        ("cand_004", "trial_crossbar-v2-char-19p9-u30-d35-p0", "config-19p9-u30-d35-p0.json", 0, 35, 0.3, "AREA 0"),
+        ("cand_005", "trial_crossbar-v2-char-19p9-u30-d55-p0", "config-19p9-u30-d55-p0.json", 0, 55, 0.3, "AREA 0"),
     ]
     rows = []
-    for candidate_id, trial_id, padding, density, grt, synth in specs:
+    for candidate_id, trial_id, config_name, padding, density, grt, synth in specs:
         run = RUN_ROOT / trial_id
         metrics = json.loads((run / "final" / "metrics.json").read_text())
-        setup_ws = float(metrics["timing__setup__ws"])
-        hold_ws = float(metrics["timing__hold__ws"])
-        wirelength = float(metrics["route__wirelength"])
-        area = float(metrics["design__instance__area"])
-        feasible = (
-            setup_ws >= 0
-            and hold_ws >= 0
-            and int(metrics["route__drc_errors"]) == 0
-            and int(metrics["design__violations"]) == 0
+        cache_record = build_record(
+            trial_id,
+            run / "final" / "metrics.json",
+            status_path=run / "status.json",
+            config=ROOT / "designs" / "crossbar_datapath_v2" / "characterization" / config_name,
         )
+        setup_ws = float(cache_record["setup_ws"])
+        hold_ws = float(cache_record["hold_ws"])
+        wirelength = float(cache_record["wirelength"])
+        area = float(cache_record["area"])
+        feasible = bool(cache_record["feasible"])
+        feasibility_checks = {
+            "runner_success": cache_record["status"] in {"SUCCESS", "FEASIBLE"},
+            "setup_nonnegative": setup_ws >= 0,
+            "hold_nonnegative": hold_ws >= 0,
+            "hold_violations_zero": cache_record["hold_violation_count"] in (None, 0),
+            "routing_complete": cache_record["routing_completion"] == 100,
+            "routing_overflow_zero_or_unreported": cache_record["routing_overflow"] in (None, 0),
+            "drc_zero": cache_record["drc_violations"] == 0,
+            "lvs_passed": cache_record["lvs_passed"] is True,
+            "signoff_passed": cache_record["signoff_passed"] is True,
+            "missing_metrics_empty": cache_record["missing_metrics"] == [],
+        }
         rows.append({
             "candidate_id": candidate_id,
             "trial_id": trial_id,
@@ -75,11 +89,15 @@ def candidate_rows() -> list[dict[str, Any]]:
                 "hold_ws": hold_ws,
                 "wirelength": wirelength,
                 "area": area,
-                "routing_completion": 100,
+                "routing_completion": cache_record["routing_completion"],
+                "routing_overflow": cache_record["routing_overflow"],
                 "routing_drc_errors": int(metrics["route__drc_errors"]),
-                "drc_violations": 0,
-                "lvs_passed": True,
-                "signoff_passed": True,
+                "drc_violations": cache_record["drc_violations"],
+                "lvs_passed": cache_record["lvs_passed"],
+                "signoff_passed": cache_record["signoff_passed"],
+                "missing_metrics": cache_record["missing_metrics"],
+                "runner_status": cache_record["status"],
+                "feasibility_checks": feasibility_checks,
             },
             "feasible": feasible,
             "gds": f"experiments/crossbar_v2/artifacts/{candidate_id}.gds",
@@ -162,6 +180,7 @@ def main() -> None:
         "# Crossbar v2 comparison",
         "",
         "This is an audited sequential replay over deterministic physical characterization outcomes; no comparison call launched LibreLane.",
+        "Each cache row is rebuilt through `src.parser.build_record` from its metrics/status/config files. The manifest records runner status, missing metrics, setup/hold, routing completion/overflow, DRC, LVS, and signoff checks.",
         "Frozen RTL, footprint, clock, and knob bounds are recorded in `frozen_manifest.json`.",
         "",
         "| Method | Budget | Feasible | First feasible call | Best QoR |",
