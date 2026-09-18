@@ -1,0 +1,187 @@
+{
+  "adaptive_budget": 4,
+  "candidate_pool": [
+    {
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_000",
+      "critical_delay_ns": 19.891500132283074,
+      "feasible": true,
+      "gds": "experiments/crossbar_v2/artifacts/cand_000.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.12868623197955326,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": 0.008499867716922875,
+        "signoff_passed": true,
+        "wirelength": 148572.0
+      },
+      "qor": 0.14276513525118076,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-p0",
+      "render": "experiments/crossbar_v2/artifacts/cand_000.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d45-p0"
+    },
+    {
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_001",
+      "critical_delay_ns": 19.941026738723103,
+      "feasible": false,
+      "gds": "experiments/crossbar_v2/artifacts/cand_001.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.13262064044549254,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": -0.0410267387231036,
+        "signoff_passed": true,
+        "wirelength": 150774.0
+      },
+      "qor": null,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-p2",
+      "render": "experiments/crossbar_v2/artifacts/cand_001.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d45-p2"
+    },
+    {
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cand_002",
+      "critical_delay_ns": 21.398575528307965,
+      "feasible": false,
+      "gds": "experiments/crossbar_v2/artifacts/cand_002.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.13399298716504432,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": -1.4985755283079678,
+        "signoff_passed": true,
+        "wirelength": 152234.0
+      },
+      "qor": null,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-area1",
+      "render": "experiments/crossbar_v2/artifacts/cand_002.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d45-area1"
+    },
+    {
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_003",
+      "critical_delay_ns": 20.571148489114094,
+      "feasible": false,
+      "gds": "experiments/crossbar_v2/artifacts/cand_003.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.1274141939131133,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": -0.6711484891140964,
+        "signoff_passed": true,
+        "wirelength": 145247.0
+      },
+      "qor": null,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-grt02",
+      "render": "experiments/crossbar_v2/artifacts/cand_003.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d45-grt02"
+    },
+    {
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_004",
+      "critical_delay_ns": 19.891500132283074,
+      "feasible": true,
+      "gds": "experiments/crossbar_v2/artifacts/cand_004.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.12868623197955326,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": 0.008499867716922875,
+        "signoff_passed": true,
+        "wirelength": 148572.0
+      },
+      "qor": 0.14276513525118076,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d35-p0",
+      "render": "experiments/crossbar_v2/artifacts/cand_004.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d35-p0"
+    },
+    {
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cand_005",
+      "critical_delay_ns": 19.891500132283074,
+      "feasible": true,
+      "gds": "experiments/crossbar_v2/artifacts/cand_005.gds",
+      "metrics": {
+        "area": 54571.1,
+        "drc_violations": 0,
+        "hold_ws": 0.12868623197955326,
+        "lvs_passed": true,
+        "routing_completion": 100,
+        "routing_drc_errors": 0,
+        "setup_ws": 0.008499867716922875,
+        "signoff_passed": true,
+        "wirelength": 148572.0
+      },
+      "qor": 0.14276513525118076,
+      "raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d55-p0",
+      "render": "experiments/crossbar_v2/artifacts/cand_005.png",
+      "trial_id": "trial_crossbar-v2-char-19p9-u30-d55-p0"
+    }
+  ],
+  "clock_period_ns": 19.9,
+  "die_area": [
+    0.0,
+    0.0,
+    320.0,
+    200.0
+  ],
+  "fp_core_util": 30,
+  "knob_bounds": {
+    "GPL_CELL_PADDING": [
+      0,
+      2
+    ],
+    "GRT_ADJUSTMENT": [
+      0.2,
+      0.3
+    ],
+    "PL_TARGET_DENSITY_PCT": [
+      35,
+      55
+    ],
+    "SYNTH_STRATEGY": [
+      "AREA 0",
+      "AREA 1"
+    ]
+  },
+  "rtl": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv",
+  "shared_init_ids": [
+    "cand_001",
+    "cand_002"
+  ],
+  "total_budget": 6
+}

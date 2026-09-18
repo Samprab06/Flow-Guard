@@ -1,0 +1,94 @@
+{
+  "artifact_tree": "benchmarks/external_aes128_reg_sky130/ + designs/openroad_aes128_reg_sky130/ (new paths only; no primary file modified; upstream RTL copies bit-identical to designs/openroad_aes128_sky130/src/)",
+  "budget_cap_s": 7200,
+  "characterization_batch_prespecified": null,
+  "clock_ns": 20.0,
+  "created_utc": "2026-09-18",
+  "design": {
+    "build_top": "aes_cipher_top_reg",
+    "clock_port": "clk",
+    "excluded_from_build": [
+      "aes_inv_cipher_top.v",
+      "aes_inv_sbox.v"
+    ],
+    "reset": "rst active-low",
+    "rtl": [
+      "aes_cipher_top_reg.v (new thin wrapper; registers ld/key/text_in, passes done/text_out through)",
+      "aes_cipher_top.v (pristine upstream copy)",
+      "aes_key_expand_128.v (pristine upstream copy)",
+      "aes_rcon.v (pristine upstream copy)",
+      "aes_sbox.v (pristine upstream copy)"
+    ],
+    "upstream_pristine_sha256": {
+      "aes_cipher_top.v": "ab39a4a094dc8cfde90fcaa4c1aaf7dc9bf75b57ed762e11a985b88f6b23996c",
+      "aes_key_expand_128.v": "bf06921c6fe80a69674f8b38160e8d677e1c4cc1a96befee2ac136bed3fe48c6",
+      "aes_rcon.v": "1e8a0d1f8c3da8d382adb94e98bacfab455683ca3bca282b982179c0f7607e8e",
+      "aes_sbox.v": "7f4fe4173d58017eb2520fb130b3b779d63a373463cb0198bd66c4371184d7fb",
+      "timescale.v": "0833b736793bc11f640ed66357614c0f5cf30a548a7e515333b1e46438b2cb6b"
+    }
+  },
+  "flow": {
+    "container_digest": "sha256:f91b21d75f79871f9ccf37451020b5d2f7b3236881a997ff709c561e8280a30f",
+    "knobs": {
+      "CLOCK_PERIOD": 20.0,
+      "FP_CORE_UTIL": 35,
+      "PL_TARGET_DENSITY_PCT": 45
+    },
+    "librelane": "3.0.14",
+    "pdk": "sky130A",
+    "pdk_revision": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+    "scl": "sky130_fd_sc_hd"
+  },
+  "results": {
+    "gate1a_functional": "PASS 38/38 (3 FIPS-197 KAT + 32 seeded-random + 3 edge) + reset/done protocol checks (done at 13 cyc vs 12 for unwrapped core)",
+    "gate1b_synth_sanity": "PASS (verilator clean; yosys generic 10705 cells, +257 wrapper flops, hierarchy clean, no blackboxes)",
+    "gate1c_baseline": {
+      "area": 132448,
+      "blocker": "ld-input artifact eliminated (zero input-port violations); all 17 remaining setup violations are reg-to-reg round-datapath paths, worst -1.076 at max_ss_100C_1v60 — architecturally timing-limited at 20 ns SS",
+      "decision": "STOP: architecturally timing-limited; no characterization; no optimizer comparison",
+      "drc_violations": 0,
+      "feasible": false,
+      "hold_ws": 0.09851264527407466,
+      "lvs_passed": true,
+      "routing_completion": 100,
+      "runner": "SUCCESS exit 0, 2633 s",
+      "setup_ws_worst": -1.0757102180156117,
+      "setup_ws_worst_corner": "max_ss_100C_1v60",
+      "signoff_passed": true,
+      "status": "TIMING_FAIL",
+      "wirelength": 639354
+    }
+  },
+  "gates": {
+    "gate1a_functional": {
+      "command": "./benchmarks/external_aes128_reg_sky130/run_verify.sh",
+      "criterion": "VERIFY-PASS over 38 vectors + reset/done protocol checks (reuses external_aes128_sky130 oracle generator verbatim)"
+    },
+    "gate1b_synth_sanity": {
+      "criterion": "verilator lint clean for aes_cipher_top_reg"
+    },
+    "gate1c_baseline": {
+      "criterion": "runner SUCCESS + parser FEASIBLE (setup_ws>=0, hold_ws>=0, routing 100, DRC 0, LVS+signoff true, no missing metrics); exactly one conservative trial",
+      "timeout_s": 7200,
+      "trial_id": "aes128-reg-conservative-baseline-v1"
+    }
+  },
+  "namespace": "external_aes128_reg_sky130",
+  "oracle": {
+    "library": "cryptography 42.0.0 (OpenSSL-backed AES-ECB), reused verbatim from external_aes128_sky130/gen_vectors.py",
+    "random_count": 32,
+    "random_seed": 2645,
+    "vectors_file": "benchmarks/external_aes128_reg_sky130/vectors.hex (copy of oracle output)"
+  },
+  "policy": {
+    "broad_optimizer_comparison": "FORBIDDEN",
+    "characterization": "FORBIDDEN (not run regardless of baseline outcome)",
+    "optimizer_changes": "none; FlowGuard algorithm untouched",
+    "primary_experiment": "untouched; separate namespace/artifact tree"
+  },
+  "upstream": {
+    "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts",
+    "revision": "95ebc50a258390f4c7896e5f04db743f62279c2d",
+    "wrapper_rationale": "all 32 setup violations in aes128-conservative-baseline-v1 started at unregistered ld input port; wrapper makes ld/key/text_in flop-driven so the fanout tree becomes internal flop-to-flop"
+  }
+}

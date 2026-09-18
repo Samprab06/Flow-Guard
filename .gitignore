@@ -5,6 +5,7 @@
 __pycache__/
 *.py[cod]
 /designs/*/runs/
+/designs/*/characterization/runs/
 /results/server_experiment_configs/
 /results/server_experiment_runs/
 /results/.server_experiment.lock

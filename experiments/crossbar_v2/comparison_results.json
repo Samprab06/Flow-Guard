@@ -1,0 +1,475 @@
+[
+  {
+    "adaptive_provenance": [],
+    "best_qor": 0.14276513525118076,
+    "budget": 6,
+    "feasible_count": 3,
+    "first_feasible_call": 4,
+    "method": "default",
+    "seed": 1337,
+    "selections": [
+      {
+        "call": 1,
+        "candidate_id": "cand_001",
+        "outcome": {
+          "candidate_id": "cand_001",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 2,
+        "candidate_id": "cand_002",
+        "outcome": {
+          "candidate_id": "cand_002",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 3,
+        "candidate_id": "cand_003",
+        "outcome": {
+          "candidate_id": "cand_003",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 4,
+        "candidate_id": "cand_000",
+        "outcome": {
+          "candidate_id": "cand_000",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 5,
+        "candidate_id": "cand_004",
+        "outcome": {
+          "candidate_id": "cand_004",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 6,
+        "candidate_id": "cand_005",
+        "outcome": {
+          "candidate_id": "cand_005",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      }
+    ],
+    "shared_init_ids": [
+      "cand_001",
+      "cand_002"
+    ]
+  },
+  {
+    "adaptive_provenance": [
+      {
+        "acquisition_score": 0.0,
+        "calibration_active": false,
+        "calibration_detail": "vanilla-bo: no feasibility model",
+        "call_index": 0,
+        "data_hash": "957810303cc7426499b84e0fbfd97145be6c91685033eea0130ae17c231a6ac1",
+        "ei": 0.0,
+        "method": "vanilla_bo",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 4,
+        "p_feas": 1.0,
+        "pred_mean": 1.0,
+        "pred_var": 0.0,
+        "rank": 1,
+        "seed": 1339,
+        "selected_id": "cand_000",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002"
+        ],
+        "training_size": 2
+      },
+      {
+        "acquisition_score": 0.014402196432711345,
+        "calibration_active": false,
+        "calibration_detail": "vanilla-bo: no feasibility model",
+        "call_index": 0,
+        "data_hash": "3ce0d2f2bf7a442d65588bc8c9cf5cf4564fde858828ccfe1f0467ffc203e039",
+        "ei": 0.014402196432711345,
+        "method": "vanilla_bo",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 3,
+        "p_feas": 1.0,
+        "pred_mean": 0.7137178942070438,
+        "pred_var": 0.1632998943950251,
+        "rank": 1,
+        "seed": 1339,
+        "selected_id": "cand_004",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000"
+        ],
+        "training_size": 3
+      },
+      {
+        "acquisition_score": 0.045051791884495415,
+        "calibration_active": false,
+        "calibration_detail": "vanilla-bo: no feasibility model",
+        "call_index": 0,
+        "data_hash": "1ac69eb25f891f4f015343ee7b4a26ecdca17c92dd412169efefbfe8171a143a",
+        "ei": 0.045051791884495415,
+        "method": "vanilla_bo",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 2,
+        "p_feas": 1.0,
+        "pred_mean": 0.4728302885681701,
+        "pred_var": 0.157367526432082,
+        "rank": 1,
+        "seed": 1339,
+        "selected_id": "cand_005",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000",
+          "cand_004"
+        ],
+        "training_size": 4
+      },
+      {
+        "acquisition_score": 0.054144828557075725,
+        "calibration_active": false,
+        "calibration_detail": "vanilla-bo: no feasibility model",
+        "call_index": 0,
+        "data_hash": "75e5ed6deb8ff7268d4b906dc4b943d7ed1698bf5e8af3cbb999ca84d9027351",
+        "ei": 0.054144828557075725,
+        "method": "vanilla_bo",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 1,
+        "p_feas": 1.0,
+        "pred_mean": 0.44934183934229543,
+        "pred_var": 0.1685264624794243,
+        "rank": 1,
+        "seed": 1339,
+        "selected_id": "cand_003",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000",
+          "cand_004",
+          "cand_005"
+        ],
+        "training_size": 5
+      }
+    ],
+    "best_qor": 0.14276513525118076,
+    "budget": 6,
+    "feasible_count": 3,
+    "first_feasible_call": 3,
+    "method": "vanilla_bo",
+    "seed": 1339,
+    "selections": [
+      {
+        "call": 1,
+        "candidate_id": "cand_001",
+        "outcome": {
+          "candidate_id": "cand_001",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 2,
+        "candidate_id": "cand_002",
+        "outcome": {
+          "candidate_id": "cand_002",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 3,
+        "candidate_id": "cand_000",
+        "outcome": {
+          "candidate_id": "cand_000",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 4,
+        "candidate_id": "cand_004",
+        "outcome": {
+          "candidate_id": "cand_004",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 5,
+        "candidate_id": "cand_005",
+        "outcome": {
+          "candidate_id": "cand_005",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 6,
+        "candidate_id": "cand_003",
+        "outcome": {
+          "candidate_id": "cand_003",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      }
+    ],
+    "shared_init_ids": [
+      "cand_001",
+      "cand_002"
+    ]
+  },
+  {
+    "adaptive_provenance": [
+      {
+        "acquisition_score": 0.0,
+        "calibration_active": false,
+        "calibration_detail": "single-class-constant",
+        "call_index": 0,
+        "data_hash": "957810303cc7426499b84e0fbfd97145be6c91685033eea0130ae17c231a6ac1",
+        "ei": null,
+        "method": "flowguard_raw",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 4,
+        "p_feas": 0.0,
+        "pred_mean": null,
+        "pred_var": null,
+        "rank": 1,
+        "seed": 1340,
+        "selected_id": "cand_000",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002"
+        ],
+        "training_size": 2
+      },
+      {
+        "acquisition_score": 0.0,
+        "calibration_active": false,
+        "calibration_detail": "uncalibrated-rf",
+        "call_index": 0,
+        "data_hash": "3ce0d2f2bf7a442d65588bc8c9cf5cf4564fde858828ccfe1f0467ffc203e039",
+        "ei": 0.0,
+        "method": "flowguard_raw",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 3,
+        "p_feas": 0.66,
+        "pred_mean": 0.14276513525118076,
+        "pred_var": 0.0,
+        "rank": 1,
+        "seed": 1340,
+        "selected_id": "cand_003",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000"
+        ],
+        "training_size": 3
+      },
+      {
+        "acquisition_score": 0.0,
+        "calibration_active": false,
+        "calibration_detail": "uncalibrated-rf",
+        "call_index": 0,
+        "data_hash": "98a476cc3d5df65d17ba2f400e2a3bafee80ddf0343f51de7deadaec1092ba26",
+        "ei": 0.0,
+        "method": "flowguard_raw",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 2,
+        "p_feas": 0.64,
+        "pred_mean": 0.14276513525118076,
+        "pred_var": 0.0,
+        "rank": 1,
+        "seed": 1340,
+        "selected_id": "cand_004",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000",
+          "cand_003"
+        ],
+        "training_size": 4
+      },
+      {
+        "acquisition_score": 0.0,
+        "calibration_active": false,
+        "calibration_detail": "uncalibrated-rf",
+        "call_index": 0,
+        "data_hash": "d2b4943196ce54f5cf8f5db29c80b315a865206d3e9e6822b8370fbee2185e6e",
+        "ei": 0.0,
+        "method": "flowguard_raw",
+        "model_versions": {
+          "numpy": "2.5.3",
+          "optuna": "5.0.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1"
+        },
+        "n_candidates_scored": 1,
+        "p_feas": 0.6,
+        "pred_mean": 0.14276513525118076,
+        "pred_var": 0.0,
+        "rank": 1,
+        "seed": 1340,
+        "selected_id": "cand_005",
+        "training_candidate_ids": [
+          "cand_001",
+          "cand_002",
+          "cand_000",
+          "cand_003",
+          "cand_004"
+        ],
+        "training_size": 5
+      }
+    ],
+    "best_qor": 0.14276513525118076,
+    "budget": 6,
+    "feasible_count": 3,
+    "first_feasible_call": 3,
+    "method": "flowguard_raw",
+    "seed": 1340,
+    "selections": [
+      {
+        "call": 1,
+        "candidate_id": "cand_001",
+        "outcome": {
+          "candidate_id": "cand_001",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 2,
+        "candidate_id": "cand_002",
+        "outcome": {
+          "candidate_id": "cand_002",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "shared_init",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 3,
+        "candidate_id": "cand_000",
+        "outcome": {
+          "candidate_id": "cand_000",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 4,
+        "candidate_id": "cand_003",
+        "outcome": {
+          "candidate_id": "cand_003",
+          "feasible": false,
+          "qor": null
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 5,
+        "candidate_id": "cand_004",
+        "outcome": {
+          "candidate_id": "cand_004",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      },
+      {
+        "call": 6,
+        "candidate_id": "cand_005",
+        "outcome": {
+          "candidate_id": "cand_005",
+          "feasible": true,
+          "qor": 0.14276513525118076
+        },
+        "phase": "adaptive",
+        "source": "characterization_cache"
+      }
+    ],
+    "shared_init_ids": [
+      "cand_001",
+      "cand_002"
+    ]
+  }
+]

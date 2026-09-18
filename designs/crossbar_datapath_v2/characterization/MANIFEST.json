@@ -1,0 +1,19 @@
+{
+  "campaign": "crossbar_datapath_v2_characterization_v1",
+  "design": "crossbar_datapath_v2",
+  "rtl": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv",
+  "footprint": {"DIE_AREA": [0.0, 0.0, 320.0, 200.0], "FP_CORE_UTIL": 30},
+  "prespecified_trials": [
+    {"trial_id": "crossbar-v2-char-19p5-u30-d45", "config": "config-19p5-u30-d45.json", "purpose": "clock probe"},
+    {"trial_id": "crossbar-v2-char-20p0-u30-d35", "config": "config-20p0-u30-d35.json", "purpose": "density probe"},
+    {"trial_id": "crossbar-v2-char-20p0-u30-d55", "config": "config-20p0-u30-d55.json", "purpose": "density probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d45-p0", "config": "config-19p9-u30-d45-p0.json", "purpose": "same-clock baseline boundary probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d45-p2", "config": "config-19p9-u30-d45-p2.json", "purpose": "same-clock padding boundary probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d45-area1", "config": "config-19p9-u30-d45-area1.json", "purpose": "same-clock synthesis strategy probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d45-grt02", "config": "config-19p9-u30-d45-grt02.json", "purpose": "same-clock routing adjustment probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d35-p0", "config": "config-19p9-u30-d35-p0.json", "purpose": "same-clock density probe"},
+    {"trial_id": "crossbar-v2-char-19p9-u30-d55-p0", "config": "config-19p9-u30-d55-p0.json", "purpose": "same-clock density probe"}
+  ],
+  "freeze_rule": "After these probes, freeze RTL, footprint, clock, and knob bounds before optimizer comparison.",
+  "feasibility": "runner success, setup_ws>=0, hold_ws>=0, routing_completion=100, routing_overflow=0, DRC=0, LVS=true, signoff=true, missing_metrics=[]"
+}
