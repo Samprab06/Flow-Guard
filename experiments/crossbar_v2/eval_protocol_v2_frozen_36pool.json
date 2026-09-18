@@ -1,0 +1,134 @@
+{
+  "amendment_note": "Amends FROZEN-PROTOCOL-NO-RUNS-LAUNCHED to freeze the exact 36-candidate discrete pool (AREA 0/1/2 x density 35/45/55 x padding 0/2 x GRT 0.2/0.3, full factorial, explicit lexicographic ordering). Preserves frozen RTL/clock/footprint/environment/feasibility/objective formula and normalization constants verbatim. No EDA or optimizer runs launched; no primary-file or RTL edits.",
+  "budget_note": "Budget/seeds carried from parent protocol unchanged; no runs launched under this amendment.",
+  "environment": {
+    "LIBRELANE_CONTAINER_IMAGE": "ghcr.io/librelane/librelane@sha256:f91b21d75f79871f9ccf37451020b5d2f7b3236881a997ff709c561e8280a30f",
+    "LIBRELANE_VERSION": "3.0.14",
+    "PDK": "sky130A",
+    "SKY130_PDK_REVISION": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+    "env_source": "environment/openlane-baseline.env"
+  },
+  "execution_guardrails": {
+    "allowed_data_source": "characterization cache only (designs/crossbar_datapath_v2/characterization/runs/* via src/parser.py:build_record)",
+    "launcher": "none",
+    "no_eda_runs": true,
+    "no_optimizer_runs": true,
+    "no_primary_files_edits": true,
+    "no_rtl_edits": true
+  },
+  "feasibility_checks": [
+    "runner_success",
+    "setup_nonnegative",
+    "hold_nonnegative",
+    "hold_violations_zero",
+    "routing_complete",
+    "routing_overflow_zero_or_unreported",
+    "drc_zero",
+    "lvs_passed",
+    "signoff_passed",
+    "missing_metrics_empty"
+  ],
+  "feasibility_implementation": "src/parser.py:is_feasible",
+  "feasibility_rule": "SUCCESS/FEASIBLE + DRC==0 + setup_ws>=0 + hold_ws>=0 + hold_vio==0 + routing==100 + overflow==0 + LVS + signoff + missing==[]",
+  "frozen_at": "2026-09-18",
+  "frozen_design": {
+    "clock_period_ns": 19.9,
+    "die_area_um": [
+      0.0,
+      0.0,
+      320.0,
+      200.0
+    ],
+    "fp_core_util": 30,
+    "rtl": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv"
+  },
+  "knob_space_discrete": {
+    "GPL_CELL_PADDING": [
+      0,
+      2
+    ],
+    "GRT_ADJUSTMENT": [
+      0.2,
+      0.3
+    ],
+    "PL_TARGET_DENSITY_PCT": [
+      35,
+      45,
+      55
+    ],
+    "SYNTH_STRATEGY": [
+      "AREA 0",
+      "AREA 1",
+      "AREA 2"
+    ],
+    "coverage": "full factorial 3x3x2x2",
+    "knob_bounds_source": "discretization of experiments/crossbar_v2/eval_protocol_v2_frozen.json:knob_bounds",
+    "size": 36
+  },
+  "methods": [
+    {
+      "driver": "src/primary_loop.py:VanillaBODriver",
+      "label": "Vanilla penalty BO",
+      "method": "vanilla_bo_penalty",
+      "policy": "GP on all observed trials with infeasible trials mapped to INFEASIBLE_PENALTY=1.0; acquisition is plain EI with p_feas=1.0 and no calibration"
+    },
+    {
+      "driver": "src/primary_loop.py:FlowGuardCalibratedDriver",
+      "label": "FlowGuard-Calibrated",
+      "method": "flowguard_calibrated",
+      "policy": "feasible-only QoR GP with EI multiplied by P(feasible) from RF feasibility model; RF calibrates (sigmoid, cv=3) only when each class has >=3 samples, else uncalibrated fallback; no hard risk threshold"
+    },
+    {
+      "driver": "GP EI without feasibility model (ablates the EI x P(feasible) constraint)",
+      "label": "EI-only ablation",
+      "method": "ei_only_ablation",
+      "policy": "feasible-only QoR GP with plain EI ranking and p_feas fixed to 1.0; no feasibility classifier, no calibration, no penalty mapping; isolates the value of the feasibility gate versus Vanilla penalty BO and FlowGuard-Calibrated"
+    }
+  ],
+  "objective": {
+    "baselines": {
+      "max_area_um2": 37504.7,
+      "max_crit_ns": 21.398575528307965,
+      "max_wl_um": 152234.0,
+      "min_area_um2": 36947.9,
+      "min_crit_ns": 19.891500132283074,
+      "min_wl_um": 145247.0
+    },
+    "baselines_source": "min/max over experiments/crossbar_v2/frozen_manifest.json candidate_pool (critical_delay_ns, metrics.wirelength, metrics.area)",
+    "formula": "0.5*(crit-min_crit)/(max_crit-min_crit) + 0.3*(wl-min_wl)/(max_wl-min_wl) + 0.2*(area-min_area)/(max_area-min_area)",
+    "id": "qor_v1_crossbar_v2",
+    "implementation": "src/primary_loop.py:compute_qor (INFEASIBLE_PENALTY=1.0 for vanilla BO)",
+    "normalization": "min-max over frozen pool baselines below; critical_delay_ns = clock_period_ns - setup_ws",
+    "scope": "feasible-only; infeasible outcomes carry qor=null under FlowGuard drivers and the predeclared penalty 1.0 under vanilla BO ranking",
+    "weights": {
+      "cell_area": 0.2,
+      "critical_delay": 0.5,
+      "wirelength": 0.3
+    }
+  },
+  "parent_protocol": "experiments/crossbar_v2/eval_protocol_v2_frozen.json",
+  "parent_protocol_id": "crossbar_v2_eval_protocol_frozen_v1",
+  "parent_protocol_sha256": "cdd891fbc4d90e3e852acd008b02e321963f3db14e0b98f4b78e6d418f605b8d",
+  "pending_work": "Characterize the 30 UNMEASURED pool candidates and exact-verify the 6 legacy candidates per experiments/crossbar_v2/characterization_manifest_36pool.json before any comparison replay. Do not reuse the 6-candidate pilot pool as the 36-call pool.",
+  "pilot_demo": {
+    "note": "Replayable six-call pilot snapshot (existing pool, seeds 1337/1339/1340). Clearly labeled PILOT; not a 24-call protocol comparison.",
+    "results_dir": "experiments/crossbar_v2/pilot_demo_results",
+    "script": "experiments/crossbar_v2/pilot_demo.py"
+  },
+  "protocol_id": "crossbar_v2_eval_protocol_frozen_36pool_v1",
+  "seeds": [
+    11,
+    29,
+    47
+  ],
+  "source_pool": {
+    "canonical_hash": "4f21960cd30385bc7c995aed84cc85dcc5815b043bbf52d490387265b3933a5b",
+    "characterization_manifest": "experiments/crossbar_v2/characterization_manifest_36pool.json",
+    "manifest": "experiments/pools/pool_crossbar_v2_36_v1.json",
+    "ordering_rule": "lexicographic ascending by (SYNTH_STRATEGY, PL_TARGET_DENSITY_PCT, GPL_CELL_PADDING, GRT_ADJUSTMENT); strategy order AREA 0 < AREA 1 < AREA 2; outermost SYNTH_STRATEGY, innermost GRT_ADJUSTMENT",
+    "pool_id": "pool_crossbar_v2_36_v1",
+    "size": 36
+  },
+  "status": "FROZEN-36-POOL-NO-OPTIMIZER-RUNS"
+}

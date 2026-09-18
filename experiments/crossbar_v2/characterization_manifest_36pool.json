@@ -1,0 +1,514 @@
+{
+  "counts": {
+    "pool_total": 36,
+    "reusable_legacy_pending_verification": 6,
+    "unmeasured": 30
+  },
+  "fixed": {
+    "CLOCK_PERIOD_NS": 19.9,
+    "DIE_AREA_UM": [
+      0.0,
+      0.0,
+      320.0,
+      200.0
+    ],
+    "FP_CORE_UTIL": 30,
+    "RTL": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv",
+    "RTL_SHA256": "e2848bb40b338e0197162cc58a494a14e73d427c51c02d1b0c2123fac5407d37"
+  },
+  "manifest_id": "crossbar_v2_36pool_characterization_manifest_v1",
+  "pool": "experiments/pools/pool_crossbar_v2_36_v1.json",
+  "pool_canonical_hash": "4f21960cd30385bc7c995aed84cc85dcc5815b043bbf52d490387265b3933a5b",
+  "reusable_legacy_candidates": [
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "legacy_candidate_id": "cand_004",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d35-p0.json",
+      "legacy_config_sha256": "89d8a2f25e94075682e1bb4f9157a76fa55dc4c0470bf40a814f93529717135d",
+      "legacy_metrics_snapshot": {
+        "area": 37417.1,
+        "critical_delay_ns": 19.891500132283074,
+        "feasible": true,
+        "hold_ws": 0.12868623197955326,
+        "qor": 0.3112996180098017,
+        "setup_ws": 0.008499867716922875,
+        "wirelength": 148572.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d35-p0",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d35-p0",
+      "pool_candidate_id": "cb36_001",
+      "pool_index": 1,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "legacy_candidate_id": "cand_003",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d45-grt02.json",
+      "legacy_config_sha256": "5d7d37e7a31b4354b7631375f6c8015c26e74d7d56cfe83cb9703d0193db9608",
+      "legacy_metrics_snapshot": {
+        "area": 37452.2,
+        "critical_delay_ns": 20.571148489114094,
+        "feasible": false,
+        "hold_ws": 0.1274141939131133,
+        "qor": null,
+        "setup_ws": -0.6711484891140964,
+        "wirelength": 145247.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-grt02",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d45-grt02",
+      "pool_candidate_id": "cb36_004",
+      "pool_index": 4,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "legacy_candidate_id": "cand_000",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d45-p0.json",
+      "legacy_config_sha256": "a46e30a07108dac2a767450b6f66770c24b54d0b3346a3f59bc7c003b42a31bd",
+      "legacy_metrics_snapshot": {
+        "area": 37417.1,
+        "critical_delay_ns": 19.891500132283074,
+        "feasible": true,
+        "hold_ws": 0.12868623197955326,
+        "qor": 0.3112996180098017,
+        "setup_ws": 0.008499867716922875,
+        "wirelength": 148572.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-p0",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d45-p0",
+      "pool_candidate_id": "cb36_005",
+      "pool_index": 5,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "legacy_candidate_id": "cand_001",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d45-p2.json",
+      "legacy_config_sha256": "d21c983717fba2279d88e5008e8edcc91605bbc8edaa891e5a43adfe7a569094",
+      "legacy_metrics_snapshot": {
+        "area": 37504.7,
+        "critical_delay_ns": 19.941026738723103,
+        "feasible": false,
+        "hold_ws": 0.13262064044549254,
+        "qor": null,
+        "setup_ws": -0.0410267387231036,
+        "wirelength": 150774.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-p2",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d45-p2",
+      "pool_candidate_id": "cb36_007",
+      "pool_index": 7,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "legacy_candidate_id": "cand_005",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d55-p0.json",
+      "legacy_config_sha256": "83c93391175fb7dfca1b0ffa5ae379f97a00e4aa9ba10cc68a8f4387a817883b",
+      "legacy_metrics_snapshot": {
+        "area": 37417.1,
+        "critical_delay_ns": 19.891500132283074,
+        "feasible": true,
+        "hold_ws": 0.12868623197955326,
+        "qor": 0.3112996180098017,
+        "setup_ws": 0.008499867716922875,
+        "wirelength": 148572.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d55-p0",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d55-p0",
+      "pool_candidate_id": "cb36_009",
+      "pool_index": 9,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "legacy_candidate_id": "cand_002",
+      "legacy_config_file": "designs/crossbar_datapath_v2/characterization/config-19p9-u30-d45-area1.json",
+      "legacy_config_sha256": "7db5b23b387fb61ea677d23283d745a330555f0900610f88e49d1e10f2be825f",
+      "legacy_metrics_snapshot": {
+        "area": 36947.9,
+        "critical_delay_ns": 21.398575528307965,
+        "feasible": false,
+        "hold_ws": 0.13399298716504432,
+        "qor": null,
+        "setup_ws": -1.4985755283079678,
+        "wirelength": 152234.0
+      },
+      "legacy_raw_run": "designs/crossbar_datapath_v2/characterization/runs/trial_crossbar-v2-char-19p9-u30-d45-area1",
+      "legacy_trial_id": "trial_crossbar-v2-char-19p9-u30-d45-area1",
+      "pool_candidate_id": "cb36_017",
+      "pool_index": 17,
+      "reuse_condition": "REUSE ONLY after exact match on all four knob values AND config-file sha256 AND trial metrics snapshot vs frozen_manifest.json; any mismatch -> treat as UNMEASURED and re-characterize; no optimizer use until verified",
+      "status": "MEASURED-LEGACY-PENDING-EXACT-VERIFICATION"
+    }
+  ],
+  "reuse_gate": "The 6 legacy candidates below may be reused ONLY after exact hash/config checks: knob-tuple match + characterization config-file sha256 match + frozen_manifest.json metrics snapshot match (setup_ws, hold_ws, wirelength, area, feasible, qor, critical_delay_ns). Otherwise re-characterize. No EDA or optimizer runs are launched by this manifest.",
+  "status": "FROZEN-36-POOL-NO-OPTIMIZER-RUNS",
+  "unmeasured_candidates": [
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_000",
+      "pool_index": 0,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_002",
+      "pool_index": 2,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_003",
+      "pool_index": 3,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_006",
+      "pool_index": 6,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_008",
+      "pool_index": 8,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_010",
+      "pool_index": 10,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 0"
+      },
+      "pool_candidate_id": "cb36_011",
+      "pool_index": 11,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_012",
+      "pool_index": 12,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_013",
+      "pool_index": 13,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_014",
+      "pool_index": 14,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_015",
+      "pool_index": 15,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_016",
+      "pool_index": 16,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_018",
+      "pool_index": 18,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_019",
+      "pool_index": 19,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_020",
+      "pool_index": 20,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_021",
+      "pool_index": 21,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_022",
+      "pool_index": 22,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 1"
+      },
+      "pool_candidate_id": "cb36_023",
+      "pool_index": 23,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_024",
+      "pool_index": 24,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_025",
+      "pool_index": 25,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_026",
+      "pool_index": 26,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 35,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_027",
+      "pool_index": 27,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_028",
+      "pool_index": 28,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_029",
+      "pool_index": 29,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_030",
+      "pool_index": 30,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_031",
+      "pool_index": 31,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_032",
+      "pool_index": 32,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_033",
+      "pool_index": 33,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_034",
+      "pool_index": 34,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    },
+    {
+      "knobs": {
+        "GPL_CELL_PADDING": 2,
+        "GRT_ADJUSTMENT": 0.3,
+        "PL_TARGET_DENSITY_PCT": 55,
+        "SYNTH_STRATEGY": "AREA 2"
+      },
+      "pool_candidate_id": "cb36_035",
+      "pool_index": 35,
+      "status": "UNMEASURED-NO-CHARACTERIZATION"
+    }
+  ]
+}

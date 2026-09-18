@@ -1,0 +1,377 @@
+{
+  "candidates": [
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_000",
+      "pool_index": 0
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_001",
+      "pool_index": 1
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_002",
+      "pool_index": 2
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_003",
+      "pool_index": 3
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_004",
+      "pool_index": 4
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_005",
+      "pool_index": 5
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_006",
+      "pool_index": 6
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_007",
+      "pool_index": 7
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_008",
+      "pool_index": 8
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_009",
+      "pool_index": 9
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_010",
+      "pool_index": 10
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 0",
+      "candidate_id": "cb36_011",
+      "pool_index": 11
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_012",
+      "pool_index": 12
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_013",
+      "pool_index": 13
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_014",
+      "pool_index": 14
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_015",
+      "pool_index": 15
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_016",
+      "pool_index": 16
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_017",
+      "pool_index": 17
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_018",
+      "pool_index": 18
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_019",
+      "pool_index": 19
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_020",
+      "pool_index": 20
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_021",
+      "pool_index": 21
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_022",
+      "pool_index": 22
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 1",
+      "candidate_id": "cb36_023",
+      "pool_index": 23
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_024",
+      "pool_index": 24
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_025",
+      "pool_index": 25
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_026",
+      "pool_index": 26
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 35,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_027",
+      "pool_index": 27
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_028",
+      "pool_index": 28
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_029",
+      "pool_index": 29
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_030",
+      "pool_index": 30
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 45,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_031",
+      "pool_index": 31
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_032",
+      "pool_index": 32
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 0,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_033",
+      "pool_index": 33
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.2,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_034",
+      "pool_index": 34
+    },
+    {
+      "FP_CORE_UTIL": 30,
+      "GPL_CELL_PADDING": 2,
+      "GRT_ADJUSTMENT": 0.3,
+      "PL_TARGET_DENSITY_PCT": 55,
+      "SYNTH_STRATEGY": "AREA 2",
+      "candidate_id": "cb36_035",
+      "pool_index": 35
+    }
+  ],
+  "canonical_hash": "4f21960cd30385bc7c995aed84cc85dcc5815b043bbf52d490387265b3933a5b",
+  "canonical_hash_method": "sha256 over utf-8 bytes of json.dumps(candidates, sort_keys=True, separators=(',',':'))",
+  "design": "crossbar_datapath_v2",
+  "fixed": {
+    "CLOCK_PERIOD_NS": 19.9,
+    "DIE_AREA_UM": [
+      0.0,
+      0.0,
+      320.0,
+      200.0
+    ],
+    "FP_CORE_UTIL": 30,
+    "RTL": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv"
+  },
+  "guardrails": {
+    "no_eda_runs": true,
+    "no_optimizer_runs": true,
+    "no_primary_files_edits": true,
+    "no_rtl_edits": true
+  },
+  "ordering_note": "pool_index 0..35 follows the ordering_rule exactly; candidate cb36_NNN has pool_index NNN",
+  "ordering_rule": "lexicographic ascending by (SYNTH_STRATEGY, PL_TARGET_DENSITY_PCT, GPL_CELL_PADDING, GRT_ADJUSTMENT); strategy order AREA 0 < AREA 1 < AREA 2; outermost SYNTH_STRATEGY, innermost GRT_ADJUSTMENT",
+  "parent_frozen": {
+    "manifest": "experiments/crossbar_v2/frozen_manifest.json",
+    "protocol": "experiments/crossbar_v2/eval_protocol_v2_frozen.json"
+  },
+  "pool_id": "pool_crossbar_v2_36_v1",
+  "size": 36,
+  "status": "FROZEN-36-POOL-NO-OPTIMIZER-RUNS",
+  "strategy_values": {
+    "GPL_CELL_PADDING": [
+      0,
+      2
+    ],
+    "GRT_ADJUSTMENT": [
+      0.2,
+      0.3
+    ],
+    "PL_TARGET_DENSITY_PCT": [
+      35,
+      45,
+      55
+    ],
+    "SYNTH_STRATEGY": [
+      "AREA 0",
+      "AREA 1",
+      "AREA 2"
+    ]
+  }
+}
