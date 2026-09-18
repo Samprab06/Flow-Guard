@@ -151,6 +151,7 @@ def replay(name: str, pool: list[dict[str, Any]], seed: int) -> dict[str, Any]:
         driver = VanillaBODriver(method="vanilla_bo", seed=seed) if name == "vanilla_bo" else FlowGuardRawDriver(method="flowguard_raw", seed=seed)
         rng = np.random.default_rng(seed)
         for call in range(3, 7):
+            driver.call_index = call
             candidate_id = driver.suggest(records, pool, rng)
             row = by_id[candidate_id]
             records.append(observed(row))
