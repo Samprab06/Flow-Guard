@@ -1,0 +1,2 @@
+nohup: ignoring input
+scripts/launch_5h_recovery_campaign.sh: line 50: RESULTS_BRANCH: unbound variable

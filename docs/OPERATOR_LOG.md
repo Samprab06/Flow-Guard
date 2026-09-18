@@ -71,3 +71,9 @@
 
 ## 2026-09-17 01:45Z PR opened via fork
 - Forked to EkagraAgarwal/Flow-Guard (already in sync at 780a218), opened cross-fork PR Samprab06/Flow-Guard#4 (experiment/clock-exhaustive -> main). Direct PR blocked (not collaborator).
+
+## 2026-09-17 03:50Z disk prune + main sync
+- Merged experiment/clock-exhaustive into main (clean merge over cleanup commit e982705) -> main a8966e3 on origin.
+- Pruned legacy /home/ubuntu/Flow-Guard (10G -> 1.4G): removed recovery_5h_v1/v2/v4, pilot_repaired_tile_v1/v2, server_experiment_runs; step dirs pruned for pilot_repaired_tile_v3 + recovery_5h_v3, aggregates/configs/ledgers/final kept.
+- Pruned FlowGuard-recovery (113G -> 7.3G): exhaustive raw runs reduced to 2 representative trials + all ledgers/configs/aggregates; recovery_5h_v8 raw dropped (ledger kept); step dirs pruned for hunts/diag/repeat/init/primary (final/, status, aggregate, config kept). Host free 11G -> 125G.
+- Launched validate_winners_v1 (4 fresh configs at the winning region, incl. 2 repeats) for fresh validation + signoff artifacts.

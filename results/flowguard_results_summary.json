@@ -1,0 +1,98 @@
+{
+  "by_namespace": {
+    "clock_hunt_15p8ns_v1": {
+      "fails": 3,
+      "feasible": 5,
+      "trials": 8
+    },
+    "clock_hunt_16ns_v1": {
+      "fails": 1,
+      "feasible": 7,
+      "trials": 8
+    },
+    "diag_15p8_v1": {
+      "fails": 3,
+      "feasible": 11,
+      "trials": 14
+    },
+    "exhaustive_clock_sweep_v1": {
+      "fails": 175,
+      "feasible": 310,
+      "trials": 485
+    },
+    "primary-flowguard_calibrated-v1": {
+      "fails": 1,
+      "feasible": 15,
+      "trials": 16
+    },
+    "primary-flowguard_raw-v1": {
+      "fails": 5,
+      "feasible": 11,
+      "trials": 16
+    },
+    "primary-init-v1": {
+      "fails": 6,
+      "feasible": 2,
+      "trials": 8
+    },
+    "primary-optuna_tpe-v1": {
+      "fails": 3,
+      "feasible": 13,
+      "trials": 16
+    },
+    "primary-random-v1": {
+      "fails": 4,
+      "feasible": 12,
+      "trials": 16
+    },
+    "primary-vanilla_bo-v1": {
+      "fails": 0,
+      "feasible": 16,
+      "trials": 16
+    },
+    "repeat_15p8_med_v1": {
+      "fails": 0,
+      "feasible": 3,
+      "trials": 3
+    }
+  },
+  "partial": [],
+  "primary_methods": {
+    "flowguard_calibrated": {
+      "best_candidate": "cand_014",
+      "best_qor": 0.10285609695918102,
+      "calls": 16,
+      "fails": 1,
+      "feasible": 15
+    },
+    "flowguard_raw": {
+      "best_candidate": "cand_014",
+      "best_qor": 0.10285609695918102,
+      "calls": 16,
+      "fails": 5,
+      "feasible": 11
+    },
+    "optuna_tpe": {
+      "best_candidate": "cand_014",
+      "best_qor": 0.10285609695918102,
+      "calls": 16,
+      "fails": 3,
+      "feasible": 13
+    },
+    "random": {
+      "best_candidate": "cand_026",
+      "best_qor": 0.1694855981853177,
+      "calls": 16,
+      "fails": 4,
+      "feasible": 12
+    },
+    "vanilla_bo": {
+      "best_candidate": "cand_016",
+      "best_qor": 0.10285609695918102,
+      "calls": 16,
+      "fails": 0,
+      "feasible": 16
+    }
+  },
+  "total_trials": 606
+}

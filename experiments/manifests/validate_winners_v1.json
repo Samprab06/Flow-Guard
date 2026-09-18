@@ -1,0 +1,56 @@
+{
+  "configs": [
+    {
+      "clock_ns": 15.8,
+      "note": "fresh validation of winner cand_014 (rep 1)",
+      "trial_suffix": "v1",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "fresh validation of winner cand_014 (rep 2)",
+      "trial_suffix": "v2",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 52,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "winner region density check d45",
+      "trial_suffix": "d45",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 45,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    },
+    {
+      "clock_ns": 15.8,
+      "note": "winner region density check d38",
+      "trial_suffix": "d38",
+      "vars": {
+        "FP_CORE_UTIL": 30,
+        "GPL_CELL_PADDING": 0,
+        "GRT_ADJUSTMENT": 0.2,
+        "PL_TARGET_DENSITY_PCT": 38,
+        "SYNTH_STRATEGY": "AREA 0"
+      }
+    }
+  ],
+  "derived_from": "primary_benchmark_v1 winners (cand_014 family, 3 methods tied at QoR 0.1029)",
+  "manifest_id": "validate_winners_v1",
+  "namespace": "validate_winners_v1",
+  "timeout_s": 1800
+}

@@ -1,0 +1,126 @@
+{
+ "methods": {
+  "random": {
+   "state": "complete",
+   "n": 16,
+   "feasible": 12,
+   "best_qor": 0.169486
+  },
+  "optuna_tpe": {
+   "state": "complete",
+   "n": 16,
+   "feasible": 13,
+   "best_qor": 0.102856
+  },
+  "vanilla_bo": {
+   "state": "complete",
+   "n": 16,
+   "feasible": 16,
+   "best_qor": 0.102856
+  },
+  "flowguard_raw": {
+   "state": "complete",
+   "n": 16,
+   "feasible": 11,
+   "best_qor": 0.102856
+  },
+  "flowguard_calibrated": {
+   "state": "not-started",
+   "n": 0
+  },
+  "shared_init": {
+   "state": "complete",
+   "n": 8,
+   "feasible": 2,
+   "best_qor": 0.486474
+  }
+ },
+ "notes": [
+  "flowguard_calibrated: not-started (no trials.jsonl)"
+ ],
+ "cliff": {
+  "n17": 325,
+  "f17": 310,
+  "n15": 160,
+  "f15": 0,
+  "ws17_min": 0.863,
+  "ws17_max": 1.915,
+  "ws15_min": -1.137,
+  "ws15_max": -0.085
+ },
+ "boundary": {
+  "hunt158": "5/8",
+  "diag": "11/14",
+  "repeat": "3/3 identical"
+ },
+  "pool158_n": 72,
+ "padding_rate": {
+  "2": [
+   20,
+   35
+  ],
+  "1": [
+   7,
+   7
+  ],
+  "0": [
+   42,
+   46
+  ]
+ },
+ "strategy_rate": {
+  "AREA 1": [
+   12,
+   19
+  ],
+  "AREA 0": [
+   51,
+   51
+  ],
+  "AREA 2": [
+   6,
+   18
+  ]
+ },
+ "winner": {
+  "trial_id": "primary-optuna_tpe-cand_014",
+  "qor": 0.10285609695918102,
+  "area": 15137,
+  "wirelength": 27229,
+  "setup_ws": 0.6159,
+  "hold_ws": 0.1122,
+  "knobs": {
+   "CLOCK_PERIOD": 15.8,
+   "FP_CORE_UTIL": 30,
+   "GPL_CELL_PADDING": 0,
+   "GRT_ADJUSTMENT": 0.2,
+   "PL_TARGET_DENSITY_PCT": 52,
+   "SYNTH_STRATEGY": "AREA 0"
+  },
+   "gds": "pitch/renders/FlowGuard-recovery__results__primary-optuna_tpe-v1__runs__trial_primary-optuna_tpe-cand_014__final__gds__tt_um_flowguard_stress.gds.png",
+   "gds_bytes": 0
+ },
+ "decision": {
+  "call_index": 11,
+  "selected_id": "cand_014",
+  "ei": 0.02539734134960686,
+  "p_feas": 0.9,
+  "acquisition_score": 0.022857607214646174,
+  "n_scored": 61,
+  "training_size": 11,
+  "seed": 1340,
+  "data_hash": "8dfeaf7d3fee93387959605eb6ed3a679786baedc5bfe4b7454f44aab30e2f8c",
+  "calibration_detail": "uncalibrated-rf",
+  "model_versions": {
+   "numpy": "2.5.3",
+   "optuna": "5.0.0",
+   "scikit-learn": "1.9.1",
+   "scipy": "1.18.1"
+  }
+ },
+ "waste": {
+  "doomed_runs": 175,
+  "doomed_hours": 7.93,
+  "useful_hours": 14.62
+ }
+}

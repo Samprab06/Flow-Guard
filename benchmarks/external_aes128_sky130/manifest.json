@@ -1,0 +1,101 @@
+{
+  "artifact_tree": "benchmarks/external_aes128_sky130/ + designs/openroad_aes128_sky130/ (new paths only; no primary file modified)",
+  "budget_cap_s": 21600,
+  "characterization_batch_prespecified": {
+    "batch_id": "aes128-char-v1",
+    "depends_on": "baseline trial aes128-conservative-baseline-v1 must be FEASIBLE first; do NOT run before",
+    "trials": [
+      {
+        "config_delta": {},
+        "purpose": "determinism repeat of baseline",
+        "trial_id": "aes128-repeat-r1"
+      },
+      {
+        "config_delta": {},
+        "purpose": "determinism repeat of baseline",
+        "trial_id": "aes128-repeat-r2"
+      },
+      {
+        "config_delta": {
+          "PL_TARGET_DENSITY_PCT": 60
+        },
+        "purpose": "single-knob density probe at frozen 20 ns clock",
+        "trial_id": "aes128-density60-p1"
+      },
+      {
+        "config_delta": {
+          "SYNTH_STRATEGY": "AREA 1"
+        },
+        "purpose": "single-knob synth-strategy probe at frozen 20 ns clock",
+        "trial_id": "aes128-synth-area1-p1"
+      }
+    ]
+  },
+  "clock_ns": 20.0,
+  "created_utc": "2026-09-18",
+  "design": {
+    "build_top": "aes_cipher_top",
+    "clock_port": "clk",
+    "excluded_from_build": [
+      "aes_inv_cipher_top.v",
+      "aes_inv_sbox.v"
+    ],
+    "reset": "rst active-low",
+    "rtl": [
+      "aes_cipher_top.v",
+      "aes_key_expand_128.v",
+      "aes_rcon.v",
+      "aes_sbox.v"
+    ]
+  },
+  "flow": {
+    "container_digest": "sha256:f91b21d75f79871f9ccf37451020b5d2f7b3236881a997ff709c561e8280a30f",
+    "knobs": {
+      "CLOCK_PERIOD": 20.0,
+      "FP_CORE_UTIL": 35,
+      "PL_TARGET_DENSITY_PCT": 45
+    },
+    "librelane": "3.0.14",
+    "pdk": "sky130A",
+    "pdk_revision": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+    "scl": "sky130_fd_sc_hd"
+  },
+  "gates": {
+    "gate1a_functional": {
+      "command": "./benchmarks/external_aes128_sky130/run_verify.sh",
+      "criterion": "VERIFY-PASS over 38 vectors + reset/done protocol checks"
+    },
+    "gate1b_synth_sanity": {
+      "criterion": "verilator lint clean; yosys generic synth elaborates with no blackboxes"
+    },
+    "gate1c_baseline": {
+      "criterion": "runner SUCCESS + parser FEASIBLE (setup_ws>=0, hold_ws>=0, routing 100, DRC 0, LVS+signoff true, no missing metrics)",
+      "timeout_s": 7200,
+      "trial_id": "aes128-conservative-baseline-v1"
+    }
+  },
+  "namespace": "external_aes128_sky130",
+  "oracle": {
+    "library": "cryptography 42.0.0 (OpenSSL-backed AES-ECB)",
+    "random_count": 32,
+    "random_seed": 2645,
+    "vectors_file": "benchmarks/external_aes128_sky130/vectors.hex"
+  },
+  "policy": {
+    "broad_optimizer_comparison": "FORBIDDEN before status is reported to lead",
+    "optimizer_changes": "none; FlowGuard algorithm untouched",
+    "primary_experiment": "untouched; separate namespace/artifact tree"
+  },
+  "upstream": {
+    "design_paths": [
+      "flow/designs/src/aes/",
+      "flow/designs/sky130hd/aes/config.mk",
+      "flow/designs/sky130hd/aes/constraint.sdc"
+    ],
+    "repo": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts",
+    "revision": "95ebc50a258390f4c7896e5f04db743f62279c2d",
+    "revision_note": "upstream master HEAD as resolved by git ls-remote on 2026-09-18",
+    "upstream_clock_sdc_ns": 3.6,
+    "upstream_core_util": 35
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "DESIGN_NAME": "aes_cipher_top",
+  "VERILOG_FILES": [
+    "dir::src/aes_cipher_top.v",
+    "dir::src/aes_key_expand_128.v",
+    "dir::src/aes_rcon.v",
+    "dir::src/aes_sbox.v"
+  ],
+  "CLOCK_PORT": "clk",
+  "CLOCK_PERIOD": 20.0,
+  "FP_CORE_UTIL": 35,
+  "PL_TARGET_DENSITY_PCT": 45,
+  "pdk::sky130A": {
+    "scl::sky130_fd_sc_hd": {
+      "CLOCK_PERIOD": 20.0
+    }
+  }
+}
