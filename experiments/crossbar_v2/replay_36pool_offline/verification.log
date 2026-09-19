@@ -1,0 +1,5 @@
+ps_before={"eda_count": 0, "eda_matches": [], "ps_available": true, "total_processes": 237}
+ps_after={"eda_count": 0, "eda_matches": [], "ps_available": true, "total_processes": 238}
+static_guard_notes=[]
+physical_runs_launched=0
+data_source=experiments/crossbar_v2/char36_results_ledger.json
