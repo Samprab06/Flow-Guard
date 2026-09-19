@@ -1,0 +1,23 @@
+{
+  "CLOCK_PERIOD": 19.9,
+  "CLOCK_PORT": "clk",
+  "DESIGN_NAME": "crossbar_datapath_v2",
+  "DIE_AREA": [
+    0.0,
+    0.0,
+    320.0,
+    200.0
+  ],
+  "FP_CORE_UTIL": 30,
+  "FP_SIZING": "absolute",
+  "GPL_CELL_PADDING": 2,
+  "GRT_ADJUSTMENT": 0.2,
+  "PL_TARGET_DENSITY_PCT": 45,
+  "SYNTH_STRATEGY": "AREA 2",
+  "VERILOG_FILES": "dir::../src/crossbar_datapath_v2.sv",
+  "pdk::sky130A": {
+    "scl::sky130_fd_sc_hd": {
+      "CLOCK_PERIOD": 19.9
+    }
+  }
+}

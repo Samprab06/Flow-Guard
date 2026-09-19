@@ -1,0 +1,11 @@
+[2026-09-19T04:52:07.836884Z] SENTINEL RUN cb36_005_sentinel01 (knobs of cb36_005) ...
+[2026-09-19T05:04:55.697420Z] SENTINEL DONE cb36_005_sentinel01 status=SUCCESS
+[2026-09-19T05:04:55.702930Z] SENTINEL RUN cb36_029_sentinel01 (knobs of cb36_029) ...
+[2026-09-19T05:13:37.587817Z] SENTINEL DONE cb36_029_sentinel01 status=SUCCESS
+{
+  "sentinels": [
+    "cb36_005_sentinel01",
+    "cb36_029_sentinel01"
+  ],
+  "path": "experiments/crossbar_v2/char36_sentinels.json"
+}
