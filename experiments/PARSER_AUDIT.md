@@ -20,8 +20,13 @@ crossbar result was changed by this audit.
 - The project dossier records the prior parser correction at
   `docs/PROJECT_DOSSIER.md:294-296`, before the frozen primary comparison
   summary at `docs/PROJECT_DOSSIER.md:261-275`.
-- Primary optimizer ledgers are local-only, but the reported primary sequence
-  is the corrected post-fix sequence; no stale/clamped timing sequence was
+- The available primary ledgers (`primary-init-v1`, `primary-random-v1`,
+  `primary-optuna_tpe-v1`, `primary-vanilla_bo-v1`,
+  `primary-flowguard_raw-v1`, and `primary-flowguard_calibrated-v1`) have
+  `metrics.WNS` matching `metrics.setup_ws` for clean and failed trials.
+- The primary launcher computes critical delay from `setup_ws`, falling back
+  to `WNS` only when setup slack is absent. The reported primary sequence is
+  therefore corrected post-fix evidence; no stale/clamped timing sequence was
   found requiring rebuild.
 
 ## Crossbar results
@@ -29,6 +34,8 @@ crossbar result was changed by this audit.
 - `experiments/crossbar_v2/char36_results_ledger.json` was produced through
   `src.parser.build_record` and stores parser records, corrected setup slack,
   feasibility checks, runtimes, and physical artifacts for all 36 points.
+- The ledger's nested parser records retain `WNS`, `setup_wns`, and `setup_ws`;
+  replay loading consumes `setup_ws`/the frozen QoR rather than a clamped WNS.
 - `experiments/crossbar_v2/replay_36pool_offline.py` and the 13-seed extension
   read only that measured ledger. They do not recompute or clamp timing values.
 - The 36-point oracle contains 6 feasible and 30 infeasible candidates. The
