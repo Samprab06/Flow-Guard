@@ -54,7 +54,6 @@ has the lowest recorded failed and total evaluation costs.
 | `flowguard/designs/` | bundled FIR and stress designs |
 | `flowguard/tests/` | parser, model, optimizer, and replay regressions |
 | `experiments/crossbar_v2/final_evidence_bundle/` | frozen crossbar study evidence |
-| `presentation/` | editable deck, PDF, script, QA, and renders |
 
 ## Environment setup
 
