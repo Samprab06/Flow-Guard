@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """Recompute aggregates and paired FlowGuard-minus-EI-only differences.
 
-Reads ONLY committed replay outputs (no EDA, no optimizer runs):
-  experiments/crossbar_v2/replay_36pool_combined13/per_seed_method_table.csv
-  experiments/crossbar_v2/replay_36pool_combined13/curves_best_qor_vs_evals.csv
-  experiments/crossbar_v2/replay_36pool_combined13/replay_36pool_combined13_results.json
+Reads ONLY the committed bundle table (no EDA, no optimizer runs):
+  experiments/crossbar_v2/final_evidence_bundle/01_method_seed_table.csv
 
 Writes (into the bundle dir passed as argv[1]):
   03_recomputed_aggregates.json / .csv
@@ -21,9 +19,8 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[4]
-COMBINED = ROOT / "experiments/crossbar_v2/replay_36pool_combined13"
-TABLE_CSV = COMBINED / "per_seed_method_table.csv"
+BUNDLE = Path(__file__).resolve().parents[1]
+TABLE_CSV = BUNDLE / "01_method_seed_table.csv"
 ORIGINAL_SEEDS = (11, 29, 47)
 
 
@@ -83,7 +80,7 @@ def main(bundle_dir: str) -> int:
         })
 
     payload = {
-        "source": "experiments/crossbar_v2/replay_36pool_combined13/per_seed_method_table.csv",
+        "source": "experiments/crossbar_v2/final_evidence_bundle/01_method_seed_table.csv",
         "n_rows": 39,
         "original_seeds": list(ORIGINAL_SEEDS),
         "runtime_label": "estimated sequential evaluation costs from recorded physical runs "
@@ -139,4 +136,6 @@ def main(bundle_dir: str) -> int:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        raise SystemExit("usage: recompute_aggregates.py OUTPUT_DIR")
     raise SystemExit(main(sys.argv[1]))
