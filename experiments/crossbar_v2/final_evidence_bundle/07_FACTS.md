@@ -9,6 +9,7 @@
 - Fallback exercised only on seed 101 (`fallback_uses=2`, all methods).
 - Fresh validation: `cb36_002`/`cb36_006` reruns MATCH oracle on every physical metric; runtimes +15.8/+6.8 s wall-clock variance only.
 - Pilot (1337/1339/1340, 6-call, 6-cand pool) is a separate protocol; not comparable to the 36-pool replay.
+- No standalone combined-13 verification log exists; legacy-9 and extension-10 verification logs are preserved, and combined JSON contains before/after zero-EDA process snapshots.
 
 ## Unresolved / must-not-overclaim discrepancies
 
