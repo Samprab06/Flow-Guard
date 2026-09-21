@@ -1,0 +1,7 @@
+{
+  "audit_doc": "experiments/PARSER_AUDIT.md",
+  "corrected_precedence": "src/parser.py:164-166 sets WNS = setup_ws if present, else setup_wns; violation-only *_wns clamp to 0 when clean, so worst slack (WS) is canonical and WNS retained separately",
+  "feasibility_impl": "src/parser.py:187-207 (is_feasible); launcher fallback src/parser.py:89-90 (setup_ws else setup_wns)",
+  "test": "tests/test_parser.py:62-67 (test_worst_slack_takes_precedence_over_violation_only_wns: setup_wns==0, setup_ws==3.9 -> WNS==3.9)",
+  "ledger": "experiments/crossbar_v2/char36_results_ledger.json retains nested parser_record.{WNS, setup_wns, setup_ws}; replay consumes setup_ws / frozen QoR, never a clamped WNS"
+}

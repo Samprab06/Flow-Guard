@@ -1,0 +1,141 @@
+{
+  "label": "FINAL-EVIDENCE-BUNDLE-CROSSBAR-V2",
+  "git_commit": "68ab3f371a4edb72c752f57983ff7d007b2c5e0f",
+  "bundle_commit": "c9583fb",
+  "git_status_at_assembly": "clean source tree before bundle commit",
+  "no_new_runs": true,
+  "no_rtl_edits": true,
+  "no_primary_file_edits": true,
+  "not_committed": false,
+  "frozen_config": {
+    "rtl": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv",
+    "rtl_sha256": "e2848bb40b338e0197162cc58a494a14e73d427c51c02d1b0c2123fac5407d37",
+    "clock_period_ns": 19.9,
+    "die_area_um": [
+      0.0,
+      0.0,
+      320.0,
+      200.0
+    ],
+    "fp_core_util": 30,
+    "pool_manifest": "experiments/pools/pool_crossbar_v2_36_v1.json",
+    "pool_canonical_hash": "4f21960cd30385bc7c995aed84cc85dcc5815b043bbf52d490387265b3933a5b",
+    "characterization_manifest": "experiments/crossbar_v2/characterization_manifest_36pool.json",
+    "oracle_ledger": "experiments/crossbar_v2/char36_results_ledger.json",
+    "protocol": "experiments/crossbar_v2/eval_protocol_v2_frozen_36pool.json",
+    "budget_per_method": "8 shared init + 16 adaptive = 24",
+    "seeds": [
+      11,
+      29,
+      47,
+      101,
+      103,
+      107,
+      109,
+      113,
+      127,
+      131,
+      137,
+      139,
+      149
+    ],
+    "original_seeds": [
+      11,
+      29,
+      47
+    ]
+  },
+  "environment": {
+    "LIBRELANE_CONTAINER_IMAGE": "ghcr.io/librelane/librelane@sha256:f91b21d75f79871f9ccf37451020b5d2f7b3236881a997ff709c561e8280a30f",
+    "LIBRELANE_VERSION": "3.0.14",
+    "PDK": "sky130A",
+    "SKY130_PDK_REVISION": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+    "env_source": "environment/openlane-baseline.env"
+  },
+  "objective": {
+    "baselines": {
+      "max_area_um2": 37504.7,
+      "max_crit_ns": 21.398575528307965,
+      "max_wl_um": 152234.0,
+      "min_area_um2": 36947.9,
+      "min_crit_ns": 19.891500132283074,
+      "min_wl_um": 145247.0
+    },
+    "baselines_source": "min/max over experiments/crossbar_v2/frozen_manifest.json candidate_pool (critical_delay_ns, metrics.wirelength, metrics.area)",
+    "formula": "0.5*(crit-min_crit)/(max_crit-min_crit) + 0.3*(wl-min_wl)/(max_wl-min_wl) + 0.2*(area-min_area)/(max_area-min_area)",
+    "id": "qor_v1_crossbar_v2",
+    "implementation": "src/primary_loop.py:compute_qor (INFEASIBLE_PENALTY=1.0 for vanilla BO)",
+    "normalization": "min-max over frozen pool baselines below; critical_delay_ns = clock_period_ns - setup_ws",
+    "scope": "feasible-only; infeasible outcomes carry qor=null under FlowGuard drivers and the predeclared penalty 1.0 under vanilla BO ranking",
+    "weights": {
+      "cell_area": 0.2,
+      "critical_delay": 0.5,
+      "wirelength": 0.3
+    }
+  },
+  "feasibility": {
+    "rule": "SUCCESS/FEASIBLE + DRC==0 + setup_ws>=0 + hold_ws>=0 + hold_vio==0 + routing==100 + overflow==0 + LVS + signoff + missing==[]",
+    "checks": [
+      "runner_success",
+      "setup_nonnegative",
+      "hold_nonnegative",
+      "hold_violations_zero",
+      "routing_complete",
+      "routing_overflow_zero_or_unreported",
+      "drc_zero",
+      "lvs_passed",
+      "signoff_passed",
+      "missing_metrics_empty"
+    ],
+    "implementation": "src/parser.py:is_feasible"
+  },
+  "sources": [
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_combined13/per_seed_method_table.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/01_method_seed_table.csv",
+      "sha256": "2c5370671dc8aad7466ed78fbe778f082b27191f2ec6845192ec5e2812134300",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_combined13/curves_best_qor_vs_evals.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_combined13.csv",
+      "sha256": "14238fd5c25b2ff95811cb0045eeffb5565bcc1cf84ea75c4e021df9e042e31b",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_offline/curves_best_qor_vs_evals.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_offline9.csv",
+      "sha256": "edcaaf45f12826efd1330cb719b46d0c3eefea8546db5dd692b1585b36d6574c",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_ext10/curves_best_qor_vs_evals.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_ext10.csv",
+      "sha256": "69d94599221506779df633e1371d1dbdf7dc0a306a8ecf3c5cdd5ca49d2668ca",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_offline/per_seed_method_table.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/02_traces/table_committed_offline9.csv",
+      "sha256": "94c32327fe515a861bb5be4078ac3ae2938a0b1ddd9a86ef90b6f04764ee41aa",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_ext10/per_seed_method_table.csv",
+      "bundle_copy": "experiments/crossbar_v2/final_evidence_bundle/02_traces/table_committed_ext10.csv",
+      "sha256": "369486561d661594b23d0bd0ee8657a52f1a4321c317449555f52f72c1b5ca43",
+      "verbatim": true
+    },
+    {
+      "path": "experiments/crossbar_v2/replay_36pool_combined13/replay_36pool_combined13_results.json",
+      "sha256": "03f81158119bd9977dfde4bb9f20e541dc8102849286fb2f6fb861980f9c2cbb",
+      "note": "39 traces x 24 calls; too large to duplicate, flattened to 02_traces/per_evaluation_traces.{csv,json}"
+    },
+    {
+      "path": "experiments/crossbar_v2/char36_results_ledger.json",
+      "sha256": "421980b30230ba69907b547beece7b4ed3e258c9d538f82e432e74b65f858b72",
+      "note": "36-point physical oracle; 6 feasible, 0 null/inf runtimes"
+    }
+  ]
+}

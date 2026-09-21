@@ -1,0 +1,41 @@
+{
+  "git_commit": "f0fa483",
+  "git_clean": true,
+  "row_checks": {
+    "method_seed_table_rows": 39,
+    "trace_rows": 936,
+    "curve_rows": 936,
+    "inf_cells_preserved": 96
+  },
+  "recompute": "03 recompute asserts passed (13-seed tie; means 13046.8/14378.0/14994.8; paired FG-EI dQoR=0 and dCall=0 on all seeds)",
+  "no_runs_launched": true,
+  "no_rtl_or_primary_edits": true,
+  "committed": true,
+  "files": [
+    "experiments/crossbar_v2/final_evidence_bundle/00_MANIFEST.json",
+    "experiments/crossbar_v2/final_evidence_bundle/00_MANIFEST.md",
+    "experiments/crossbar_v2/final_evidence_bundle/01_method_seed_table.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_combined13.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_ext10.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/curves_committed_offline9.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/per_evaluation_traces.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/per_evaluation_traces.json",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/table_committed_ext10.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/02_traces/table_committed_offline9.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/03_paired_flowguard_minus_eionly.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/03_paired_flowguard_minus_eionly.json",
+    "experiments/crossbar_v2/final_evidence_bundle/03_recomputed_aggregates.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/03_recomputed_aggregates.json",
+    "experiments/crossbar_v2/final_evidence_bundle/04_curves_best_qor_vs_evals.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/04_runtime_costs.csv",
+    "experiments/crossbar_v2/final_evidence_bundle/05_parser_audit.json",
+    "experiments/crossbar_v2/final_evidence_bundle/05_parser_audit.md",
+    "experiments/crossbar_v2/final_evidence_bundle/06_demo.json",
+    "experiments/crossbar_v2/final_evidence_bundle/06_demo.md",
+    "experiments/crossbar_v2/final_evidence_bundle/07_FACTS.json",
+    "experiments/crossbar_v2/final_evidence_bundle/07_FACTS.md",
+    "experiments/crossbar_v2/final_evidence_bundle/scripts/assemble_bundle.py",
+    "experiments/crossbar_v2/final_evidence_bundle/scripts/recompute_aggregates.py"
+  ],
+  "combined_verification_log": "No standalone combined-13 verification.log; ext10 and legacy verification.log files are preserved separately, while combined JSON contains before/after process snapshots."
+}

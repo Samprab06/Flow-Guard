@@ -1,0 +1,28 @@
+{
+  "confirmed": {
+    "oracle": "36 entries, 6 feasible (cb36_001/002/005/006/009/010), 2 distinct feasible QoR (-0.09306823743826212 x3 at 002/006/010, 0.3112996180098017 x3 at 001/005/009)",
+    "ledger_runtimes": "all 36 runtime_s finite; 0 null, 0 inf",
+    "curves_inf_cells": "96 empty best_feasible_qor cells in combined curves (pre-first-feasible = +inf); preserved as empty + flag",
+    "primary_endpoint": "final best feasible QoR ties 3-way on all 13 seeds",
+    "time_to_best": "FlowGuard == EI-only on all 13 seeds; both beat Vanilla by 5-6 calls on seeds 11/29/101/131; other 9 seeds decided in shared init",
+    "fallback": "pre-feasible RF fallback exercised only on seed 101 (fallback_uses=2, all methods)",
+    "fresh_validation": "cb36_002/cb36_006 clean reruns MATCH oracle on all physical metrics; runtimes +15.8/+6.8 s wall-clock variance only",
+    "pilot_vs_36pool": "pilot (seeds 1337/1339/1340, 6-call, 6-cand pool) is a separate protocol from the 36-pool replay; not comparable"
+  },
+  "unresolved_discrepancies": {
+    "qor_display_rounding": "reports print -0.093068237 / 0.311299618 (9dp); JSON/ledger carry full -0.09306823743826212 / 0.3112996180098017",
+    "runtime_two_timings": "ledger runtime_s (authoritative, used in sums; e.g. cb36_002 607.8006902540001) vs launch_s (coarse launcher wall, e.g. 607.9)",
+    "seed47_init_luck": "best arm cb36_002 sits in shared init (call 8); curves coincide by construction, not policy",
+    "feasible_count_gap": "Vanilla collects 6.0 feasible/trace vs FlowGuard 4.38 vs EI-only 3.38 yet ties on best QoR \u2014 extra feasible arms are QoR-duplicates"
+  },
+  "source_paths": {
+    "oracle": "experiments/crossbar_v2/char36_results_ledger.json",
+    "combined_table": "experiments/crossbar_v2/replay_36pool_combined13/per_seed_method_table.csv",
+    "combined_curves": "experiments/crossbar_v2/replay_36pool_combined13/curves_best_qor_vs_evals.csv",
+    "combined_results": "experiments/crossbar_v2/replay_36pool_combined13/replay_36pool_combined13_results.json",
+    "offline_report": "experiments/crossbar_v2/replay_36pool_offline/REPORT.md",
+    "combined_report": "experiments/crossbar_v2/replay_36pool_combined13/REPORT.md",
+    "parser_audit": "experiments/PARSER_AUDIT.md",
+    "fresh_validation": "experiments/crossbar_v2/fresh_validation_20260919/"
+  }
+}

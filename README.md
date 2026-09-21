@@ -10,60 +10,50 @@ The answer under test is an acquisition that multiplies Expected Improvement by
 the probability of feasibility (`EI x P(feasible)`), with a Gaussian Process
 trained on feasible trials only and a Random Forest trained on every attempt.
 
-## Status (2026-09-17)
+## Status (2026-09-20)
 
-The project has a frozen, validated benchmark and a running five-method
-comparison on real SKY130/LibreLane runs. The design under test is the dense
-sensor MAC `tt_um_flowguard_stress` (728 synthesized cells) on an assumed 2x1
-TinyTapeout tile (320x100 um).
+The completed primary study is the frozen crossbar-v2 measured-oracle replay.
+It compares Vanilla penalty BO, FlowGuard-Calibrated, and matched EI-only over
+13 seeds. Replay launches no physical EDA; it attaches recorded outcomes from
+36 previously measured SKY130/LibreLane configurations.
 
-**Frozen benchmark: `experiments/manifests/primary_benchmark_v1.json`**
+**Frozen evidence: `experiments/crossbar_v2/final_evidence_bundle/`**
 
 | Setting | Value |
 |---|---|
-| Clock | **15.8 ns** (fixed; never an optimizer variable) |
+| Clock | **19.9 ns** (fixed; never an optimizer variable) |
 | Knobs | `GPL_CELL_PADDING {0,2}`, `SYNTH_STRATEGY {AREA 0,1,2}`, `PL_TARGET_DENSITY_PCT {38,45,52}`, `GRT_ADJUSTMENT {0.05,0.10,0.15,0.20}` |
-| Fixed | `FP_CORE_UTIL 30` (measured to have zero effect) |
-| Pool | 72 candidates, seed 0, sha256 `6c41874c...` (`experiments/pools/pool_15p8_v1.json`) |
+| Fixed | Crossbar RTL, die area 320x200 um, `FP_CORE_UTIL 30`, pinned environment |
+| Oracle | 36 measured configurations: 6 feasible, 30 infeasible |
 | Budget | 8 shared init + 16 adaptive per method |
-| Objective | `qor_v1` = 0.5 critical delay + 0.3 wirelength + 0.2 cell area (`experiments/objective_qor_v1.json`) |
+| Objective | `qor_v1_crossbar_v2` = 0.5 critical delay + 0.3 wirelength + 0.2 cell area |
 | Flow | LibreLane 3.0.14, sky130A rev `8afc8346...`, pinned container digest |
 
-**Feasibility boundary characterization:** 17 ns broadly passes (310/325
-feasible, worst setup slack 0.86-1.92 ns); 15 ns broadly fails (0/160 feasible,
-all setup timing failures); 16.0 ns 7/8; **15.8 ns 5/8**, diagnostics 11/14.
-Repeats are bit-identical, so the flow is deterministic.
+**Completed 13-seed comparison (means; lower cost is better):**
 
-**Primary comparison (best QoR, lower is better):**
+| Method | Failed EDA seconds | Total EDA seconds | Final QoR |
+|---|---|---|---|
+| Vanilla penalty BO | 13,046.8 | 17,230.7 | -0.093068237 |
+| FlowGuard-Calibrated | 14,378.0 | 17,307.3 | -0.093068237 |
+| EI-only | 14,994.8 | 17,272.8 | -0.093068237 |
 
-| Method | Calls | Feasible | Fails | Best QoR |
-|---|---|---|---|---|
-| Random | 16 | 12 | 4 | 0.1695 |
-| Optuna TPE | 16 | 13 | 3 | 0.1029 |
-| Vanilla penalty BO | 16 | 16 | 0 | 0.1029 |
-| FlowGuard-Raw | 16 | 11 | 5 | 0.1029 |
-| FlowGuard-Calibrated | running | — | — | — |
-
-The best configuration (`cand_014`: padding 0, GRT 0.20, AREA 0) was reached
-independently by three methods. Its layout render and GDS are preserved under
-`results/primary-optuna_tpe-v1/runs/trial_primary-optuna_tpe-cand_014/final/`.
+All methods tie final QoR for every seed. FlowGuard and EI-only reach their best
+candidate at identical evaluations for every seed. FlowGuard's failed-runtime
+mean is 4.11% lower than EI-only's, with slightly higher total runtime; Vanilla
+has the lowest recorded failed and total evaluation costs.
 
 ## Repository layout
 
 | Path | Contents |
 |---|---|
-| `src/runner.py` | deterministic single-trial LibreLane runner (Docker, pinned env, immutable trials) |
-| `src/parser.py` | evidence parsing, worst-slack precedence, failure taxonomy, feasibility gate |
-| `src/config_schema.py` | strict LibreLane 3.0.14 knob contract and canonical config hashing |
-| `src/models.py` | feasibility Random Forest and feasible-only QoR Gaussian Process |
-| `src/acquire.py` | risk-aware acquisition (EI x P(feasible)) |
-| `src/primary_loop.py` | the five optimizer drivers + full AI provenance |
-| `scripts/launch_*.sh` | campaign launchers (characterization hunts and primary comparison) |
-| `designs/flowguard_fir/` | fixed CSD FIR, 428 cells, full timing/DRC/LVS pass |
-| `designs/flowguard_stress/` | dense sensor MAC, 728 cells, the tuning target |
-| `experiments/` | frozen manifests, pools, objective, analysis helper |
-| `docs/OPERATOR_LOG.md` | append-only operator/experiment history |
-| `docs/incidents/` | invalid-run incident records |
+| `flowguard/runner/` | deterministic single-trial LibreLane runner |
+| `flowguard/metrics/parser.py` | evidence parsing and feasibility gate |
+| `flowguard/models/` | feasibility Random Forest and feasible-only QoR GP |
+| `flowguard/optimizers/` | optimizer drivers and decision provenance |
+| `flowguard/scripts/` | setup, physical-run, and campaign launchers |
+| `flowguard/designs/` | bundled FIR and stress designs |
+| `flowguard/tests/` | parser, model, optimizer, and replay regressions |
+| `experiments/crossbar_v2/final_evidence_bundle/` | frozen crossbar study evidence |
 
 ## Environment setup
 
@@ -72,10 +62,10 @@ Linux/amd64 container digest, and the compatible Sky130 PDK revision. The
 dependency lock targets Python 3.12. On Ubuntu with Docker available:
 
 ```bash
-./scripts/openlane-setup.sh
-./scripts/openlane-smoke.sh
-./scripts/openlane-run.sh
-./scripts/openlane-run.sh flowguard_fir
+bash flowguard/scripts/openlane-setup.sh
+bash flowguard/scripts/openlane-smoke.sh
+bash flowguard/scripts/openlane-run.sh
+bash flowguard/scripts/openlane-run.sh flowguard_fir
 ```
 
 `openlane-setup.sh` creates an ignored virtual environment, downloads the
@@ -91,11 +81,11 @@ parser changes.
 
 ```bash
 # Fixed-clock boundary hunt (never launches an optimizer)
-bash scripts/launch_clock_hunt.sh --namespace <namespace> \
-  --hunt experiments/manifests/clock_hunt_15p8ns_v1.json --hours 5
+bash flowguard/scripts/launch_clock_hunt.sh --namespace <namespace> \
+  --hunt flowguard/experiments/manifests/clock_hunt_15p8ns_v1.json --hours 5
 
 # One primary optimizer method over the frozen pool
-bash scripts/launch_primary_v1.sh --method flowguard_raw \
+bash flowguard/scripts/launch_primary_v1.sh --method flowguard_raw \
   --shared-from primary-init-v1 --budget 24 --hours 5
 ```
 
@@ -138,23 +128,80 @@ directories from timing-fail trials while retaining all audit evidence.
 ## Tests
 
 ```bash
-python3 -m unittest discover -s tests
+python3 -m unittest discover -s flowguard/tests
 ```
 
 The model/acquisition and primary-loop tests require numpy, scikit-learn,
-scipy, and optuna (see `requirements.txt`).
+scipy, and optuna (see `flowguard/requirements.txt`).
 
 ## Related work
 
-`chipignite/` is a data-only scaffold for screening external SKY130/Open-MPW
+`flowguard/chipignite/` is a data-only scaffold for screening external SKY130/Open-MPW
 designs; the catalog tooling is offline and no external design has been
 hardened by this project yet.
 
 ## Assumptions and limitations
 
-- The 2x1 horizontal-abutment tile is an assumption, not a validated
-  TinyTapeout/Oracle integration allocation.
-- The stress design naturally produces a timing boundary; it does not generate
-  routing/DRC failure diversity.
-- Raw artifacts live on the experiment server; Git carries code, manifests,
-  frozen contracts, and compact evidence only.
+- The primary result is an offline replay over a measured 36-point oracle, not
+  a new physical campaign or live-search wall-time measurement.
+- Recorded EDA `runtime_s` sums estimate sequential evaluation cost; optimizer
+  overhead is reported separately.
+- No standalone combined-13 verification log exists; the combined result keeps
+  before/after zero-process snapshots.
+- The deck's `cb36_002` PNG is authentic but comes from a separate banked
+  characterization run linked by candidate ID.
+
+## Archived replay demo
+
+The smallest offline demo is an **archived measured-evidence replay**. It
+re-reads the committed decision and measurement in
+`experiments/crossbar_v2/final_evidence_bundle/06_demo.json`, checks the frozen settings and
+provenance, and prints the recorded result:
+
+```bash
+python3 experiments/replay_demo.py
+```
+
+Prerequisite: Python 3.12+; the replay itself uses only the standard library.
+It was smoke-tested with Python 3.13.14. Expected output includes
+`REPLAY: ... physical EDA processes launched: 0`, the source/bundle revisions,
+the frozen 19.9 ns setting, selected `cb36_002`, and a final
+`FRESH EDA: not run` line. The raw measured fields and optimizer provenance
+are in `experiments/crossbar_v2/final_evidence_bundle/06_demo.json`; the
+bundle manifest, 39 method-by-seed rows, 936 traces, aggregates, parser audit,
+and validation are beside it. `06_demo.json` links seed 11, call 10, and
+`cb36_002`; its layout is from the separately preserved characterization run,
+not replay. These are evidence sources, not new measurements.
+
+The exact verification commands used for this deliverable were:
+
+```bash
+python3 experiments/replay_demo.py
+python3 -m unittest flowguard.tests.test_replay_demo flowguard.tests.test_parser
+python3 -m unittest discover -s flowguard/tests
+```
+
+The replay passed, replay plus parser regressions passed 13 tests, and the full
+suite passed 38 tests after installing the declared `optuna>=3.0` dependency
+into the existing user environment. This was not a clean-environment install.
+
+This command does not run synthesis, placement, routing, STA, DRC, LVS,
+signoff, or an optimizer. It cannot establish that the current checkout still
+passes: the record belongs to its stated source revision and frozen design,
+constraints, libraries, and tool versions. Cost figures are sums of recorded
+EDA `runtime_s` values, not replay wall time. The combined 13-seed result has
+before/after zero-process snapshots but no standalone combined verification
+log. For a fresh physical check, use the
+actual repository scripts, for example:
+
+```bash
+bash flowguard/scripts/openlane-smoke.sh
+bash flowguard/scripts/openlane-run.sh flowguard_fir
+```
+
+Those commands require Docker, the pinned LibreLane/PDK setup, and substantially
+more time; they are separate from replay. If replay reports missing evidence,
+run it from the repository root and verify that
+`experiments/crossbar_v2/final_evidence_bundle/06_demo.json` is present. If a fresh run cannot find
+Docker or the pinned environment, install the prerequisites and run
+`bash flowguard/scripts/openlane-setup.sh` first.
