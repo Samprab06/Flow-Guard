@@ -1,11 +1,12 @@
 {
   "label": "FINAL-EVIDENCE-BUNDLE-CROSSBAR-V2",
   "git_commit": "68ab3f371a4edb72c752f57983ff7d007b2c5e0f",
-  "git_status_at_assembly": "?? experiments/crossbar_v2/final_evidence_bundle/",
+  "bundle_commit": "c9583fb",
+  "git_status_at_assembly": "clean source tree before bundle commit",
   "no_new_runs": true,
   "no_rtl_edits": true,
   "no_primary_file_edits": true,
-  "not_committed": true,
+  "not_committed": false,
   "frozen_config": {
     "rtl": "designs/crossbar_datapath_v2/src/crossbar_datapath_v2.sv",
     "rtl_sha256": "e2848bb40b338e0197162cc58a494a14e73d427c51c02d1b0c2123fac5407d37",
