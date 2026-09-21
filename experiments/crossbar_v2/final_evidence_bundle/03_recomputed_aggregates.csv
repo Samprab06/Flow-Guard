@@ -1,0 +1,4 @@
+method,n_seeds,mean_best_qor,median_best_qor,mean_feasible_count,median_feasible_count,mean_first_feasible_call,mean_failed_eda_runtime_s,median_failed_eda_runtime_s,mean_total_eda_runtime_s,mean_optimizer_overhead_s,mean_best_qor_call
+vanilla_bo_penalty,13,-0.093068237,-0.093068237,6.0000,6.0,3.4615,13046.770,12793.528,17230.669,0.1583,7.3077
+flowguard_calibrated,13,-0.093068237,-0.093068237,4.3846,4.0,3.4615,14377.986,14429.854,17307.316,3.1995,5.6923
+ei_only_ablation,13,-0.093068237,-0.093068237,3.3846,3.0,3.4615,14994.832,15131.152,17272.751,0.1621,5.6923
