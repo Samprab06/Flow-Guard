@@ -5,7 +5,7 @@ Labels: `OFFLINE-SEQUENTIAL-REPLAY-36POOL` (legacy seeds 11, 29, 47) +
 109, 113, 127, 131, 137, 139, 149) merged verbatim as
 `OFFLINE-SEQUENTIAL-REPLAY-36POOL-COMBINED13`. Cached replay only: no
 EDA/LibreLane launches, no optimizer runs outside the replay, no RTL or
-primary-file edits. Nothing committed.
+primary-file edits. Results are committed in the final evidence bundle.
 
 ## Frozen protocol (identical for all 13 seeds)
 
