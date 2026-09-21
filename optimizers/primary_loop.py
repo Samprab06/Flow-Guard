@@ -45,7 +45,7 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, RBF
 from sklearn.preprocessing import StandardScaler
 
-from ..models.models import FROZEN_KNOBS, FeasibilityModel
+from models.models import FROZEN_KNOBS, FeasibilityModel
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 

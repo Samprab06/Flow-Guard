@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from flowguard.chipignite.inventory import inventory_path
-from flowguard.chipignite.report import migration_report
-from flowguard.chipignite.scoring import score_candidate
+from chipignite.inventory import inventory_path
+from chipignite.report import migration_report
+from chipignite.scoring import score_candidate
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

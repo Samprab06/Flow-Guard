@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="$ROOT/flowguard/designs/flowguard_stress/config.2x1.json"
+CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="recovery_5h_v1"
 HOURS="4.75"
 RESUME=0
@@ -95,13 +95,13 @@ preflight() {
   status "preflight: checking repository, runner/parser, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git rev-parse --is-inside-work-tree >/dev/null || die "not a git repository"
-  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "campaign inputs are incomplete"
+  [[ -f $CONFIG && -f $ROOT/runner/runner.py && -f $ROOT/metrics/parser.py ]] || die "campaign inputs are incomplete"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid campaign config"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from flowguard.runner.config_schema import validate_config
+from runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle:
     validate_config(json.load(handle))
 PY

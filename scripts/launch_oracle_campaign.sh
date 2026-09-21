@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="$ROOT/flowguard/designs/flowguard_stress/config.2x1.json"
+CONFIG="$ROOT/designs/flowguard_stress/config.2x1.json"
 NAMESPACE="pilot_repaired_tile_v1"
 TIMEOUT_S=7200
 RESUME=0
@@ -69,15 +69,15 @@ preflight() {
   status "preflight: checking repository, pinned environment, runner/parser, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git -C "$ROOT" rev-parse --is-inside-work-tree >/dev/null || die "not a git repository: $ROOT"
-  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "pilot inputs are incomplete"
-  [[ -f $ROOT/flowguard/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
+  [[ -f $CONFIG && -f $ROOT/runner/runner.py && -f $ROOT/metrics/parser.py ]] || die "pilot inputs are incomplete"
+  [[ -f $ROOT/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid pilot JSON"
   docker info >/dev/null 2>&1 || die "Docker daemon is unavailable"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from flowguard.runner.config_schema import validate_config
+from runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle: validate_config(json.load(handle))
 PY
 }

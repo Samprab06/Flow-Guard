@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 
-from flowguard.optimizers.primary_loop import (
+from optimizers.primary_loop import (
     METHODS,
     PROVENANCE_FIELDS,
     compute_pool_hash,
@@ -22,7 +22,7 @@ from flowguard.optimizers.primary_loop import (
     validate_observed,
 )
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def synthetic_pool(n=10):
@@ -54,8 +54,8 @@ def synthetic_observed(pool, n_feasible=3, n_infeasible=2):
 
 class PrimaryPoolTests(unittest.TestCase):
     def test_real_pool_loads_and_matches_manifest(self):
-        pool = load_pool(ROOT / "flowguard/experiments/pools/pool_15p8_v1.json",
-                         ROOT / "flowguard/experiments/manifests/primary_benchmark_v1.json")
+        pool = load_pool(ROOT / "experiments/pools/pool_15p8_v1.json",
+                         ROOT / "experiments/manifests/primary_benchmark_v1.json")
         self.assertEqual(len(pool), 72)
 
     def test_pool_hash_detects_tampering(self):
@@ -68,8 +68,8 @@ class PrimaryPoolTests(unittest.TestCase):
 
     def test_init_ids_from_manifest_else_seeded_order(self):
         pool = synthetic_pool()
-        ids = load_init_ids(ROOT / "flowguard/experiments/manifests/primary_init_v1.json",
-                            load_pool(ROOT / "flowguard/experiments/pools/pool_15p8_v1.json"))
+        ids = load_init_ids(ROOT / "experiments/manifests/primary_init_v1.json",
+                            load_pool(ROOT / "experiments/pools/pool_15p8_v1.json"))
         self.assertEqual(len(ids), 8)
         fallback = load_init_ids(ROOT / "does-not-exist.json", pool)
         self.assertEqual(fallback, [row["candidate_id"] for row in pool[:8]])
