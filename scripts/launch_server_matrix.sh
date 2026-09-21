@@ -66,15 +66,15 @@ fi
 [[ -z $REMOTE_ROOT ]] || die "--remote-root is only valid with --host"
 cd "$ROOT"
 
-[[ -n $CONFIG ]] || CONFIG="$ROOT/flowguard/designs/$DESIGN/config.json"
+[[ -n $CONFIG ]] || CONFIG="$ROOT/designs/$DESIGN/config.json"
 [[ $CONFIG = /* ]] || CONFIG="$ROOT/$CONFIG"
 CONFIG="$(python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$CONFIG")"
 
 for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
 git -C "$ROOT" rev-parse --is-inside-work-tree >/dev/null || die "repository root is invalid: $ROOT"
 [[ -f $CONFIG ]] || die "base config does not exist: $CONFIG"
-[[ -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "src/runner.py and src/parser.py are required"
-[[ -f $ROOT/flowguard/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
+[[ -f $ROOT/runner/runner.py && -f $ROOT/metrics/parser.py ]] || die "runner.py and parser.py are required"
+[[ -f $ROOT/environment/openlane-baseline.env ]] || die "missing pinned LibreLane environment"
 docker info >/dev/null 2>&1 || die "Docker daemon is unavailable (verify headless Docker access)"
 PYTHON="$ROOT/.venv/openlane/bin/python"
 [[ -x $PYTHON ]] || PYTHON=python3

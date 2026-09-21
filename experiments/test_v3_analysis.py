@@ -1,4 +1,4 @@
-from flowguard.experiments.v3_analysis import leave_one_out, summarize
+from experiments.v3_analysis import leave_one_out, summarize
 
 
 def row(trial, feasible, knobs=None, area=100, wns=1):

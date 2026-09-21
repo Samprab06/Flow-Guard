@@ -3,8 +3,8 @@
 set -euo pipefail
 
 root="$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)"
-config="$root/flowguard/designs/flowguard_counter/config.json"
-rtl="$root/flowguard/designs/flowguard_counter/src/tt_um_flowguard_counter.v"
+config="$root/designs/flowguard_counter/config.json"
+rtl="$root/designs/flowguard_counter/src/tt_um_flowguard_counter.v"
 
 python3 - "$config" "$rtl" <<'PY'
 import json
@@ -47,7 +47,7 @@ else
 fi
 
 if [ "${1:-}" = "--container" ]; then
-  exec "$root/flowguard/scripts/openlane-run.sh"
+  exec "$root/scripts/openlane-run.sh"
 elif [ "$#" -ne 0 ]; then
   printf '%s\n' "Usage: $0 [--container]" >&2
   exit 2

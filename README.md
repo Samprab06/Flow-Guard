@@ -46,13 +46,13 @@ has the lowest recorded failed and total evaluation costs.
 
 | Path | Contents |
 |---|---|
-| `flowguard/runner/` | deterministic single-trial LibreLane runner |
-| `flowguard/metrics/parser.py` | evidence parsing and feasibility gate |
-| `flowguard/models/` | feasibility Random Forest and feasible-only QoR GP |
-| `flowguard/optimizers/` | optimizer drivers and decision provenance |
-| `flowguard/scripts/` | setup, physical-run, and campaign launchers |
-| `flowguard/designs/` | bundled FIR and stress designs |
-| `flowguard/tests/` | parser, model, optimizer, and replay regressions |
+| `runner/` | deterministic single-trial LibreLane runner |
+| `metrics/parser.py` | evidence parsing and feasibility gate |
+| `models/` | feasibility Random Forest and feasible-only QoR GP |
+| `optimizers/` | optimizer drivers and decision provenance |
+| `scripts/` | setup, physical-run, and campaign launchers |
+| `designs/` | bundled FIR and stress designs |
+| `tests/` | parser, model, optimizer, and replay regressions |
 | `experiments/crossbar_v2/final_evidence_bundle/` | frozen crossbar study evidence |
 
 ## Environment setup
@@ -62,10 +62,10 @@ Linux/amd64 container digest, and the compatible Sky130 PDK revision. The
 dependency lock targets Python 3.12. On Ubuntu with Docker available:
 
 ```bash
-bash flowguard/scripts/openlane-setup.sh
-bash flowguard/scripts/openlane-smoke.sh
-bash flowguard/scripts/openlane-run.sh
-bash flowguard/scripts/openlane-run.sh flowguard_fir
+bash scripts/openlane-setup.sh
+bash scripts/openlane-smoke.sh
+bash scripts/openlane-run.sh
+bash scripts/openlane-run.sh flowguard_fir
 ```
 
 `openlane-setup.sh` creates an ignored virtual environment, downloads the
@@ -81,11 +81,11 @@ parser changes.
 
 ```bash
 # Fixed-clock boundary hunt (never launches an optimizer)
-bash flowguard/scripts/launch_clock_hunt.sh --namespace <namespace> \
-  --hunt flowguard/experiments/manifests/clock_hunt_15p8ns_v1.json --hours 5
+bash scripts/launch_clock_hunt.sh --namespace <namespace> \
+  --hunt experiments/manifests/clock_hunt_15p8ns_v1.json --hours 5
 
 # One primary optimizer method over the frozen pool
-bash flowguard/scripts/launch_primary_v1.sh --method flowguard_raw \
+bash scripts/launch_primary_v1.sh --method flowguard_raw \
   --shared-from primary-init-v1 --budget 24 --hours 5
 ```
 
@@ -128,15 +128,15 @@ directories from timing-fail trials while retaining all audit evidence.
 ## Tests
 
 ```bash
-python3 -m unittest discover -s flowguard/tests
+python3 -m unittest discover -s tests
 ```
 
 The model/acquisition and primary-loop tests require numpy, scikit-learn,
-scipy, and optuna (see `flowguard/requirements.txt`).
+scipy, and optuna (see `requirements.txt`).
 
 ## Related work
 
-`flowguard/chipignite/` is a data-only scaffold for screening external SKY130/Open-MPW
+`chipignite/` is a data-only scaffold for screening external SKY130/Open-MPW
 designs; the catalog tooling is offline and no external design has been
 hardened by this project yet.
 
@@ -150,6 +150,16 @@ hardened by this project yet.
   before/after zero-process snapshots.
 - The deck's `cb36_002` PNG is authentic but comes from a separate banked
   characterization run linked by candidate ID.
+
+## Final GDS layout
+
+The image below is the verified `cb36_002` physical layout artifact. It is
+linked to the seed-11, call-10 replay decision by candidate ID, but was produced
+by the separately preserved physical characterization run, not by replay.
+
+![Verified cb36_002 final layout](artifacts/cb36_002.png)
+
+Artifact SHA-256: `35fbbd7e0a26f1a8b00f62bfc6b4fe38fdbbfaf35d7f6e1b6b26a744a12dc5de`.
 
 ## Archived replay demo
 
@@ -178,7 +188,7 @@ The exact verification commands used for this deliverable were:
 ```bash
 python3 experiments/replay_demo.py
 python3 -m unittest flowguard.tests.test_replay_demo flowguard.tests.test_parser
-python3 -m unittest discover -s flowguard/tests
+python3 -m unittest discover -s tests
 ```
 
 The replay passed, replay plus parser regressions passed 13 tests, and the full
@@ -195,8 +205,8 @@ log. For a fresh physical check, use the
 actual repository scripts, for example:
 
 ```bash
-bash flowguard/scripts/openlane-smoke.sh
-bash flowguard/scripts/openlane-run.sh flowguard_fir
+bash scripts/openlane-smoke.sh
+bash scripts/openlane-run.sh flowguard_fir
 ```
 
 Those commands require Docker, the pinned LibreLane/PDK setup, and substantially
@@ -204,4 +214,4 @@ more time; they are separate from replay. If replay reports missing evidence,
 run it from the repository root and verify that
 `experiments/crossbar_v2/final_evidence_bundle/06_demo.json` is present. If a fresh run cannot find
 Docker or the pinned environment, install the prerequisites and run
-`bash flowguard/scripts/openlane-setup.sh` first.
+`bash scripts/openlane-setup.sh` first.

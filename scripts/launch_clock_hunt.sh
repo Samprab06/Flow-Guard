@@ -1,28 +1,30 @@
 #!/usr/bin/env bash
+# Clock hunt launcher: runs a frozen config list (experiments/manifests/*.json)
+# at one fixed clock. Same runner/parser/ledger discipline as the exhaustive
+# launcher. Never launches the optimizer.
 set -Eeuo pipefail
 IFS=$'\n\t'
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
-CONFIG="${CONFIG:-$ROOT/flowguard/designs/flowguard_stress/config.2x1.json}"
-NAMESPACE="${NAMESPACE:-exhaustive_clock_sweep_v1}"
+CONFIG="${CONFIG:-$ROOT/designs/flowguard_stress/config.2x1.json}"
+HUNT="${HUNT:-$ROOT/experiments/manifests/clock_hunt_16ns_v1.json}"
+NAMESPACE=""
 HOURS="5"
 DEADLINE=""
 RESUME=0
 PREFLIGHT_ONLY=0
 SAFETY_MARGIN_S=60
 TRIAL_TIMEOUT_S=1800
-TOTAL_TRIALS=648
+PYTHON=""
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/launch_exhaustive_clock_sweep.sh [options]
-
-Run all 648 legal knob combinations at 17ns and 15ns. The optimizer is never
-launched. Raw runs and immutable effective configs stay under results/<namespace>/.
+Usage: scripts/launch_clock_hunt.sh --namespace ID [options]
 
 Options:
-  --namespace ID        Results namespace (default: exhaustive_clock_sweep_v1)
+  --namespace ID        Results namespace (required, e.g. clock_hunt_16ns_v1)
+  --hunt FILE           Hunt manifest (default: experiments/manifests/clock_hunt_16ns_v1.json)
   --hours H             Wall-clock budget (default: 5)
   --deadline TIME       Absolute UTC deadline (ISO-8601, or Unix seconds)
   --resume              Skip trials already recorded in manifest.jsonl
@@ -31,7 +33,7 @@ Options:
 USAGE
 }
 
-die() { printf '%s [%s] ERROR %s\n' "$(date -u +%FT%TZ)" "$NAMESPACE" "$*" >&2; exit 2; }
+die() { printf '%s [%s] ERROR %s\n' "$(date -u +%FT%TZ)" "${NAMESPACE:-hunt}" "$*" >&2; exit 2; }
 status() {
   local message=$*
   printf '%s [%s] %s\n' "$(date -u +%FT%TZ)" "$NAMESPACE" "$message" | tee -a "$STATUS_LOG"
@@ -41,6 +43,7 @@ mono_ns() { python3 -c 'import time; print(time.monotonic_ns())'; }
 while (($#)); do
   case "$1" in
     --namespace) NAMESPACE=${2:?missing value for --namespace}; shift 2 ;;
+    --hunt) HUNT=${2:?missing value for --hunt}; shift 2 ;;
     --hours) HOURS=${2:?missing value for --hours}; shift 2 ;;
     --deadline) DEADLINE=${2:?missing value for --deadline}; shift 2 ;;
     --resume) RESUME=1; shift ;;
@@ -50,8 +53,10 @@ while (($#)); do
   esac
 done
 
+[[ -n $NAMESPACE ]] || die "--namespace is required"
 [[ $NAMESPACE =~ ^[A-Za-z0-9_.-]+$ ]] || die "namespace contains invalid characters"
 [[ $HOURS =~ ^[0-9]+([.][0-9]+)?$ ]] || die "hours must be a positive decimal"
+[[ -f $HUNT ]] || die "hunt manifest not found: $HUNT"
 
 RESULTS="$ROOT/results/$NAMESPACE"
 RUNS_ROOT="$RESULTS/runs"
@@ -103,23 +108,20 @@ PY
 }
 
 preflight() {
-  status "preflight: checking repository, runner/parser, and config"
+  status "preflight: checking repository, runner/parser, hunt manifest, and config"
   for command in git python3 docker; do command -v "$command" >/dev/null || die "missing prerequisite: $command"; done
   git rev-parse --is-inside-work-tree >/dev/null || die "not a git repository"
-  [[ -f $CONFIG && -f $ROOT/flowguard/runner/runner.py && -f $ROOT/flowguard/metrics/parser.py ]] || die "campaign inputs are incomplete"
+  [[ -f $CONFIG && -f $ROOT/runner/runner.py && -f $ROOT/metrics/parser.py ]] || die "campaign inputs are incomplete"
   python3 -m json.tool "$CONFIG" >/dev/null || die "invalid campaign config"
+  python3 -m json.tool "$HUNT" >/dev/null || die "invalid hunt manifest"
   PYTHON="$ROOT/.venv/openlane/bin/python"; [[ -x $PYTHON ]] || PYTHON=python3
   "$PYTHON" -m librelane --help >/dev/null || die "LibreLane is unavailable"
   "$PYTHON" - <<'PY' "$CONFIG"
 import json, sys
-from flowguard.runner.config_schema import validate_config
+from runner.config_schema import validate_config
 with open(sys.argv[1], encoding="utf-8") as handle: validate_config(json.load(handle))
 PY
 }
-
-preflight
-write_status PREFLIGHT_PASSED preflight "budget=${BUDGET_S}s trials=${TOTAL_TRIALS} per_trial_max=${TRIAL_TIMEOUT_S}s"
-if (( PREFLIGHT_ONLY )); then status "preflight complete: no trials launched"; exit 0; fi
 
 ensure_jsonl() { [[ -e $1 ]] || : > "$1"; }
 ensure_jsonl "$MANIFEST"; ensure_jsonl "$TRIALS"
@@ -157,12 +159,29 @@ refresh_summary() {
   python3 - "$TRIALS" "$SUMMARY" "$NAMESPACE" <<'PY'
 import json, pathlib, sys
 rows = [json.loads(line) for line in pathlib.Path(sys.argv[1]).read_text(encoding="utf-8").splitlines() if line.strip()]
-result = {"namespace": sys.argv[3], "expected_trials": 648, "trial_count": len(rows),
-          "clock_counts": {str(clock): sum(r.get("clock_ns") == clock for r in rows) for clock in (17, 15)},
+clocks = sorted({r.get("clock_ns") for r in rows if r.get("clock_ns") is not None})
+result = {"namespace": sys.argv[3], "expected_trials": len(rows),
+          "trial_count": len(rows),
+          "clock_counts": {str(clock): sum(r.get("clock_ns") == clock for r in rows) for clock in clocks},
           "updated_at": rows[-1].get("finished_at") if rows else None}
 pathlib.Path(sys.argv[2]).write_text(json.dumps(result, separators=(",", ":"), sort_keys=True) + "\n", encoding="utf-8")
 PY
 }
+
+preflight
+write_status PREFLIGHT_PASSED preflight "budget=${BUDGET_S}s per_trial_max=${TRIAL_TIMEOUT_S}s hunt=$(basename "$HUNT")"
+if (( PREFLIGHT_ONLY )); then status "preflight complete: no trials launched"; exit 0; fi
+
+HUNT_ROWS=$(python3 - "$HUNT" <<'PY'
+import json, sys
+hunt = json.load(open(sys.argv[1], encoding="utf-8"))
+for entry in hunt["configs"]:
+    v = entry["vars"]
+    clock = entry.get("clock_ns", hunt.get("clock_ns", 16.0))
+    print("\t".join(str(x) for x in (clock, v["FP_CORE_UTIL"], v["PL_TARGET_DENSITY_PCT"],
+          v["GPL_CELL_PADDING"], v["GRT_ADJUSTMENT"], v["SYNTH_STRATEGY"], entry.get("trial_suffix", ""))))
+PY
+)
 
 run_trial() {
   local trial_id=$1 clock=$2 util=$3 density=$4 padding=$5 adjustment=$6 strategy=$7
@@ -198,7 +217,7 @@ PY
   fi
   status "start $trial_id timeout=${timeout}s"
   local runner_status=FAILED parser_status=NO_METRICS metrics_file="" parsed="" feasible=false
-  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT"; then runner_status=SUCCESS; fi
+  if "$PYTHON" -m flowguard.runner.runner --trial-id "$trial_id" --config "$config" --timeout "$timeout" --runs-root "$RUNS_ROOT" < /dev/null; then runner_status=SUCCESS; fi
   [[ -d $trial_dir ]] && cp "$config" "$trial_dir/effective_config.json"
   metrics_file=$(find "$trial_dir" -name metrics.json -type f -print -quit 2>/dev/null || true)
   if [[ $runner_status == SUCCESS && -n $metrics_file ]]; then
@@ -208,7 +227,7 @@ PY
   local record; record=$(python3 - "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" "$runner_status" "$parser_status" "$feasible" "$finished_at" "$parsed" <<'PY'
 import json, sys
 trial, clock, util, density, padding, adjustment, strategy, runner, parser, feasible, finished, parsed = sys.argv[1:]
-row = {"trial_id": trial, "clock_ns": int(clock), "FP_CORE_UTIL": int(util), "PL_TARGET_DENSITY_PCT": int(density), "GPL_CELL_PADDING": int(padding), "GRT_ADJUSTMENT": float(adjustment), "SYNTH_STRATEGY": strategy, "runner_status": runner, "parser_status": parser, "feasible": feasible == "true", "finished_at": finished}
+row = {"trial_id": trial, "clock_ns": int(float(clock)), "FP_CORE_UTIL": int(util), "PL_TARGET_DENSITY_PCT": int(density), "GPL_CELL_PADDING": int(padding), "GRT_ADJUSTMENT": float(adjustment), "SYNTH_STRATEGY": strategy, "runner_status": runner, "parser_status": parser, "feasible": feasible == "true", "finished_at": finished, "hunt": "clock_hunt_16ns_v1"}
 if parsed: row["metrics"] = json.loads(parsed)
 print(json.dumps(row, separators=(",", ":"), sort_keys=True))
 PY
@@ -216,14 +235,13 @@ PY
   append_trial "$record"; refresh_summary; write_status RUNNING trial "completed=$trial_id runner=$runner_status parser=$parser_status"; checkpoint
 }
 
-status "warning: 648 trials x 30 minutes is a theoretical maximum of 324 hours; this exceeds five hours"
-UTILS=(30 35 40); DENSITIES=(38 45 52); PADDINGS=(0 1 2); ADJUSTMENTS=(0.05 0.10 0.15 0.20); STRATEGIES=("AREA 0" "AREA 1" "AREA 2")
-for clock in 17 15; do
-  for util in "${UTILS[@]}"; do for density in "${DENSITIES[@]}"; do for padding in "${PADDINGS[@]}"; do for adjustment in "${ADJUSTMENTS[@]}"; do for strategy in "${STRATEGIES[@]}"; do
-    strategy_id=${strategy// /_}; adjustment_id=${adjustment/./p}
-    trial_id="clock${clock}-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
-    run_trial "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" || { [[ $? == 3 ]] && { status "deadline safety stop"; write_status STOPPED sweep deadline; refresh_summary; checkpoint; exit 0; }; die "trial failed unexpectedly"; }
-  done; done; done; done; done
-done
-refresh_summary; write_status COMPLETE complete "trials=648"; checkpoint
-status "campaign complete: summary=$SUMMARY"
+while IFS=$'\t' read -r -u 3 clock util density padding adjustment strategy suffix; do
+  [[ -n $clock ]] || continue
+  strategy_id=${strategy// /_}; adjustment_id=${adjustment/./p}
+  clock_id=$(python3 -c 'import sys; print(sys.argv[1].replace(".","p"))' "$clock")
+  trial_id="clock${clock_id}-u${util}-d${density}-p${padding}-g${adjustment_id}-s${strategy_id}"
+  [[ -n ${suffix:-} ]] && trial_id="${trial_id}-${suffix}"
+  run_trial "$trial_id" "$clock" "$util" "$density" "$padding" "$adjustment" "$strategy" || { [[ $? == 3 ]] && { status "deadline safety stop"; write_status STOPPED sweep deadline; refresh_summary; checkpoint; exit 0; }; die "trial failed unexpectedly"; }
+done 3<<< "$HUNT_ROWS"
+refresh_summary; write_status COMPLETE complete "hunt done"; checkpoint
+status "hunt complete: summary=$SUMMARY"
