@@ -1,0 +1,10 @@
+seed,method,best_feasible_qor,first_feasible_call,best_qor_call,feasible_count,infeasible_count,failed_eda_runtime_s,total_eda_runtime_s,optimizer_overhead_s,replay_wall_s,fallback_uses
+11,vanilla_bo_penalty,-0.093068237,1,15,6,18,13322.465,17506.364,0.1223,0.1233,0
+11,flowguard_calibrated,-0.093068237,1,10,5,19,13778.944,17179.807,3.0217,3.0229,0
+11,ei_only_ablation,-0.093068237,1,10,3,21,15126.522,17126.880,0.1302,0.1312,0
+29,vanilla_bo_penalty,-0.093068237,2,15,6,18,13547.325,17731.225,0.1239,0.1248,0
+29,flowguard_calibrated,-0.093068237,2,10,5,19,14134.972,17535.835,3.2654,3.2666,0
+29,ei_only_ablation,-0.093068237,2,10,5,19,14350.847,17751.710,0.1446,0.1458,0
+47,vanilla_bo_penalty,-0.093068237,8,8,6,18,12640.407,16824.306,0.1286,0.1296,0
+47,flowguard_calibrated,-0.093068237,8,8,5,19,14155.128,17555.991,2.8947,2.8960,0
+47,ei_only_ablation,-0.093068237,8,8,3,21,15502.705,17503.063,0.1277,0.1288,0

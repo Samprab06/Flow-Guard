@@ -1,0 +1,73 @@
+{
+  "command": ".venv/ml/bin/python experiments/crossbar_v2/replay_36pool_offline.py",
+  "note": "Cache replay only: reveals committed ledger outcomes for selected IDs; launches 0 physical runs (verification.log: 0 EDA processes before/after).",
+  "config": "designs/crossbar_datapath_v2/characterization/config-cb36-002.json",
+  "config_sha256": "34a9ef3348b4a2e4f188c95ef34fb0a693c76154c74c30714ea78cb3a0c87eb6",
+  "knobs": {
+    "GPL_CELL_PADDING": 2,
+    "GRT_ADJUSTMENT": 0.2,
+    "PL_TARGET_DENSITY_PCT": 35,
+    "SYNTH_STRATEGY": "AREA 0"
+  },
+  "decision_record": {
+    "seed": 11,
+    "method": "flowguard_calibrated",
+    "call": 10,
+    "phase": "adaptive",
+    "selected_id": "cb36_002",
+    "provenance": {
+      "acquisition_score": 0.0,
+      "calibration_active": false,
+      "calibration_detail": "rf-fallback: class_counts=[1, 8]",
+      "call_index": 10,
+      "data_hash": "48dfd5aaf2f2485182db67dd4a003beff166f2e7a5a9dc4f560ed95075a10391",
+      "ei": 0.0,
+      "method": "flowguard_calibrated",
+      "model_versions": {
+        "numpy": "2.5.3",
+        "optuna": "5.0.0",
+        "scikit-learn": "1.9.1",
+        "scipy": "1.18.1"
+      },
+      "n_candidates_scored": 27,
+      "p_feas": 0.08,
+      "pred_mean": 0.3112996180098017,
+      "pred_var": 0.0,
+      "rank": 1,
+      "seed": 11,
+      "selected_id": "cb36_002",
+      "training_candidate_ids": [
+        "cb36_001",
+        "cb36_034",
+        "cb36_003",
+        "cb36_020",
+        "cb36_019",
+        "cb36_024",
+        "cb36_029",
+        "cb36_015",
+        "cb36_000"
+      ],
+      "training_size": 9
+    }
+  },
+  "result_checks": {
+    "feasible": true,
+    "qor": -0.09306823743826212,
+    "setup_ws": 0.19090329857261953,
+    "hold_ws": 0.133669412655366,
+    "wirelength": 141422,
+    "area": 37314.5,
+    "critical_delay_ns": 19.70909670142738,
+    "drc": 0,
+    "routing": 100,
+    "lvs": true,
+    "signoff": true,
+    "runtime_s": 607.8006902540001,
+    "first_to_best_this_trace": true,
+    "ei_only_same_call": true,
+    "vanilla_same_seed_best_call": 15
+  },
+  "layout_image": "experiments/crossbar_v2/artifacts_36pool/cb36_002.png",
+  "layout_image_sha256": "35fbbd7e0a26f1a8b00f62bfc6b4fe38fdbbfaf35d7f6e1b6b26a744a12dc5de",
+  "separate_runs_note": "The layout image comes from the earlier banked characterization physical run trial_cb36_002 (separate run), NOT from the replay: the replay launched zero physical runs and only attached the banked metrics/image by candidate ID."
+}
