@@ -1,5 +1,6 @@
 # Local-only source material retained for reference
 /local-reference-artifacts/
+/presentation/
 /.banyancode
 /.venv/
 __pycache__/
